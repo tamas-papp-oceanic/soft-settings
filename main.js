@@ -1,16 +1,12 @@
-const { app } = require('electron')
-if (window && window.process && process.versions['electron']) {
-  const { BrowserWindow } = require('electron').remote;
-} else {
-	const { BrowserWindow } = require('electron')
-}
+const { app, BrowserWindow } = require('electron')
+
 const isDev = require('electron-is-dev');
 const path = require('path');
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    minWidth: 1200,
-    minHeight: 720,
+    Width: 1920,
+    Height: 1080,
     frame: false,
     useContentSize: true,
     skipTaskbar: true,
@@ -23,15 +19,15 @@ const createWindow = () => {
     show: false
   })
 
-  // win.loadURL('http://localhost:5000/');
+//   // win.loadURL('http://localhost:5000/');
 
-	if (isDev) {
-    win.webContents.openDevTools();
-  }
+// 	if (isDev) {
+//     win.webContents.openDevTools();
+//   }
 
-	win.once('ready-to-show', () => {
-		win.show();
-  });
+// 	win.once('ready-to-show', () => {
+// 		win.show();
+//   });
 }
 
 app.whenReady().then(() => {

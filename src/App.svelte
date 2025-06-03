@@ -7,7 +7,7 @@
 	// import Login from './routes/Login.svelte';
 	// import Welcome from './routes/Welcome.svelte';
 	// import NotFound from './routes/NotFound.svelte';
-	// import Header from './components/Header.svelte';
+	// import Header from './components/Header.svelte'
 	// import Devices from './routes/devices/Index.svelte';
 	// import Monitor from './routes/devices/Monitor.svelte';
 	// import Details from './routes/devices/Details.svelte';
@@ -38,9 +38,30 @@
 	// import { lastLogin } from './stores/user.js';
 	// import { compareVersions } from 'compare-versions';
 	// import { routeGuard } from './helpers/guard.js';
+  import {
+    Header,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderNavMenu,
+    SideNav,
+    SideNavItems,
+    SideNavMenu,
+    SideNavMenuItem,
+    SideNavLink,
+    SideNavDivider,
+    SkipToContent,
+    Content,
+    Grid,
+    Row,
+    Column,
+  } from "carbon-components-svelte";
+	import "carbon-components-svelte/css/g100.css";
 
-	export let version;
+
 	export let appName;
+  export let version;
+
+  let isSideNavOpen = false;
 
 	// const routes = {
 	// 	"/":																  wrap({ component: Devices,				conditions: [(detail) => { return routeGuard(detail); }] }),
@@ -185,8 +206,51 @@
 </svelte:head>
 
 <!-- <Header company="Oceanic" product={appName} version={version} /> -->
-<main class="content">
-	<!-- <Router {routes} restoreScrollState={true} on:conditionsFailed={(e) => _restrict(e)}/>
+
+<Header company="Oceanic" platformName={appName + " v" + version} bind:isSideNavOpen>
+  <svelte:fragment slot="skip-to-content">
+    <SkipToContent />
+  </svelte:fragment>
+  <HeaderNav>
+    <!-- <HeaderNavItem href="/" text="Link 1" />
+    <HeaderNavItem href="/" text="Link 2" />
+    <HeaderNavItem href="/" text="Link 3" />
+    <HeaderNavMenu text="Menu">
+      <HeaderNavItem href="/" text="Link 1" />
+      <HeaderNavItem href="/" text="Link 2" />
+      <HeaderNavItem href="/" text="Link 3" />
+    </HeaderNavMenu>
+    <HeaderNavItem href="/" text="Link 4" /> -->
+  </HeaderNav>
+</Header>
+
+<SideNav bind:isOpen={isSideNavOpen}>
+  <SideNavItems>
+    <SideNavLink text="Link 1" />
+    <SideNavLink text="Link 2" />
+    <SideNavLink text="Link 3" />
+    <SideNavMenu text="Menu">
+      <SideNavMenuItem href="/" text="Link 1" />
+      <SideNavMenuItem href="/" text="Link 2" />
+      <SideNavMenuItem href="/" text="Link 3" />
+    </SideNavMenu>
+    <SideNavDivider />
+    <SideNavLink text="Link 4" />
+  </SideNavItems>
+</SideNav>
+
+<Content>
+  <Grid>
+    <Row>
+      <Column>
+        <h1>Welcome</h1>
+      </Column>
+    </Row>
+  </Grid>
+</Content>
+
+<!-- <main class="content">
+	<Router {routes} restoreScrollState={true} on:conditionsFailed={(e) => _restrict(e)}/>
 	<ComposedModal bind:open={$download} on:submit={(e) => _start(e)}>
 		<ModalHeader label="Download update" title={"Confirm download of Puma v" + $updmsg} />
 		<ModalBody>
@@ -201,16 +265,11 @@
 	</ComposedModal>
 	{#if rea}
 		<LoginRequired bind:notify={rea} />
-	{/if} -->
-
-  <h1>Hello from Electron renderer!</h1>
-	<p>👋</p>
-
-
-</main>
+	{/if}
+</main> -->
 
 <style lang="scss" global>
-	@import "~carbon-components-svelte/css/g100.css";
+	// @import "~carbon-components-svelte/css/g100.css";
 	.content {
 		margin-top: 4rem;
 	};
@@ -226,4 +285,16 @@
 		height: 100%;
 		overflow-y: hidden;
 	};
+	.bx--side-nav {
+		background-color: black !important;
+	}
+	.bx--side-nav__link-text {
+		color: #f4f4f4 !important;
+	}
+	.bx--side-nav__submenu-title {
+		color: #f4f4f4 !important;
+	}
+	.bx--side-nav__submenu:hover {
+		background-color: black !important;
+	}
 </style>
