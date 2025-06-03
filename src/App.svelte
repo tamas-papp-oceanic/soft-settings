@@ -1,12 +1,13 @@
 <script>
-	// import Router from 'svelte-spa-router';
-	// import { push } from 'svelte-spa-router'
-	// import { wrap } from 'svelte-spa-router/wrap';
+  import Router from 'svelte-spa-router';
+	import { push } from 'svelte-spa-router'
+	import { wrap } from 'svelte-spa-router/wrap';
 	// import { ComposedModal, ModalHeader, ModalBody, ModalFooter,
 	// 	ProgressBar } from 'carbon-components-svelte';
+  import Logics from './routes/logics/Index.svelte';
 	// import Login from './routes/Login.svelte';
 	// import Welcome from './routes/Welcome.svelte';
-	// import NotFound from './routes/NotFound.svelte';
+	import NotFound from './routes/NotFound.svelte';
 	// import Header from './components/Header.svelte'
 	// import Devices from './routes/devices/Index.svelte';
 	// import Monitor from './routes/devices/Monitor.svelte';
@@ -31,7 +32,7 @@
 	// import Test3478 from './routes/testing/3478.svelte';
 	// import Test4410 from './routes/testing/4410.svelte';
 	// import Test5185 from './routes/testing/5185.svelte';
-	// import Restricted from './routes/Restricted.svelte';
+	import Restricted from './routes/Restricted.svelte';
 	// import LoginRequired from './routes/LoginRequired.svelte';
 	// import { update, updmsg, download, progress } from './stores/update.js';
 	// import { allRoutes, updates } from './stores/data.js';
@@ -57,15 +58,14 @@
   } from "carbon-components-svelte";
 	import "carbon-components-svelte/css/g100.css";
 
-
 	export let appName;
   export let version;
 
   let isSideNavOpen = false;
 
-	// const routes = {
+	const routes = {
 	// 	"/":																  wrap({ component: Devices,				conditions: [(detail) => { return routeGuard(detail); }] }),
-	// 	"/configure":											    wrap({ component: Configure,			conditions: [(detail) => { return routeGuard(detail); }] }),
+    "/logics":      											wrap({ component: Logics,	conditions: [(detail) => { return true; }] }),
 	// 	"/configure/3271/:instance/:fluid":   wrap({ component: ConfigureFluid, conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/configure/3281/:instance/:fluid":   wrap({ component: ConfigureFluid, conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/configure/3410/:instance":				  wrap({ component: Configure3410,	conditions: [(detail) => { return routeGuard(detail); }] }),
@@ -85,7 +85,7 @@
 	// 	"/profile":												    wrap({ component: Profile,				conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/program":												    wrap({ component: Program,				conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/program/:device/:instance":			    wrap({ component: ProgramDevice,	conditions: [(detail) => { return routeGuard(detail); }] }),
-	// 	"/restricted":											  wrap({ component: Restricted,		  conditions: [(detail) => { return true;							 }] }),
+		"/restricted":											  wrap({ component: Restricted,	conditions: [(detail) => { return true;	}] }),
 	// 	"/serial":													  wrap({ component: Serial,				  conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/simulate":												  wrap({ component: Simulate,			  conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/testing":												    wrap({ component: Testing,				conditions: [(detail) => { return routeGuard(detail); }] }),
@@ -94,8 +94,8 @@
 	// 	"/testing/5185":										  wrap({ component: Test5185,			  conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/testing/5185-H":									  wrap({ component: Test5185,			  conditions: [(detail) => { return routeGuard(detail); }] }),
 	// 	"/welcome":												    wrap({ component: Welcome,				conditions: [(detail) => { return routeGuard(detail); }] }),
-	// 	"*":																  wrap({ component: NotFound,			  conditions: [(detail) => { return true;							  }] }),
-	// };
+		"*":																  wrap({ component: NotFound,	conditions: [(detail) => { return true;	}] }),
+	};
 
 	// let prc;
 	// let val;
@@ -163,9 +163,9 @@
 	// 	window.pumaAPI.send('upd-start');
 	// };
 
-	// function _restrict(e) {
-	// 	push('/restricted');
-	// };
+	function _restrict(e) {
+		push('/restricted');
+	};
 
 	// function _cancel(e) {
 	// 	window.pumaAPI.send('upd-cancel');
@@ -207,47 +207,50 @@
 
 <!-- <Header company="Oceanic" product={appName} version={version} /> -->
 
-<Header company="Oceanic" platformName={appName + " v" + version} bind:isSideNavOpen>
-  <svelte:fragment slot="skip-to-content">
-    <SkipToContent />
-  </svelte:fragment>
-  <HeaderNav>
-    <!-- <HeaderNavItem href="/" text="Link 1" />
-    <HeaderNavItem href="/" text="Link 2" />
-    <HeaderNavItem href="/" text="Link 3" />
-    <HeaderNavMenu text="Menu">
-      <HeaderNavItem href="/" text="Link 1" />
+<main class="content">
+  <Header company="Oceanic" platformName={appName + " v" + version} bind:isSideNavOpen>
+  <Router {routes} restoreScrollState={true} on:conditionsFailed={(e) => _restrict(e)}/>
+    <svelte:fragment slot="skip-to-content">
+      <SkipToContent />
+    </svelte:fragment>
+    <HeaderNav>
+      <!-- <HeaderNavItem href="/" text="Link 1" />
       <HeaderNavItem href="/" text="Link 2" />
       <HeaderNavItem href="/" text="Link 3" />
-    </HeaderNavMenu>
-    <HeaderNavItem href="/" text="Link 4" /> -->
-  </HeaderNav>
-</Header>
+      <HeaderNavMenu text="Menu">
+        <HeaderNavItem href="/" text="Link 1" />
+        <HeaderNavItem href="/" text="Link 2" />
+        <HeaderNavItem href="/" text="Link 3" />
+      </HeaderNavMenu>
+      <HeaderNavItem href="/" text="Link 4" /> -->
+    </HeaderNav>
+  </Header>
 
-<SideNav bind:isOpen={isSideNavOpen}>
-  <SideNavItems>
-    <SideNavLink text="Link 1" />
-    <SideNavLink text="Link 2" />
-    <SideNavLink text="Link 3" />
-    <SideNavMenu text="Menu">
-      <SideNavMenuItem href="/" text="Link 1" />
-      <SideNavMenuItem href="/" text="Link 2" />
-      <SideNavMenuItem href="/" text="Link 3" />
-    </SideNavMenu>
-    <SideNavDivider />
-    <SideNavLink text="Link 4" />
-  </SideNavItems>
-</SideNav>
+  <SideNav bind:isOpen={isSideNavOpen}>
+    <SideNavItems>
+      <SideNavLink text="MODBUS" />
+      <SideNavLink text="Logics"  href="/logics"/>
+      <SideNavLink text="Link 3" />
+      <SideNavMenu text="Menu">
+        <SideNavMenuItem href="/" text="Link 1" />
+        <SideNavMenuItem href="/" text="Link 2" />
+        <SideNavMenuItem href="/" text="Link 3" />
+      </SideNavMenu>
+      <SideNavDivider />
+      <SideNavLink text="Link 4" />
+    </SideNavItems>
+  </SideNav>
 
-<Content>
-  <Grid>
-    <Row>
-      <Column>
-        <h1>Welcome</h1>
-      </Column>
-    </Row>
-  </Grid>
-</Content>
+  <Content>
+    <Grid>
+      <Row>
+        <Column>
+          <h1>Welcome</h1>
+        </Column>
+      </Row>
+    </Grid>
+  </Content>
+</main>
 
 <!-- <main class="content">
 	<Router {routes} restoreScrollState={true} on:conditionsFailed={(e) => _restrict(e)}/>
