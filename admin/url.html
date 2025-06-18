@@ -1,0 +1,27 @@
+<!-- URL SETUP -->
+<div id="url-data" class="settings hidden">
+  <div id="url-data-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>URL template setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">URL</div>
+            <input id="url-template" type="text" ng-minlength="1" ng-maxlength="50"
+              ng-model="url.current" required ng-virtual-keyboard>
+          </div>
+        </div>
+      </div>
+      <!-- BUTTONS SECTION -->
+      <div class="buttons">
+        <button class="f-button" ng-click="cancelUrl()">Cancel</button>
+        <button class="f-button" ng-click="saveUrl()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

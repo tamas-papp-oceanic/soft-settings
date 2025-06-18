@@ -177,7 +177,7 @@ input[type=number]::-webkit-outer-spin-button {
   flex-flow: column nowrap;
   margin-bottom: 1vh;
 }
-.settings, .confirm, .error, .inform, .script-data, .alarm-data, .alarm-group, .alarm-zone, .device-data {
+.settings, .confirm, .error, .inform, .script-data, .alarm-data, .alarm-group, .alarm-zone, .device-data, .url-data {
   line-height: 1em;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */

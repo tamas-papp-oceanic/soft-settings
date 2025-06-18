@@ -5242,6 +5242,99 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval) {
 		$scope.field.current = null;
 	};
 
+	$scope.url = {
+		action: null,
+		current: null,
+		old: null,
+	}
+
+	$scope.findUrl = (url) => {
+		for (var i in $rootScope.urls) {
+			if ($rootScope.urls[i].id == url) {
+				return i;
+			}
+		}
+		return null;
+	};
+
+	$scope.getUrl = (url) => {
+		let idx = $scope.findUrl(url);
+		if (idx != null) {
+			return $rootScope.urls[idx];
+		}
+		return null;
+	};
+
+	$scope.addUrl = () => {
+		$scope.url.old = $scope.url.current;
+		$scope.url.current = "";
+		$('#url-data-box').draggable();
+		$('#url-data').removeClass('hidden');
+		$timeout(() => {
+			$('#url-title').trigger("focus");
+		}, 500);
+		$timeout(() => {
+			$scope.url.action = "add";
+		});
+	};
+
+	$scope.editUrl = () => {
+		$scope.url.old = $scope.url.current;
+		$('#url-data-box').draggable();
+		$('#url-data').removeClass('hidden');
+		$timeout(() => {
+			$('#url-title').trigger("focus");
+		}, 500);
+		$timeout(() => {
+			$scope.url.action = "edit";
+		});
+	};
+
+	$scope.saveUrl = () => {
+		let e = false;
+		if (($scope.url.current == null) || ($scope.url.current.length == 0)) {
+			e = true;
+			$scope.errorShow(['URL cannot be empty!'], ['f-wrapper', '.url-box']);
+		}
+		if (!e) {
+			if ($scope.url.action == "edit") {
+				let idx = $scope.findUrl($scope.url.old);
+				if (idx != null) {
+					$rootScope.urls.splice(idx, 1);
+				}
+			};
+			$rootScope.urls.push($scope.url.current);
+			$scope.finishUrl();
+		}
+	};
+
+	$scope.finishUrl = () => {
+		$scope.url.old = null;
+		$('#url-data').addClass('hidden');
+		$timeout(() => {
+			$scope.url.action = null;
+		});
+	};
+
+	$scope.cancelUrl = () => {
+		if ($scope.url.action == "add") {
+			$scope.url.current = $scope.url.old;
+		}
+		$scope.finishUrl();
+	};
+
+	$scope.deleteUrl = () => {
+		$scope.confirmShow([$scope.url.current], ['Are you sure you want to delete this', 'URL definition?'], ['.a-wrapper'], $scope.removeUrl);
+	};
+
+	$scope.removeUrl = () => {
+		let idx = $scope.findUrl($scope.confirmParam[0]);
+		if (idx != null) {
+			$rootScope.urls.splice(idx, 1);
+			$scope.url.current = null;
+		}
+	};
+
 	$scope.interface = {
 		action: null,
 		current: null,

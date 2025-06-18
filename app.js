@@ -82,6 +82,13 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
       'title': 'MODBUS Setup',
       'template': 'modbus.html'
     },
+    'Urls': {
+			'access': $rootScope.levels.user,
+      'name': 'Urls',
+      'menu': 'URL Setup',
+      'title': 'URL Setup',
+      'template': 'urls.html'
+    },
     'Wiki': {
 			'access': $rootScope.levels.user,
       'name': 'Wiki',
@@ -105,6 +112,7 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
     'can_admin_alarm': true,
     'can_admin_logic': true,
     'can_admin_modbus': true,
+    'can_admin_urls': true,
     'can_admin_backup': true,
     'can_edit': true,
   };
@@ -914,6 +922,8 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
     'int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32',
     'float32', 'int64', 'uint64', 'float64',
   );
+  // URLs
+  $rootScope.urls = new Array();
 	// SETTINGS
 	$rootScope.settings = {
 		alarm_export: true,

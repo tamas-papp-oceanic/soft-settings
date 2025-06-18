@@ -1,0 +1,55 @@
+<!-- URLS COMMON -->
+<div class="logic-wrapper">
+  <div class="a-tab-content">
+    <div style="flex: 0 0 30vw">
+      <div class="a-defi-wrapper">
+        <div class="a-defi-content group">
+          <div class="header">URL definitions</div>
+          <div class="content">
+            <div class="a-alarm-table">
+              <table class="a-table">
+                <thead>
+                  <tr>
+                    <th>URL</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="u in urls" ng-click="url.current = u"
+                    ng-class="{'selected': url.current.id == u.id}">
+                    <td>{{u.url}}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer" ng-if="rights.can_admin_urls && (url.action == null)">
+            <div class="tooltip">
+              <span class="tooltiptext4">Add URL</span>
+              <div class="logic-icon clickable" ng-click="addUrl()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="url.current != null">
+              <span class="tooltiptext4">Edit url</span>
+              <div class="logic-icon clickable" ng-click="editUrl()" ng-include="'images/menuicons/edit.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="url.current != null">
+              <span class="tooltiptext4">Delete url</span>
+              <div class="logic-icon clickable" ng-click="deleteUrl()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1 1 auto">
+      <div class="a-defi-wrapper">
+        <div class="a-defi-content group" style="flex: 1 1 auto">
+          <div class="header">Preview</div>
+          <div class="content" ng-if="(url.action == null) && (url.current != null)">
+            <iframe width="100%" height="100%" ng-src="url.current" title="Preview window" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
