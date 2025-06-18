@@ -1,0 +1,404 @@
+<!-- LOGIC COMPONENT SETUP -->
+<div id="logic-component" class="settings">
+	<div id="component-box" class="settings-box" draggable="true">
+		<!-- HEAD SECTION -->
+		<div class="s-head">
+			<div class="s-head-item">
+				<!--<div style="display: flex;flex-flow:row nowrap;justify-content:center;align-items:center;">-->
+				<div style="text-align:right;">
+					<span ng-if="(logicMenu.mode == 0) && !logicComponent.thumbnail">Add logic component</span>
+					<span ng-if="(logicMenu.mode == 0) && logicComponent.thumbnail">Add</span>
+					<span ng-if="logicMenu.mode==1">Set up</span>
+				</div>
+				<div ng-if="logicComponent.thumbnail" style="width:50px;padding:0 2.5%;"
+					ng-include="'images/logics/'+logicComponent.thumbnail"></div>
+				<div><span ng-if="logicComponent.friendlyname">{{logicComponent.friendlyname}}</span></div>
+			</div>
+		</div>
+		<!-- MENU SECTION -->
+		<div class="s-menu">
+			<!-- CUSTOMISE -->
+			<div id="custom-menu" class="s-menu-item" ng-if="logicMenu.mode == 0"
+				ng-click="logicMenu.item = (logicMenu.item != 0) ? 0 : null;">
+				<div class="icon" ng-include="'images/menuicons/image-library.svg'"></div>
+				<span class="c-menu">Customise</span>
+			</div>
+			<div id="custom-block" class="s-menu-block" ng-if="(logicMenu.mode == 0) && (logicMenu.item == 0)">
+				<div id="custom-content" class="s-block-item" style="padding-top:0;padding-bottom:0">
+					<div class="custom-wrapper">
+						<ul ng-repeat="g in logicComponents | groupBy:'group' | toArray:true | orderBy:'$key'">
+							<li style="width:100%;text-align:left;padding:0.5vh 0.25vw">
+								<div style="width:100%;padding-left:0.25vw">{{g[0].group}}:</div>
+								<ul>
+									<li ng-repeat="f in g" style="width:unset;" scroll-if="logicComponent.index == f.index"
+										ng-click="selectComponent(f.index)">
+										<div class="tooltip">
+											<span class="tooltiptext3">{{f.friendlyname}}</span>
+											<div id="custom-icon-{{f.index}}" class="c-w-icon"
+												ng-class="{'active': logicComponent.index == f.index}"
+												ng-include="'images/logics/' + f.thumbnail"></div>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- CONNECTIONS -->
+			<div id="connect-menu" class="s-menu-item" ng-if="(logicComponent.logic != null) && (
+        (logicComponent.logic.logicType == logicTypes.LT_SENSOR) || (logicComponent.logic.logicType == logicTypes.LT_ALARM) ||
+        (logicComponent.logic.logicType == logicTypes.LT_ALARMSND))"
+				ng-click="logicMenu.item = (logicMenu.item != 1) ? 1 : null;">
+				<div class="icon" ng-include="'images/menuicons/connect.svg'"></div>
+				<span class="c-menu">Connect</span>
+			</div>
+			<!-- SENSOR BLOCK -->
+			<div id="connect-block" class="s-menu-block" ng-if="(logicComponent.logic != null) &&
+        (logicMenu.item == 1) && (logicComponent.logic.logicType == logicTypes.LT_SENSOR)">
+				<div class="s-block-item">
+					<div class="s-left">Protocol</div>
+					<div class="s-right">
+						<select id="protocolType" ng-model="logicComponent.logic.protocolType" ng-change="protocolTypeChange()">
+							<option value="">-- Select protocol --</option>
+							<option ng-repeat="p in protocolTypes track by $index" value="{{$index}}">{{p.title}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="s-block-item" ng-if="logicComponent.logic.protocolType">
+					<div class="s-left">Bus</div>
+					<div class="s-right"><input id="busNumber" type="number" maxlength="2" step="1"
+							ng-model="logicComponent.logic.busNumber" ng-trim="true" ng-virtual-keyboard="numKeypad"></div>
+				</div>
+				<div class="s-block-item" ng-if="logicComponent.logic.protocolType">
+					<div class="s-left">Message</div>
+					<div class="s-right">
+						<select id="dataId" ng-model="logicComponent.logic.dataId" ng-change="dataIdChange()">
+							<option value="">-- Select message --</option>
+							<option ng-repeat="m in dataLst" value="{{m.value}}">{{m.title}}</option>
+						</select>
+					</div>
+				</div>
+				<div id="messageField" class="s-block-item"
+					ng-if="logicComponent.logic.protocolType && logicComponent.logic.dataId">
+					<div class="s-left">Field</div>
+					<div class="s-right">
+						<select id="dataFields" ng-model="logicComponent.logic.field" ng-change="fieldChange()">
+							<option value="">-- Select field --</option>
+							<option ng-repeat="f in dataFields" value="{{f.value}}">{{f.title}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="s-block-item" ng-if="
+					logicComponent.logic.protocolType && logicComponent.logic.dataId && logicComponent.logic.field &&
+					logicComponent.logic.unit">
+					<div class="s-left">Unit</div>
+					<div class="s-right">{{logicComponent.logic.unit}}</div>
+				</div>
+				<div class="s-block-item"
+					ng-if="logicComponent.logic.protocolType && (logicComponent.logic.protocolType != '2') && logicComponent.logic.dataId">
+					<div class="s-left">Instance</div>
+					<div class="s-right"><input id="instance" type="number" maxlength="3" step="1"
+							ng-model="logicComponent.logic.instance" ng-virtual-keyboard="numKeypad" /></div>
+				</div>
+				<div class="s-block-item"
+					ng-if="logicComponent.logic.protocolType && (logicComponent.logic.protocolType == '2') && logicComponent.logic.dataId">
+					<div class="s-left">Address</div>
+					<div class="s-right"><input id="adress" type="number" maxlength="3" step="1"
+							ng-model="logicComponent.logic.address" ng-virtual-keyboard="numKeypad" /></div>
+				</div>
+			</div>
+			<!-- ALARM BLOCK -->
+			<div id="connect-block" class="s-menu-block" ng-if="(logicComponent.logic != null) &&
+        (logicMenu.item == 1) && (logicComponent.logic.logicType == logicTypes.LT_ALARM)">
+			<div class="s-block-item">
+				<div class="s-left">Group</div>
+				<div class="s-right">
+					<select id="group" ng-model="logicComponent.logic.group" ng-change="alarmGroupChange2()">
+						<option value="">-- Select alarm group --</option>
+						<option
+							ng-if="((logicMenu.mode == 1) ? logicComponent.logic.direction : swapDirection(logicComponent.logic.direction)) == 1"
+							ng-repeat="g in alarmGroups | filter: filterAlarmGroup" value="{{g.group}}">{{g.title}}</option>
+						<option
+							ng-if="((logicMenu.mode == 1) ? logicComponent.logic.direction : swapDirection(logicComponent.logic.direction)) == 2"
+							ng-repeat="g in alarmGroups" value="{{g.group}}">{{g.title}}</option>
+					</select>
+				</div>
+			</div>
+			<div ng-if="logicComponent.logic.group">
+				<div ng-if="getAlarmType(logicComponent.logic.group) == alarmTypes.AT_DISCRETE">
+					<div class="s-block-item">
+						<div class="s-left">Bus</div>
+						<div class="s-right">
+							<input id="busNumber" type="number" ng-minlength="1" ng-maxlength="2"
+								ng-model="logicComponent.logic.busNumber" required ng-trim="true" ng-virtual-keyboard="numKeypad"></div>
+					</div>
+					<div class="s-block-item">
+						<div class="s-left">Instance</div>
+						<div class="s-right">
+							<input id="instance" type="number" ng-minlength="1" ng-maxlength="3"
+								ng-model="logicComponent.logic.instance" required ng-trim="true" ng-virtual-keyboard="numKeypad" />
+						</div>
+					</div>
+					<div class="s-block-item">
+						<div class="s-left">Discrete bit</div>
+						<div class="s-right">
+							<select id="discrete" ng-model="logicComponent.logic.discreteBit" ng-change="discreteBitChange()">
+								<option value="">-- Select discrete bit --</option>
+								<option ng-repeat="d in discretes" value="{{d.discreteBit}}">{{d.title}} ({{d.discreteBit}})</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div ng-if="getAlarmType(logicComponent.logic.group) == alarmTypes.AT_DIRECT">
+					<div class="s-block-item live">
+						<div class="s-left">Alarm</div>
+						<div class="s-right">
+							<select id="alarms" ng-model="logicComponent.logic.alarmId" ng-change="alarmChange()">
+								<option value="">-- Select alarm --</option>
+								<option ng-repeat="a in alarms" value="{{a.alarmId}}">{{a.title}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ALARM SOUNDER BLOCK -->
+		<!-- <div id="connect-block" class="s-menu-block" ng-if="(logicComponent.logic != null) &&
+        (logicMenu.item == 1) && (logicComponent.logic.logicType == logicTypes.LT_ALARMSND)"
+      >
+        <div class="s-block-item">
+          <div class="s-left">Bus</div>
+          <div class="s-right"><input id="busNumber" type="number" maxlength="2" step="1" ng-model="logicComponent.logic.busNumber"
+            ng-change="busNumberChange()" ng-trim="true" ng-virtual-keyboard="numKeypad"></div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Instance</div>
+          <div class="s-right">
+            <input id="instance" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.instance"
+              ng-change="instanceChange()" ng-virtual-keyboard="numKeypad"/>
+            &nbsp;&nbsp;&nbsp;255 - all instances
+          </div>
+        </div>
+      </div> -->
+		<!-- OTHER -->
+		<div id="custom-menu" class="s-menu-item" ng-if="(logicComponent.logic != null) &&
+        (logicComponent.logic.logicType != logicTypes.LT_SENSOR) && (logicComponent.logic.logicType != logicTypes.LT_ALARM) &&
+        !((logicComponent.logic.logicType == logicTypes.LT_GATE) && ((logicComponent.logic.operation == 5) ||
+          (logicComponent.logic.operation == 6))) &&
+        !((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
+          (logicComponent.logic.operation == 6))) &&
+        (logicComponent.logic.logicType != logicTypes.LT_PULSE)"
+			ng-click="logicMenu.item = (logicMenu.item != 2)? 2 : null;">
+			<div class="icon" ng-include="'images/menuicons/edit-preferences.svg'"></div>
+			<span class="c-menu">Parameters</span>
+		</div>
+		<div id="component-block" class="s-menu-block" ng-if="(logicComponent.logic != null) &&
+        (logicComponent.logic.logicType != logicTypes.LT_SENSOR) && (logicComponent.logic.logicType != logicTypes.LT_ALARM) &&
+        !((logicComponent.logic.logicType == logicTypes.LT_GATE) && ((logicComponent.logic.operation == 5) ||
+          (logicComponent.logic.operation == 6))) &&
+        !((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
+          (logicComponent.logic.operation == 6))) &&
+        (logicComponent.logic.logicType != logicTypes.LT_PULSE) && (logicMenu.item == 2)">
+			<div class="s-block-item" ng-if="logicComponent.logic == undefined">
+				<div class="s-left">Label</div>
+				<div class="s-right">
+					<input id="label-text" type="text" ng-model="logicComponent.logic.label" style="max-width:90%;"
+						ng-change="labelChange()" ng-trim="true" ng-virtual-keyboard />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_EXTERNAL">
+				<div class="s-left">Description</div>
+				<div class="s-right">
+					<input id="description-text" type="text" ng-model="logicComponent.logic.description" style="max-width:90%;"
+						ng-change="descriptionChange()" ng-trim="true" ng-virtual-keyboard />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_RADIO">
+				<div class="s-left">Buttons</div>
+				<div class="s-right">
+					<select id="buttons-values" ng-model="logicComponent.logic.buttons"
+						ng-options="d for d in [2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-change="buttonsChange()"></select>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_RADIO">
+				<div class="s-left">Default</div>
+				<div class="s-right">
+					<select id="default-values" ng-model="logicComponent.logic.default"
+						ng-options="+i for (i, d) in logicComponent.defaults"></select>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="
+          (logicComponent.logic.logicType == logicTypes.LT_TIMER) || (logicComponent.logic.logicType == logicTypes.LT_INTEGRATOR) ||
+          (logicComponent.logic.logicType == logicTypes.LT_DELAY) || (logicComponent.logic.logicType == logicTypes.LT_PROPAGATION) ||
+          (logicComponent.logic.logicType == logicTypes.LT_VALVE)">
+				<div class="s-left">{{((logicComponent.logic.logicType == logicTypes.LT_TIMER) && (logicComponent.logic.mode != 3)) ||
+            (logicComponent.logic.logicType == logicTypes.LT_INTEGRATOR) ? 'Reset ' : ''}}Delay</div>
+				<div class="s-right">
+					<input id="delay-text" type="number" maxlength="10" step="1" ng-model="logicComponent.logic.delay"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+					<span>{{((logicComponent.logic.logicType == logicTypes.LT_TIMER) && (logicComponent.logic.mode == 3)) ? 'period' : 'x 10 ms'}}</span>
+				</div>
+			</div>
+			<div class="s-block-item"
+				ng-if="
+          (logicComponent.logic.logicType == logicTypes.LT_COMPARATOR) || (logicComponent.logic.logicType == logicTypes.LT_PROPAGATION)">
+				<div class="s-left">Data</div>
+				<div class="s-right">
+					<div class="checkbox" style="margin: 0.25vh 1vw 0.25vh 0;">
+						<input type="checkbox" id="data-exists" ng-model="logicComponent.data" ng-true-value="true"
+							ng-false-value="false" ng-change="dataChange()" />
+						<label for="data-exists"></label>
+					</div>
+					<input id="data-text"
+						ng-if="logicComponent.data && (logicComponent.logic.logicType == logicTypes.LT_COMPARATOR)" type="number"
+						maxlength="10" step="any" ng-model="logicComponent.logic.data.data" ng-trim="true"
+						ng-virtual-keyboard="numKeypad" />
+					<input id="data-text"
+						ng-if="logicComponent.data && (logicComponent.logic.logicType == logicTypes.LT_PROPAGATION)" type="text"
+						style="max-width:90%;" ng-model="logicComponent.logic.data.data" ng-trim="true" ng-virtual-keyboard />
+				</div>
+			</div>
+			<div class="s-block-item"
+				ng-if="
+          (logicComponent.logic.logicType == logicTypes.LT_TIMER) || (logicComponent.logic.logicType == logicTypes.LT_INTEGRATOR)">
+				<div class="s-left">Interval</div>
+				<div class="s-right">
+					<input id="interval-text" type="number" maxlength="10" step="1" ng-model="logicComponent.logic.interval"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+					<span>x 10 ms</span>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_INTEGRATOR">
+				<div class="s-left">Factor</div>
+				<div class="s-right">
+					<input id="factor-text" type="number" maxlength="10" step="any" ng-model="logicComponent.logic.factor"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="
+          ((logicComponent.logic.logicType == logicTypes.LT_TIMER) && (logicComponent.logic.mode!=3)) ||
+          (logicComponent.logic.logicType == logicTypes.LT_INTEGRATOR)">
+				<div class="s-left">Init Value</div>
+				<div class="s-right">
+					<input id="initValue-text" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.initValue"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+					<span ng-if="(logicComponent.logic.logicType == logicTypes.LT_TIMER)">period</span>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="
+          ((logicComponent.logic.logicType == logicTypes.LT_GATE) && (logicComponent.logic.operation != 5) &&
+            (logicComponent.logic.operation != 6)) ||
+          ((logicComponent.logic.logicType == logicTypes.LT_MATH) && (logicComponent.logic.operation != 5) && 
+          (logicComponent.logic.operation != 6))">
+				<div class="s-left">Inputs</div>
+				<div class="s-right">
+					<input id="inputs-text" type="number" maxlength="1" step="1" ng-model="logicComponent.logic.inputs"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+				</div>
+			</div>
+			<div class="s-block-item"
+				ng-if="
+          (logicComponent.logic.logicType == logicTypes.LT_ENCODER) || (logicComponent.logic.logicType == logicTypes.LT_TRUECNT)">
+				<div class="s-left">Inputs</div>
+				<div class="s-right">
+					<input id="inputs-text" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.inputs"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_SWITCH">
+				<div class="s-left">Outputs</div>
+				<div class="s-right">
+					<input id="selections-text" type="number" maxlength="1" step="1" ng-model="logicComponent.logic.selections"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_STORAGE">
+				<div class="s-left">Variable</div>
+				<div class="s-right">
+					<input id="name-text" type="text" style="max-width:90%;" ng-model="logicComponent.logic.name" ng-trim="true"
+						ng-virtual-keyboard />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_STORAGE">
+				<div class="s-left">Init Value</div>
+				<div class="s-right">
+					<div class="checkbox">
+						<input type="checkbox" id="initial-exists" ng-model="logicComponent.initial" ng-true-value="true"
+							ng-false-value="false" ng-change="initialChange()" />
+						<label for="initial-exists"></label>
+					</div>
+					<input id="initValue-text" type="text" ng-model="logicComponent.logic.initial.data"
+						ng-if="logicComponent.initial" ng-trim="true" ng-virtual-keyboard />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_SCRIPT">
+				<div class="s-left">Mode</div>
+				<div class="s-right">
+					<select id="mode" style="width:unset;" ng-model="logicComponent.logic.mode"
+						ng-options="o.v as o.n for o in [{ n: 'One shot', v: 1 }, { n: 'Loop', v: 2 }]"></select>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_SCRIPT">
+				<div class="s-left">Input count</div>
+				<div class="s-right">
+					<input id="inputs-text" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.inputs"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+				</div>
+			</div>
+			<div class="s-block-item"
+				ng-if="(logicComponent.logic.logicType == logicTypes.LT_SCRIPT)||(logicComponent.logic.logicType == logicTypes.LT_DECODER)">
+				<div class="s-left">Output count</div>
+				<div class="s-right">
+					<input id="outputs-text" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.outputs"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_SCRIPT">
+				<div class="s-left">Script</div>
+				<div class="s-right">
+					<button class="p-button" ng-click="editScript()">Edit</button>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_ALARMSND">
+				<div class="s-left">Alarm code</div>
+				<div class="s-right">
+					<select id="alarm-code" ng-model="logicComponent.logic.code"
+						ng-options="+key as value for (key, value) in alarmCodes"></select>
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_ALARMSND">
+				<div class="s-left">Repeat count</div>
+				<div class="s-right">
+					<input id="repeat-text" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.repeat"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+					&nbsp;&nbsp;&nbsp;255 - continous
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_ALARMSND">
+				<div class="s-left">Priority</div>
+				<div class="s-right">
+					<input id="priority-text" type="number" maxlength="3" step="1" ng-model="logicComponent.logic.priority"
+						ng-trim="true" ng-virtual-keyboard="numKeypad" />
+					&nbsp;&nbsp;&nbsp;1 - 255
+				</div>
+			</div>
+			<div class="s-block-item" ng-if="logicComponent.logic.logicType == logicTypes.LT_MUTESTATE">
+				<div class="s-left">Initial value</div>
+				<div class="s-right">
+					<div class="checkbox" style="margin: 0.25vh 1vw 0.25vh 0;">
+						<input type="checkbox" id="initial-value" ng-model="logicComponent.logic.state" ng-true-value="true"
+							ng-false-value="false" />
+						<label for="initial-value"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- BUTTONS SECTION -->
+	<div class="buttons">
+		<button class="f-button" ng-click="closeComponent()">Cancel</button>
+		<button class="f-button" ng-click="saveComponent()">Save</button>
+	</div>
+</div>
+</div>

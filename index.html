@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Poseidon Settings</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/settings/">
+    <link rel="icon" type="image/png" sizes="150x150" href="images/trident.png">
+    <link rel="stylesheet" href="bower_components/lato-font/css/lato-font.min.css">
+    <link rel="stylesheet" href="bower_components/mxgraph/javascript/src/css/common.css" charset="UTF-8" type="text/css">
+    <link rel="stylesheet" href="styles/global.css">
+  </head>
+  <body>
+    <div ng-controller="myAppCtrl">
+      <div class="splash"><div><img src="images/logo.gif" alt=""/></div></div>
+      <div class="main" id="editor-main">
+        <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div ng-view></div>
+      </div>
+      <!-- CONFIRMS -->
+      <div id="confirm" class="confirm hidden">
+        <div id="confirm-box" class="confirm-box" draggable="true">
+          <div class="confirm-head">
+            <div class="confirm-sign" ng-include="'images/menuicons/help.svg'"></div>
+            <div class="confirm-icon clickable" ng-include="'images/menuicons/exit.svg'"
+            ng-mousedown="mouseDownHandler($event, confirmNo)" ng-touchstart="touchStartHandler($event, confirmNo)"></div>
+          </div>
+          <div class="confirm-body">
+            <h3 ng-repeat="t in confirmText track by $index">{{t}}<br /></h3>
+          </div>
+          <div class="buttons">
+            <button class="f-button" ng-mousedown="mouseDownHandler($event, confirmNo)" ng-touchstart="touchStartHandler($event, confirmNo)">No</button>
+            <button class="f-button" ng-mousedown="mouseDownHandler($event, confirmYes)" ng-touchstart="touchStartHandler($event, confirmYes)">Yes</button>
+          </div>
+        </div>
+      </div>
+      <div id="error" class="error hidden">
+        <div id="error-box" class="error-box" draggable="true">
+          <div class="error-head">
+            <div class="error-sign" ng-include="'images/menuicons/warning.svg'"></div>
+            <div class="error-icon clickable" ng-include="'images/menuicons/exit.svg'"
+            ng-mousedown="mouseDownHandler($event, errorOk)" ng-touchstart="touchStartHandler($event, errorOk)"></div>
+          </div>
+          <div class="error-body">
+            <h3 ng-repeat="t in errorText track by $index">{{t}}<br /></h3>
+          </div>
+          <div class="buttons">
+            <button class="f-button" ng-mousedown="mouseDownHandler($event, errorOk)" ng-touchstart="touchStartHandler($event, errorOk)">Ok</button>
+          </div>
+        </div>
+      </div>
+      <div id="inform" class="inform hidden">
+        <div id="inform-box" class="inform-box" draggable="true">
+          <div class="inform-head">
+            <div class="inform-sign" ng-include="'images/menuicons/info.svg'"></div>
+            <div class="inform-icon clickable" ng-include="'images/menuicons/exit.svg'"
+              ng-mousedown="mouseDownHandler($event, informOk)" ng-touchstart="touchStartHandler($event, informOk)"></div>
+          </div>
+          <div class="inform-body">
+            <h3 ng-repeat="t in informText track by $index">{{t}}<br /></h3>
+          </div>
+          <div class="buttons">
+            <button class="f-button" ng-mousedown="mouseDownHandler($event, informOk)" ng-touchstart="touchStartHandler($event, informOk)">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+    <script src="bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
+    <script src="bower_components/marked/marked.min.js"></script>
+    <script src="bower_components/angular-marked/dist/angular-marked.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="app.js"></script>
+    <script src="admin/admin.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/keyboard/dist/js/jquery.keyboard.min.js"></script>
+    <script src="bower_components/ng-virtual-keyboard/dist/ng-virtual-keyboard.min.js"></script>
+    <script>mxBasePath="bower_components/mxgraph/javascript/src"</script>
+    <script src="bower_components/mxgraph/javascript/src/js/mxClient.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js" charset="utf-8"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-javascript.js" charset="utf-8"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-snippets.js" charset="utf-8"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js" charset="utf-8"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/theme-twilight.js" charset="utf-8"></script>
+  </body>
+</html>

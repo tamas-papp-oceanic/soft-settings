@@ -1,0 +1,147 @@
+<!-- ALARMS COMMON -->
+<div class="logic-wrapper">
+  <div class="a-tab-content">
+    <div style="flex: 0 0 20vw">
+      <div class="a-defi-wrapper">
+        <div class="a-defi-content group">
+          <div class="header">Alarm groups</div>
+          <div class="content">
+            <div class="a-alarm-table group">
+              <table class="a-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="g in alarmGroups | filter: filterAlarmGroup" ng-click="alarmGroup.current = cloneObject(g)"
+                    ng-class="{'selected': alarmGroup.current.group == g.group}">
+                    <td>{{g.title}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer" ng-if="rights.can_admin_alarm && !alarmGroup.edit_mode">
+            <div class="tooltip">
+              <span class="tooltiptext4">Add group</span>
+              <div class="logic-icon clickable" ng-click="addAlarmGroup()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="alarmGroup.current != null">
+              <span class="tooltiptext4">Edit group</span>
+              <div class="logic-icon clickable" ng-click="editAlarmGroup()" ng-include="'images/menuicons/edit.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="alarmGroup.current != null">
+              <span class="tooltiptext4">Delete group</span>
+              <div class="logic-icon clickable" ng-click="deleteAlarmGroup()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+            </div>
+          </div>
+        </div>
+        <div class="a-defi-content zone">
+          <div class="header">Alarm zones</div>
+          <div class="content">
+            <div class="a-alarm-table">
+              <table class="a-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th class="center">Sounders</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="z in alarmZones" ng-click="alarmZone.current = cloneObject(z)"
+                    ng-class="{'selected': alarmZone.current.zone == z.zone}">
+                    <td>{{z.title}}</td>
+                    <td class="center">{{z.zone != 1 ? z.sounders.length : "all"}}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer" ng-if="rights.can_admin_alarm && !alarmZone.edit_mode">
+            <div class="tooltip">
+              <span class="tooltiptext4">Add zone</span>
+              <div class="logic-icon clickable" ng-click="addAlarmZone()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="(alarmZone.current != null) && alarmZone.current.canEdit">
+              <span class="tooltiptext4">Edit zone</span>
+              <div class="logic-icon clickable" ng-click="editAlarmZone()" ng-include="'images/menuicons/edit.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="(alarmZone.current != null) && alarmZone.current.canDelete">
+              <span class="tooltiptext4">Delete zone</span>
+              <div class="logic-icon clickable" ng-click="deleteAlarmZone()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1 1 auto">
+      <div class="a-defi-wrapper">
+        <div class="a-defi-content">
+          <div class="header">Alarms</div>
+          <div class="content">
+            <div class="a-alarm-table">
+              <table class="a-table">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Id</th>
+                    <th rowspan="2">Group</th>
+                    <th rowspan="2">Title</th>
+                    <th rowspan="2">Description</th>
+                    <th rowspan="2">Zone</th>
+                    <th rowspan="2" class="center">Code</th>
+                    <th rowspan="2">Repeat</th>
+                    <th rowspan="2">Priority</th>
+                    <th class="center">Non-</th>
+                    <th class="center">ON delay</th>
+                    <th class="center">OFF delay</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                  <tr>
+                    <th class="center">silenceable</th>
+                    <th class="center">(x 0.1s)</th>
+                    <th class="center">(x 0.1s)</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="a in alarms" ng-click="alarm.current = cloneObject(a)"
+                    ng-class="{'selected': alarm.current.alarmId == a.alarmId}">
+                    <td>{{a.alarmId}}</td>
+                    <td>{{alarmGroups[findAlarmGroup(a.group)].title}}</td>
+                    <td>{{a.title}}</td>
+                    <td>{{a.description}}</td>
+                    <td>{{a.zone ? alarmZones[findAlarmZone(a.zone)].title : ''}}</td>
+                    <td class="center">{{a.zone ? alarmCodes[a.code] : ''}}</td>
+                    <td class="center">{{a.zone ? a.repeat : ''}}</td>
+                    <td class="center">{{a.zone ? a.priority : ''}}</td>
+                    <td class="center">{{a.unmutable ? '&check;' : ''}}</td>
+                    <td class="center">{{a.delayOn > 0 ? a.delayOn : ''}}</td>
+                    <td class="center">{{a.delayOff > 0 ? a.delayOff : ''}}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer" ng-if="rights.can_admin_alarm && !edit_mode">
+            <div class="tooltip">
+              <span class="tooltiptext4">Add alarm</span>
+            <div class="logic-icon clickable" ng-click="addAlarm()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="alarm.current != null">
+              <span class="tooltiptext4">Edit alarm</span>
+              <div class="logic-icon clickable" ng-click="editAlarm()" ng-include="'images/menuicons/edit.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="alarm.current != null">
+              <span class="tooltiptext4">Delete alarm</span>
+              <div class="logic-icon clickable" ng-click="deleteAlarm()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

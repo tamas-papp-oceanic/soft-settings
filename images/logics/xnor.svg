@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="Layer_1" version="1.1" x="0" y="0" viewBox="0 0 50 50" xml:space="preserve" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;">
+      <path d="M 0.99944369,1.0027913 3.0746887,3.8824672 c 0,0 5.9144489,8.3990528 5.9144489,21.1176178 0,12.718568 -5.9144489,21.117619 -5.9144489,21.117619 L 0.99944369,48.99738" />
+   </g>
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:butt;stroke-linejoin:mittre;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;">
+      <path d="M 0,12.5 H 7" />
+      <path d="M 0,37.5 H 7" />
+      <path d="M 4.8280616,0.94829011 6.7748882,3.8344953 c 0,0 5.5484558,8.4180967 5.5484558,21.1655037 0,12.747409 -5.5484558,21.165506 -5.5484558,21.165506 L 4.8280616,49.05171 H 15.0489 c 2.336193,0 5.548456,0 11.291595,-2.886205 5.74314,-2.886206 8.274016,-8.778875 13.335764,-20.323698 l 0.292025,-0.841808 -0.292025,-0.841807 C 29.650102,1.188807 19.623945,0.94829011 15.0489,0.94829011 Z" />
+      <circle r="3.5" cx="45.5" cy="25" />
+   </g>
+</svg>

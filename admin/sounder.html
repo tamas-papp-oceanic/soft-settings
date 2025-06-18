@@ -1,0 +1,36 @@
+<!-- SOUNDER SETUP -->
+<div id="sounder" class="settings hidden">
+  <div id="sounder-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Sounder setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Title</div>
+          <div class="s-right full"><input id="sounder-title" type="text" ng-minlength="1" ng-maxlength="30"
+            ng-model="sounder.current.title" required ng-virtual-keyboard></div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Bus</div>
+          <div class="s-right"><input id="sounder-busNumber" type="number" ng-minlength="1" ng-maxlength="2"
+            ng-model="sounder.current.busNumber" required ng-trim="true" ng-virtual-keyboard="numKeypad"></div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Instance</div>
+          <div class="s-right"><input id="sounder-instance" type="number" ng-minlength="1" ng-maxlength="3"
+            ng-model="sounder.current.instance" required ng-virtual-keyboard="numKeypad"/></div>
+        </div>
+      </div>
+    </div>
+    <!-- BUTTONS SECTION -->
+    <div class="buttons">
+      <button class="f-button" ng-click="cancelSounder()">Cancel</button>
+      <button class="f-button" ng-click="saveSounder()">Save</button>
+    </div>
+  </div>
+</div>

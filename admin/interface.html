@@ -1,0 +1,66 @@
+<!-- INTERFACE SETUP -->
+<div id="iface-data" class="settings hidden">
+  <div id="iface-data-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Interface setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Interface ID</div>
+          <div class="s-right">{{interface.current.id}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">URL</div>
+          <div class="s-right full">
+            <input id="iface-url" type="text" ng-minlength="1" ng-maxlength="50" ng-model="interface.current.url" required
+              ng-change="urlChange()" ng-trim="true" ng-virtual-keyboard>
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="interface.current.url.startsWith('rtu://')">
+          <div class="s-left">Baud rate</div>
+          <div class="s-right half">
+            <select id="iface-speed" ng-model="interface.current.speed">
+              <option value="">-- Select baud rate --</option>
+              <option ng-repeat="s in speeds" value="{{s}}">{{s}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="interface.current.url.startsWith('rtu://')">
+          <div class="s-left">Parity</div>
+          <div class="s-right half">
+            <select id="iface-parity" ng-model="interface.current.parity">
+              <option value="">-- Select parity --</option>
+              <option ng-repeat="p in parities" value="{{p.parity}}">{{p.title}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="interface.current.url.startsWith('rtu://')">
+          <div class="s-left">Stop bits</div>
+          <div class="s-right half">
+            <select id="iface-parity" ng-model="interface.current.stopbits">
+              <option value="">-- Select stop bits --</option>
+              <option ng-repeat="s in stopbits" value="{{s}}">{{s}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Timeout (s)</div>
+          <div class="s-right">
+            <input id="iface-timeout" type="number" ng-minlength="1" ng-maxlength="5" ng-model="interface.current.timeout" required
+              ng-trim="true" ng-virtual-keyboard="numKeypad" />
+          </div>
+        </div>
+      </div>
+      <!-- BUTTONS SECTION -->
+      <div class="buttons">
+        <button class="f-button" ng-click="cancelInterface()">Cancel</button>
+        <button class="f-button" ng-click="saveInterface()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<!-- ALARM GROUP SETUP -->
+<div id="alarm-group" class="settings hidden">
+  <div id="alarm-group-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Alarm group setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Group</div>
+          <div class="s-right">{{alarmGroup.current.group}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Title</div>
+          <div class="s-right full">
+            <input id="title-text" type="text" ng-minlength="1" ng-maxlength="30" ng-model="alarmGroup.current.title" required ng-virtual-keyboard>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BUTTONS SECTION -->
+    <div class="buttons">
+      <button class="f-button" ng-click="cancelAlarmGroup()">Cancel</button>
+      <button class="f-button" ng-click="saveAlarmGroup()">Save</button>
+    </div>
+  </div>
+</div>

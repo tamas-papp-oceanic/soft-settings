@@ -1,0 +1,107 @@
+<!-- ALARM SETUP -->
+<div id="alarm-data" class="settings hidden">
+  <div id="alarm-data-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Alarm setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Alarm ID</div>
+          <div class="s-right">{{alarm.current.alarmId}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Group</div>
+          <div class="s-right">
+            <select id="group" ng-model="alarm.current.group" ng-change="alarmGroupChange()">
+              <option value="">-- Select alarm group --</option>
+              <option ng-repeat="g in alarmGroups | filter: filterAlarmGroup" value="{{g.group}}">{{g.title}}</option>
+            </select>
+          </div>
+        </div>
+        <div ng-if="alarm.current.group">
+          <div ng-if="getAlarmType(alarm.current.group) == alarmTypes.AT_DIRECT">
+            <div class="s-block-item">
+              <div class="s-left">Title</div>
+              <div class="s-right full"><input id="title-text" type="text" ng-minlength="1" ng-maxlength="30"
+                ng-model="alarm.current.title" required ng-virtual-keyboard></div>
+            </div>
+            <div class="s-block-item">
+              <div class="s-left">Description</div>
+              <div class="s-right full"><input id="description-text" type="text" ng-minlength="1" ng-maxlength="50"
+                ng-model="alarm.current.description" required ng-virtual-keyboard></div>
+            </div>
+            <!---- ZONES -->
+            <div class="s-block-item">
+              <div class="s-left">Zone</div>
+              <div class="s-right">
+                <select id="zone" ng-model="alarm.current.zone" ng-change="alarmZoneChange()">
+                  <option value="">-- No zone info --</option>
+                  <option ng-repeat="z in alarmZones" value="{{z.zone}}">{{z.title}}</option>
+                </select>
+              </div>
+            </div>
+            <div ng-if="alarm.current.zone">
+              <div class="s-block-item">
+                <div class="s-left">Alarm code</div>
+                <div class="s-right">
+                  <select id="code" ng-model="alarm.current.code" ng-change="alarmCodeChange()">
+                    <option value="">-- Select alarm code --</option>
+                    <option ng-repeat="(key, val) in alarmCodes" value="{{key}}">{{val}}</option>
+                  </select>
+                </div>
+              </div>
+              <div ng-if="alarm.current.code">
+                <div class="s-block-item">
+                  <div class="s-left">Repeat count</div>
+                  <div class="s-right"><input id="repeat" type="number" ng-minlength="1" ng-maxlength="3" ng-model="alarm.current.repeat" required
+                    ng-trim="true" ng-virtual-keyboard="numKeypad" /></div>
+                </div>
+                <div class="s-block-item">
+                  <div class="s-left">Priority</div>
+                  <div class="s-right"><input id="priority" type="number" ng-minlength="1" maxlength="3" ng-model="alarm.current.priority" required
+                    ng-trim="true" ng-virtual-keyboard="numKeypad" />
+                    <span>1 - 255</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!---- GENERAL -->
+        <div class="s-block-item">
+          <div class="s-left">Non-silenceable</div>
+          <div class="s-right">
+            <div class="checkbox">
+              <input id="unmutable" type="checkbox" ng-model="alarm.current.unmutable" ng-true-value="true" ng-false-value="false" />
+              <label for="unmutable"></label>
+            </div>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">ON delay</div>
+          <div class="s-right"><input id="delayOn" type="number" ng-minlength="1" ng-maxlength="5" ng-model="alarm.current.delayOn"
+            required ng-trim="true" ng-virtual-keyboard="numKeypad">
+            <span>x 0.1s</span>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">OFF delay</div>
+          <div class="s-right"><input id="delayOff" type="number" ng-minlength="1" ng-maxlength="5" ng-model="alarm.current.delayOff"
+            required ng-trim="true" ng-virtual-keyboard="numKeypad">
+            <span>x 0.1s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BUTTONS SECTION -->
+    <div class="buttons">
+      <button class="f-button" ng-click="cancelAlarm()">Cancel</button>
+      <button class="f-button" ng-click="saveAlarm()">Save</button>
+    </div>
+  </div>
+</div>

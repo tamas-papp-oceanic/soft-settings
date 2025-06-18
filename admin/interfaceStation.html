@@ -1,0 +1,41 @@
+<!-- INTERFACE STATION SETUP -->
+<div id="station-data" class="settings hidden">
+  <div id="station-data-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Interface station setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Id</div>
+          <div class="s-right">{{station.current.id}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Device template</div>
+          <div class="s-right half">
+            <select id="station-device" ng-model="station.current.deviceid" ng-change="deviceChange()">
+              <option value="">-- Select device --</option>
+              <option ng-repeat="d in devices" value="{{d.id}}">{{d.description}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Address</div>
+          <div class="s-right">
+            <input id="station-address" type="number" ng-minlength="1" ng-maxlength="3" ng-model="station.current.address" required
+              ng-trim="true" ng-virtual-keyboard="numKeypad" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BUTTONS SECTION -->
+    <div class="buttons">
+      <button class="f-button" ng-click="cancelStation()">Cancel</button>
+      <button class="f-button" ng-click="saveStation()">Save</button>
+    </div>
+  </div>
+</div>

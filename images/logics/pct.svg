@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="Layer_1" version="1.1" x="0" y="0" viewBox="0 0 50 50" xml:space="preserve" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+   <g style="fill:none;stroke:#6482b9;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;">
+      <path d="M 0.69580157,13.349306 H 10.124258" />
+      <path d="m 39.927816,25 h 9.311502" />
+      <rect y="0.88790762" x="10.868735" height="48.224186" width="28.262529" />
+      <path d="M 0.83885883,36.650694 H 9.8821035" />
+      <circle r="10.293152" cy="25" cx="25" />
+      <path d="m 21.757857,15.816422 10.025309,9.284485 -9.748748,9.082648" />
+   </g>
+   <g style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#6482b9;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5">
+      <text y="11.5" x="0">D</text>
+      <text y="47" x="0">E</text>
+      <text y="23.5" x="42.517578">P</text>
+   </g>
+</svg>

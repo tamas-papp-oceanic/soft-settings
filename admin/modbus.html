@@ -1,0 +1,107 @@
+<!-- MODBUS COMMON -->
+<div class="logic-wrapper">
+  <div class="a-tab-content">
+    <div style="flex: 0 0 30vw">
+      <div class="a-defi-wrapper">
+        <div class="a-defi-content group">
+          <div class="header">Device definitions</div>
+          <div class="content">
+            <div class="a-alarm-table">
+              <table class="a-table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Endianness</th>
+                    <th>Word order</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="d in devices | filter: filterDevice" ng-click="device.current = cloneObject(d)"
+                    ng-class="{'selected': device.current.id == d.id}">
+                    <td>{{d.id}}</td>
+                    <td>{{d.description}}</td>
+                    <td>{{findEndian(d.endian)}}</td>
+                    <td>{{findWorder(d.worder)}}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer" ng-if="rights.can_admin_modbus && (device.action == null)">
+            <div class="tooltip">
+              <span class="tooltiptext4">Add device</span>
+              <div class="logic-icon clickable" ng-click="addDevice()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="device.current != null">
+              <span class="tooltiptext4">Edit device</span>
+              <div class="logic-icon clickable" ng-click="editDevice()" ng-include="'images/menuicons/edit.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="device.current != null">
+              <span class="tooltiptext4">Delete device</span>
+              <div class="logic-icon clickable" ng-click="deleteDevice()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1 1 auto">
+      <div class="a-defi-wrapper">
+        <div class="a-defi-content group" style="flex: 1 1 auto">
+          <div class="header">Field definitions</div>
+          <div class="content">
+            <div class="a-alarm-table">
+              <table class="a-table">
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>Description</th>
+                    <th>Register type</th>
+                    <th>Address</th>
+                    <th>Offset</th>
+                    <th>Gain</th>
+                    <th>Data type</th>
+                    <th>Unit</th>
+                    <th>Polling rate (s)</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if="device.current != null" ng-repeat="f in getFields(device.current.id)" ng-click="field.current = cloneObject(f)"
+                    ng-class="{'selected': field.current.field == f.field}">
+                    <td>{{f.field}}</td>
+                    <td>{{f.description}}</td>
+                    <td>{{findRtype(f.rtype)}}</td>
+                    <td>{{f.address}}</td>
+                    <td>{{f.offset}}</td>
+                    <td>{{f.gain}}</td>
+                    <td>{{f.dtype}}</td>
+                    <td>{{f.unit}}</td>
+                    <td>{{f.rate / 1000000000}}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer" ng-if="rights.can_admin_modbus && (device.current != null) && (field.action == null)">
+            <div class="tooltip">
+              <span class="tooltiptext4">Add field</span>
+            <div class="logic-icon clickable" ng-click="addField()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="field.current != null">
+              <span class="tooltiptext4">Edit field</span>
+              <div class="logic-icon clickable" ng-click="editField()" ng-include="'images/menuicons/edit.svg'"></div>
+            </div>
+            <div class="tooltip" ng-if="field.current != null">
+              <span class="tooltiptext4">Delete field</span>
+              <div class="logic-icon clickable" ng-click="deleteField()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

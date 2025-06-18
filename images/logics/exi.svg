@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="Layer_1" version="1.1" x="0" y="0" viewBox="0 0 50 50" xml:space="preserve" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50196078">
+      <path d="M 1.0101003,1.0101002 27.65447,27.65447" />
+      <path d="m 27.66447,11.70823 v 15.950035 l -16.137499,0.0062" />
+      <path d="m 6.0032833,27.50005 v 14.972581 c 0,3.614399 2.909788,6.524186 6.5241857,6.524186 h 29.945162 c 3.614399,0 6.524187,-2.909787 6.524187,-6.524186 v -29.94516 c 0,-3.614401 -2.909788,-6.5241883 -6.524187,-6.5241883 h -14.97258" />
+   </g>
+</svg>

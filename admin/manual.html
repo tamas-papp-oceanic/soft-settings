@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Manual rev1.0</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body for="html-export">
+<h1 id="user-manualbr-smallsmallsmallrev-10smallsmallsmall">User Manual<br><small><small><small>Rev 1.0</small></small></small> </h1>
+<p><em>Copyright Information<br><br>
+2023-2023 Oceanic Systems (UK) LTD. All Rights Reserved.<br><br>
+This document is subject to change and revision without notice. No part of this document may be reproduced in any form by any photographic, electronic, mechanical or<br>other means, or used in any information storage and retrieval system, without prior written permission from Oceanic Systems.<br><br>
+All other product and brand names in this document are trademarks or registered trademarks of their respective owners.</em></p>
+<h2 id="i-the-menu-system">I. The menu system </h2>
+<h3 id="i--1-the-file-menu">I / 1. The file menu </h3>
+<p>It can be found on top left side of the main screen.</p>
+<p><em>The elements are:</em></p>
+<pre class="language-text">New     Creates new settings
+Open    Opens existing settings
+Check   Checks the current logic diagram 
+Save    Saves current settings
+</pre>
+<h3 id="i--2-the-main-menu">I / 2. The main menu </h3>
+<p>It can be found below of the file menu.</p>
+<p><em>The elements are:</em></p>
+<p><a href="#ii-the-alarm-definition-screen">Alarm Setup</a> - Selects alarm definition screen<br>
+<a href="#iii-the-logic-diagram-screen">Logic Rules</a> - Selects logic diagram screen<br>
+<a href="#iv-the-modbus-definition-screen">MODBUS Setup</a> - Selects MODBUS definition screen<br>
+<a href="#user-manualrev-10">User Manual</a> - Selects manual screen</p>
+<h2 id="ii-the-alarm-definition-screen">II. The alarm definition screen </h2>
+<p>The defined alarms will be used in logic definitions to rise alarms in certain conditions. These alarms will be shown and can be handled in Poseidon alarm widget.</p>
+<p><em>This screen consists of 3 definition areas:</em></p>
+<p><a href="#ii--1-creating-or-modifying-alarm-group-definitions">Alarm groups</a> - Alarm group definitions<br>
+<a href="#ii--2-creating-or-modifying-alarm-zone-definitions">Alarm Zones</a> - Alarm zone definitions<br>
+<a href="#ii--3-creating-or-modifying-alarm-definitions">Alarms</a> - Alarm definitions</p>
+<p><em>Each area has control menu at the bottom of the area (in order):</em></p>
+<pre class="language-text">Add             Creates new area definition
+Edit            Edits area definition
+Delete          Deletes area definition
+</pre>
+<h3 id="ii--1-creating-or-modifying-alarm-group-definitions">II / 1. Creating or modifying alarm group definitions </h3>
+<p>Creating new alarm group:</p>
+<pre class="language-text">Push the "Add" button of the bottom menu.
+It opens alarm group setup popup with editable title.
+Push the "Save" button at the bottom of popup to create new alarm group with the given title.
+</pre>
+<p>Editing alarm group:</p>
+<pre class="language-text">Push the "Edit" button of the bottom menu.
+It opens alarm group setup popup with editable title.
+Push the "Save" button at the bottom of popup to modify alarm group with the given title.
+</pre>
+<p>Deleting alarm group:</p>
+<pre class="language-text">Push the "Delete" button of the bottom menu.
+It opens a confirmation popup.
+Push the "Yes" button at the bottom of popup to delete alarm group.
+</pre>
+<h3 id="ii--2-creating-or-modifying-alarm-zone-definitions">II / 2. Creating or modifying alarm zone definitions </h3>
+<p>Creating new alarm zone:</p>
+<pre class="language-text">Push the "Add" button of the bottom menu.
+It opens alarm zone setup popup with editable title and sounders definition.
+The sounders definition area of the screen makes possible to attach sounders to the alarm zone definition.
+This area also has bottom menu similar to previous area control menu.
+Push the "Save" button at the bottom of popup to create new alarm zone with the given content.
+</pre>
+<p>Editing alarm zone:</p>
+<pre class="language-text">Push the "Edit" button of the bottom menu.
+It opens alarm zone setup popup with editable title and sounders definition. For sounders definition see previous section.
+Push the "Save" button at the bottom of popup to modify alarm zone with the given content.
+</pre>
+<p>Deleting alarm zone:</p>
+<pre class="language-text">Push the "Delete" button of the bottom menu.
+It opens a confirmation popup.
+Push the "Yes" button at the bottom of popup to delete alarm zone.
+</pre>
+<p>Creating new sounder:</p>
+<pre class="language-text">Push the "Add" button of the sounder area bottom menu.
+It opens sounder setup popup with editable title, bus and instance.
+The bus parameter is the CAN line number, the instance is the sounder instance or 255 for all sounders on the bus.
+Push the "Save" button at the bottom of popup to create new sounder with the given content.
+</pre>
+<p>Editing sounder:</p>
+<pre class="language-text">Push the "Edit" button of the sounder area bottom menu.
+It opens sounder setup popup with editable title, bus and instance. For sounder definition see previous section.
+Push the "Save" button at the bottom of popup to modify sounder with the given content.
+</pre>
+<p>Deleting sounder:</p>
+<pre class="language-text">Push the "Delete" button of the sounder area bottom menu.
+It opens a confirmation popup.
+Push the "Yes" button at the bottom of popup to delete sounder.
+</pre>
+<h3 id="ii--3-creating-or-modifying-alarm-definitions">II / 3. Creating or modifying alarm definitions </h3>
+<p>Zone definiton is optional for alarms. Only alarm definitions with zone definitions will sound on the attached sounders.</p>
+<p>Creating new alarm:</p>
+<pre class="language-text">Push the "Add" button of the bottom menu.
+It opens alarm setup popup with selectable group, editable title, description, selectable zone definition, editable silencing and ON/OFF delays.
+Push the "Save" button at the bottom of popup to create new alarm group with the given title.
+</pre>
+<p>Editing alarm:</p>
+<pre class="language-text">Push the "Edit" button of the bottom menu.
+It opens alarm setup popup with editable selectable group, editable title, description, selectable zone definition, editable silencing and ON/OFF delays.
+Push the "Save" button at the bottom of popup to modify alarm group with the given title.
+</pre>
+<p>Deleting alarm:</p>
+<pre class="language-text">Push the "Delete" button of the bottom menu.
+It opens a confirmation popup.
+Push the "Yes" button at the bottom of popup to delete alarm.
+</pre>
+<h2 id="iii-the-logic-diagram-screen">III. The logic diagram screen </h2>
+<p><em>Logic diagram content:</em></p>
+<p><a href="#iii--1-the-logic-page-selector">The logic page selector</a><br>
+<a href="#iii--2-the-logic-drawing-area">The logic drawing area</a><br>
+<a href="#iii--3-the-logic-bottom-menu">The logic bottom menu</a></p>
+<p><a href="#iii--4-the-available-logic-components">The available logic components</a></p>
+<p><em>Logic diagram manupulation:</em></p>
+<p><a href="#iii--5creating-or-modifying-the-logic">Creating or modifying the logic</a><br>
+<a href="#iii--6-loading-existing-logic">Loading existing logic</a><br>
+<a href="#iii--7-saving-current-logic">Saving curren logic</a></p>
+<h3 id="iii--1-the-logic-page-selector">III / 1. The logic page selector </h3>
+<p>It can be found on top right side of the logic diagram screen.<br><br>
+This horizontal bar is made for create a new one or selecting between logic diagram pages.</p>
+<h3 id="iii--2-the-logic-drawing-area">III / 2. The logic drawing area </h3>
+<p>It can be found below the logic page selector bar. It is filled with dots for the proper positioning of the logic elements and connections.</p>
+<h3 id="iii--3-the-logic-bottom-menu">III / 3. The logic bottom menu </h3>
+<p>It can be found below the logic drawing area.</p>
+<p><em>The buttons (in order):</em></p>
+<pre class="language-text">Zoom In         Increases magnification of logic draw area
+Zoom to 100%    Sets back maginifitaion to 100%
+Zoom Out        Decreases magnification of logic draw area
+Undo            Discards the last change of drawing
+Redo            Recovers previous discard
+Add             Creates new logic component
+</pre>
+<p><em>If there are selected component(s) or connection(s):</em></p>
+<pre class="language-text">Edit            Edits selected component properties
+Delete          Deletes the selection
+Copy            Copies selection to the clipboard
+Cut             Copies selection to the clipboard and removes after paste
+Paste           Inserts selection from the clipboard
+</pre>
+<h2 id="iii--4-the-available-logic-components">III / 4. The available logic components </h2>
+<p>The components (in order):</p>
+<p><a href="#iii--4--1-group-box">1. Group box</a><br>
+<a href="#iii--4--2-sensor-input">2. Sensor input</a><br>
+<a href="#iii--4--3-sensor-output">3. Sensor output</a><br>
+<a href="#iii--4--4-alarm-input">4. Alarm input</a><br>
+<a href="#iii--4--5-alarm-output">5. Alarm output</a><br>
+<a href="#iii--4--6-virtual-input-for-screen-connections">6. Virtual input (for screen connections)</a><br>
+<a href="#iii--4--7-virtual-output-for-screen-connections">7. Virtual output (for screen connections)</a><br>
+<a href="#iii--4--8-logic-gates">8. Logic gates</a></p>
+<pre class="language-text">8/1. AND gate
+8/2. OR gate
+8/3. XOR gate
+8/4. NOT gate
+8/5. NOR gate
+8/6. NAND gate
+8/7. SR Flip-flop
+8/8. Selector
+</pre>
+<p><a href="#iii--4--9-comparators">9. Comparators</a></p>
+<pre class="language-text">9/1. Greater then
+9/2. Greater or equal
+9/3. Lower then
+9/4. Lower or equal
+9/5. Equal
+9/6. Not equal
+</pre>
+<p><a href="#iii--4--10-math-elements">10. Math elements</a></p>
+<pre class="language-text">10/1. Addition
+10/2. Substraction
+10/3. Multiplication
+10/4. Division
+10/5. Modulo
+10/6. Absolute value
+10/7. Average value
+</pre>
+<p><a href="#iii--4--11-timers">11. Timers</a></p>
+<pre class="language-text">11/1. Count up
+11/2. Count dowm
+11/3. Pulse timer
+</pre>
+<p><a href="#iii--4--12-other-components">12. Other components</a></p>
+<pre class="language-text">12/1. Integrator
+12/2. Boolean delay
+12/3. Switch block
+12/4. Storage
+12/5. Script
+12/6. Propagation
+12/7. Pulse counter
+12/8. Encoder
+12/9. Decoder
+12/10. TRUE counter
+12/11. Mute State
+</pre>
+<h3 id="iii--4--1-group-box">III / 4 / 1. Group box </h3>
+<p>Selector image:</p>
+<img src="images/docs/grb.png" alt="Group Box" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+A group box helps to graphically group of components in a circuit.
+
+Input:  None
+Output: None
+Settings:
+  Label:  Defines box title
+</pre>
+<h3 id="iii--4--2-sensor-input">III / 4 / 2. Sensor input </h3>
+<p>Selector image:</p>
+<img src="images/docs/sen.png" alt="Sensor" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+A sensor input takes live sensor data available on the system, and provides it to other logic component(s).
+It updates its' output when the sensor value is changed.
+
+Input:  None
+Output: Selected sensor data
+Settings:
+  Protocol: NMEA2k, J1939
+  Bus:      CAN line
+  Message:  PGN
+  Field:    PGN field
+</pre>
+<h3 id="iii--4--3-sensor-output">III / 4 / 3. Sensor output </h3>
+<p>Selector image:</p>
+<img src="images/docs/sen.png" alt="Sensor" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+A sensor output takes data from other logic component and provides it to live sensor on the system.
+It updates its' output when the input value is changed.
+
+Input:  Data of connected component
+Output: None
+Settings:
+  Protocol: NMEA2k, J1939
+  Bus:      CAN line
+  Message:  PGN
+  Instance: Device instance (if applicable)
+  Field:    PGN field
+</pre>
+<h3 id="iii--4--4-alarm-input">III / 4 / 4. Alarm input </h3>
+<p>Selector image:</p>
+<img src="images/docs/alm.png" alt="Alarm" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+An alarm input takes alarm state data available on the system, and provides it to other logic component(s).
+It updates its' output when the alarm state is changed.
+
+Input:          None
+Output:         Selected alarm state
+Settings:
+  Group:        Engine, Transmission, General
+  Bus:          CAN line (Engine, Transmission)
+  Instance:     Device instance (Engine, Transmission)
+  Discrete bit: Discrete bit (Engine, Transmission)
+  Alarm:        Selected alarm (General)
+</pre>
+<h3 id="iii--4--5-alarm-output">III / 4 / 5. Alarm output </h3>
+<p>Selector image:</p>
+<img src="images/docs/alm.png" alt="Alarm" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+An alarm output takes data from other logic component and provides it to alarm engine on the system.
+It updates its' output when the input value is changed.
+
+Input:    Data of connected component
+Output:   None
+Settings:
+  Group:  General (only)
+  Alarm:  Selected alarm
+</pre>
+<h3 id="iii--4--6-virtual-input-for-screen-connections">III / 4 / 6. Virtual input (for screen connections) </h3>
+<p>Selector image:</p>
+<img src="images/docs/exi.png" alt="External input" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+A virtual input takes data from screen element, and provides it to other logic component(s).
+It updates its' output when the screen data is changed.
+
+Input:   None
+Output:  Data of screen element
+Settings:
+  Description:  Individual name for identification
+</pre>
+<h3 id="iii--4--7-virtual-output-for-screen-connections">III / 4 / 7. Virtual output (for screen connections) </h3>
+<p>Selector image:</p>
+<img src="images/docs/exo.png" alt="External output" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+A virtual output takes data from other logic component and provides it to a screen element.
+It updates its' output when the input value is changed.
+
+Input:    Data of connected component
+Output:   None
+Settings:
+  Description:  Individual name for identification
+</pre>
+<h2 id="iii--4--8-logic-gates">III / 4 / 8. Logic gates </h2>
+<p>Description:</p>
+<pre class="language-text">Summary:
+This gate takes data from other logic component(s) and after calculations provides it to another component(s).
+It updates its' output(s) when the input value(s) is changed.
+
+Inputs:   Data of connected component(s)
+Output:   Calculated data
+Settings:
+  Inputs: Count of input pins
+</pre>
+<h3 id="iii--4--8--1-and-gate">III / 4 / 8 / 1. AND gate </h3>
+<p>Selector image:</p>
+<img src="images/docs/and.png" alt="And gate" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Generates logic "AND" value of inputs.
+</pre>
+<p>Truth table (for 2 inputs):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">I1</th>
+<th style="text-align:center">I2</th>
+<th style="text-align:center">O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--2-or-gate">III / 4 / 8 / 2. OR gate </h3>
+<p>Selector image:</p>
+<img src="images/docs/or.png" alt="Or gate" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Generates logic "OR" value of inputs.
+</pre>
+<p>Truth table (for 2 inputs):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">I1</th>
+<th style="text-align:center">I2</th>
+<th style="text-align:center">O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--3-xor-gate">III / 4 / 8 / 3. XOR gate </h3>
+<p>Selector image:</p>
+<img src="images/docs/xor.png" alt="XOR gate" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Generates logic "XOR" value of inputs.
+</pre>
+<p>Truth table (for 2 inputs):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">I1</th>
+<th style="text-align:center">I2</th>
+<th style="text-align:center">O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--4-not-gate">III / 4 / 8 / 4. NOT gate </h3>
+<p>Selector image:</p>
+<img src="images/docs/not.png" alt="NOT gate" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Generates logic "NOT" value of input.
+</pre>
+<p>Truth table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">I</th>
+<th style="text-align:center">O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--5-nor-gate">III / 4 / 8 / 5. NOR gate </h3>
+<p>Selector image:</p>
+<img src="images/docs/nor.png" alt="NOR gate" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Generates logic "NOR" value of inputs.
+</pre>
+<p>Truth table (for 2 inputs):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">I1</th>
+<th style="text-align:center">I2</th>
+<th style="text-align:center">O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--6-nand-gate">III / 4 / 8 / 6. NAND gate </h3>
+<p>Selector image:</p>
+<img src="images/docs/nand.png" alt="NAND gate" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Generates logic "NAND" value of inputs.
+</pre>
+<p>Truth table (for 2 inputs):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">I1</th>
+<th style="text-align:center">I2</th>
+<th style="text-align:center">O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--7-sr-flip-flop-latch">III / 4 / 8 / 7. SR Flip-Flop (latch) </h3>
+<p>Selector image:</p>
+<img src="images/docs/dff.png" alt="SR Flip-flop (latch)" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+The SR flip-flop is the 1-bit bistable memory device having two inputs, SET and RESET.
+The SET input S sets the device or generates the output Q as 1 and Q' as 0.
+The RESET input R resets the device or generates the output Q as 0 and Q' as 1.
+
+Inputs:   S (set), R (reset)
+Outputs:  Q, Q'
+Settings: None
+</pre>
+<p>Truth table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">S</th>
+<th style="text-align:center">R</th>
+<th style="text-align:center">Q</th>
+<th style="text-align:center">Q'</th>
+<th style="text-align:center">State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Previous</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">No change</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Reset</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Set</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">?</td>
+<td style="text-align:center">?</td>
+<td style="text-align:center">Invalid</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iii--4--8--8-selector">III / 4 / 8 / 8. Selector </h3>
+<p>Selector image:</p>
+<img src="images/docs/sel.png" alt="Selector" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data from other logic component(s) and provides selected data to another component(s).
+It updates its' output when the input value(s) is changed.
+
+Inputs:   Selector, Data1 ... DataN
+Output:   The selected value
+Settings:
+  Inputs: Count of inputs
+</pre>
+<p>Calculation:</p>
+<pre class="language-text">Propagates the selected input value to the output.
+The 'Selector' input value is a number between 1 ... N which makes the selection between Data1 ... DataN.
+</pre>
+<h2 id="iii--4--9-comparators">III / 4 / 9. Comparators </h2>
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data from other logic component and after calculations provides it to another component(s).
+It updates its' output when the input value is changed.
+
+Input(s):   Data of connected component(s)
+Output:     Calculated data
+Settings:
+  Data:   If defined, data value to compare with otherwise the second input value used by the comparison.
+</pre>
+<h3 id="iii--4--9--1-greater-then">III / 4 / 9 / 1. Greater then </h3>
+<p>Selector image:</p>
+<img src="images/docs/gt.png" alt="Greater then" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates true if input value greater then the data provided.
+</pre>
+<h3 id="iii--4--9--2-greater-or-equal">III / 4 / 9 / 2. Greater or equal </h3>
+<p>Selector image:</p>
+<img src="images/docs/ge.png" alt="Greater or equal" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates true if input value greater or equal then the data provided.
+</pre>
+<h3 id="iii--4--9--3-lower-then">III / 4 / 9 / 3. Lower then </h3>
+<p>Selector image:</p>
+<img src="images/docs/lt.png" alt="Lower then" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates true if input value lower then the data provided.
+</pre>
+<h3 id="iii--4--9--4-lower-or-equal">III / 4 / 9 / 4. Lower or equal </h3>
+<p>Selector image:</p>
+<img src="images/docs/le.png" alt="Lower or equal" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates true if input value lower or equal then the data provided.
+</pre>
+<h3 id="iii--4--9--5-equal">III / 4 / 9 / 5. Equal </h3>
+<p>Selector image:</p>
+<img src="images/docs/eq.png" alt="Equal" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates true if input value equal with the data provided.
+</pre>
+<h3 id="iii--4--9--6-not-equal">III / 4 / 9 / 6. Not equal </h3>
+<p>Selector image:</p>
+<img src="images/docs/ne.png" alt="Not equal" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates true if input value not equal with the data provided.
+</pre>
+<h2 id="iii--4--10-math-elements">III / 4 / 10. Math elements </h2>
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data from other logic component(s) and after calculations provides it to another component(s).
+It updates its' output when the input value is changed.
+
+Inputs:   Data of connected component(s)
+Output:   Calculated data
+Settings: None
+</pre>
+<h3 id="iii--4--10--1-addition">III / 4 / 10 / 1. Addition </h3>
+<p>Selector image:</p>
+<img src="images/docs/add.png" alt="Addition" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates sum of two or more input values.
+</pre>
+<h3 id="iii--4--10--2-substraction">III / 4 / 10 / 2. Substraction </h3>
+<p>Selector image:</p>
+<img src="images/docs/sub.png" alt="Substraction" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates difference of two or more input values.
+</pre>
+<h3 id="iii--4--10--3-multiplication">III / 4 / 10 / 3. Multiplication </h3>
+<p>Selector image:</p>
+<img src="images/docs/mul.png" alt="Multiplication" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates product of two or more input values.
+</pre>
+<h3 id="iii--4--10--4-division">III / 4 / 10 / 4. Division </h3>
+<p>Selector image:</p>
+<img src="images/docs/div.png" alt="Division" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates quotient of two or more input values. The first input is always the divident the others are the divisors.
+</pre>
+<h3 id="iii--4--10--5-modulo">III / 4 / 10 / 5. Modulo </h3>
+<p>Selector image:</p>
+<img src="images/docs/mod.png" alt="Modulo" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates remainder of arithmetic divison of two input values.
+</pre>
+<h3 id="iii--4--10--6-absolute-value">III / 4 / 10 / 6. Absolute value </h3>
+<p>Selector image:</p>
+<img src="images/docs/abs.png" alt="Absolute value" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates modulus of input value.
+</pre>
+<h3 id="iii--4--10--7-average-value">III / 4 / 10 / 7. Average value </h3>
+<br>
+<img src="images/docs/avg.png" alt="Average" width="50px;">
+<p>Calculation:</p>
+<pre class="language-text">Propagates average value of two or more input values.
+</pre>
+<h2 id="iii--4--11-timers">III / 4 / 11. Timers </h2>
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data from other logic component(s) and depending on the function provides count value or binary value to another component(s).
+It updates its' output(s) when the internal timer ticks or the input(s) value is changed.
+</pre>
+<h3 id="iii--4--11--1-count-up">III / 4 / 11 / 1. Count up </h3>
+<p>Selector image:</p>
+<img src="images/docs/utim1.png" alt="Count up" width="50px;">
+<p>Parameters:</p>
+<pre class="language-text">Inputs:   Enable (start/stop ticking), Reset (sets count to 0)
+Outputs:  Count (tick count), State (start/stop state)
+Settings:
+  Reset Delay:  Delay after reset
+  Interval:     Ticking interval
+  Init value:   Count start value
+</pre>
+<p>Calculation:</p>
+<pre class="language-text">Propagates incremental count value on 'Count' output and running state on 'State' output.
+</pre>
+<h3 id="iii--4--11--2-count-dowm">III / 4 / 11 / 2. Count dowm </h3>
+<p>Selector image:</p>
+<img src="images/docs/dtim1.png" alt="Count down" width="50px;">
+<p>Parameters:</p>
+<pre class="language-text">Inputs:   Enable (start/stop ticking), Reset (sets count to 0)
+Outputs:  Count (tick count), State (start/stop state)
+Settings:
+  Reset Delay:  Delay after reset
+  Interval:     Ticking interval
+  Init value:   Count start value
+</pre>
+<p>Calculation:</p>
+<pre class="language-text">Propagates decremental count value on 'Count' output and running state on 'State' output.
+</pre>
+<h3 id="iii--4--11--3-pulse-timer">III / 4 / 11 / 3. Pulse timer </h3>
+<p>Selector image:</p>
+<img src="images/docs/pti.png" alt="Pulse timer" width="50px;">
+<p>Parameters:</p>
+<pre class="language-text">Input:   Pulse (start)
+Output:  State
+Settings:
+  Delay:    Tick count
+  Interval: Ticking interval
+</pre>
+<p>Calculation:</p>
+<pre class="language-text">After getting pulse on input, propagates true value on the output for the Delay period then propagates false.
+</pre>
+<h2 id="iii--4--12-other-components">III / 4 / 12. Other components </h2>
+<br>
+<h3 id="iii--4--12--1-integrator">III / 4 / 12 / 1. Integrator </h3>
+<p>Selector image:</p>
+<img src="images/docs/int.png" alt="Integrator" width="50px;">
+<pre class="language-text">Summary:
+This component takes data from other logic component(s) and after calculations provides it to another component(s).
+It updates its' output when the input value is changed.
+
+Inputs:   Data of connected component, Reset (sets output to 0)
+Output:   Calculated data
+Settings:
+  Reset Delay:  Delay after reset
+  Interval:     Ticking interval
+  Factor:       Multiplier of calculation
+  Init value:   Calcualtion initial value
+</pre>
+<p>Calculation:</p>
+<pre class="language-text">Propagates the value of the following calculation to the output on every ticks:
+  value = ((current + previous) / 2) * Factor 
+</pre>
+<h3 id="iii--4--12--2-boolean-delay">III / 4 / 12 / 2. Boolean delay </h3>
+<p>Selector image:</p>
+<img src="images/docs/delay1.png" alt="Boolean delay" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic component and if the input value is true starts a timer with the delay value and
+after timer stops propagates true value on the output if the input data value still true.
+If in meantime the input value changes to false the timer stops and propagates false value to the output.
+
+Input:   Data of connected component
+Output:  Delayed data value
+Settings:
+  Delay:    Interval
+</pre>
+<h3 id="iii--4--12--3-switch-block">III / 4 / 12 / 3. Switch block </h3>
+<p>Selector image:</p>
+<img src="images/docs/swb.png" alt="Switch block" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic component and depending on selector value provides the input value to the selected output.
+Provides "No data" value to all other outputs.
+
+Inputs:   Data of connected component, Selector
+Outputs:  Data to connected component(s)
+Settings:
+  Outputs:  Count of outputs
+</pre>
+<h3 id="iii--4--12--4-storage">III / 4 / 12 / 4. Storage </h3>
+<p>Selector image:</p>
+<img src="images/docs/sto.png" alt="Storage" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value and stores into non-volitile memory from other logic component(s).
+The component duplicable which means all inputs and outputs connected to storage component with same Variable name accessing same memory variable.
+Initial value can be definded before any writing operation.
+It updates its' output when the input value is changed
+
+Input:    Data from connected component(s)
+Output:   Data to connected component(s)
+Settings:
+  Variable:   Name of the storage variable
+  Init Value: Inital data value
+</pre>
+<h3 id="iii--4--12--5-script">III / 4 / 12 / 5. Script </h3>
+<p>Selector image:</p>
+<img src="images/docs/scr.png" alt="Script" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component runs javascript code defined in the script block.
+The script can run in two modes:
+  One shot - Any input changes activates the process of the script
+  Loop - Continuous processing of the script
+
+Input(s):   Data from connected component(s)
+Output(s):  Data to connected component(s)
+Settings:
+  Mode:         Script running mode
+  Input count:  Number of input(s)
+  Output count: Number of output(s)
+</pre>
+<h3 id="iii--4--12--6-propagation">III / 4 / 12 / 6. Propagation </h3>
+<p>Selector image:</p>
+<img src="images/docs/pro.png" alt="Propagation" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic component.
+It updates its' output when Enable value or the input value is changed
+
+Input(s):   Enable, (Data value from connected component)
+Output:     Data to connected component
+Settings:
+  Delay:  Delay for propagation (optional)
+  Data:   If defined, data value to propagate otherwise the second input value used for the propagation.
+</pre>
+<h3 id="iii--4--12--7-pulse-counter">III / 4 / 12 / 7. Pulse counter </h3>
+<p>Selector image:</p>
+<img src="images/docs/pul.png" alt="Pulse counter" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic components.
+Counts pulses on Data input and propagates count value to output.
+It updates its' output when the input value or Reset value is changed.
+
+Input(s):   Data, Reset (set count = 0)
+Output:     Data to connected component
+Settings:   None
+</pre>
+<h3 id="iii--4--12--8-encoder">III / 4 / 12 / 8. Encoder </h3>
+<p>Selector image:</p>
+<img src="images/docs/enc.png" alt="Encoder" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic component.
+Splits input value into bits and propagates bit values to corresponding outputs. (bit0 -&gt; O1, bit1 -&gt; O2, ...)
+It updates its' output when the input value is changed.
+
+Input:      Data from connected component
+Outputs:    Data to connected components
+Settings:
+  Outputs:  Count of output connections
+</pre>
+<h3 id="iii--4--12--9-decoder">III / 4 / 12 / 9. Decoder </h3>
+<p>Selector image:</p>
+<img src="images/docs/dec.png" alt="Decoder" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic components.
+Joins input bits into numeric value and propagates to output.
+(I1 -&gt; bit0, I2 -&gt; bit1, ...)
+It updates its' output when the input(s) value is changed.
+
+Inputs:   Data from connected component(s)
+Output:   Data to connected component
+Settings:
+  Inputs:   Count of input connections
+</pre>
+<h3 id="iii--4--12--10-true-counter">III / 4 / 12 / 10. TRUE counter </h3>
+<p>Selector image:</p>
+<img src="images/docs/trc.png" alt="True counter" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component takes data value from other logic components.
+Counts inputs with true values and propagates count value to output.
+It updates its' output when the input(s) value is changed.
+
+Inputs:   Data from connected component(s)
+Output:   Data to connected component
+Settings:
+  Inputs:   Count of input connections
+</pre>
+<h3 id="iii--4--12--11-mute-state">III / 4 / 12 / 11. Mute State </h3>
+<p>Selector image:</p>
+<img src="images/docs/mus.png" alt="Mute state" width="50px;">
+<p>Description:</p>
+<pre class="language-text">Summary:
+This component propagates system's mute state value to output.
+It updates its' output when the mute state value is changed.
+
+Inputs:   None
+Output:   Data to connected component
+Settings: None
+</pre>
+<h3 id="iii--5-creating-or-modifying-the-logic">III / 5. Creating or modifying the logic </h3>
+<p>Creating new page:</p>
+<pre class="language-text">Push the "New Page" button of the logic page selector horizontal bar.
+It creates new empty logic page.
+</pre>
+<p>Deleting page:</p>
+<pre class="language-text">If the page content is empty it will be not exported to the logic definition file.
+When the file next time loaded the page will be not showed in the new layout.
+</pre>
+<p>Creating new component:</p>
+<pre class="language-text">Push the "Add" button of the bottom menu.
+It opens the component properties popup.
+Depending on the component the popup opens with different content.
+</pre>
+<p>Copying component(s):</p>
+<pre class="language-text">Select component(s) [with connection(s)] using left mouse button.
+Press "Ctrl+C" on the keyboard or use "Copy" button of the bottom menu.
+</pre>
+<p>Cuting component(s):</p>
+<pre class="language-text">Select component(s) [with connection(s)] using left mouse button.
+Press "Ctrl+X" on the keyboard or use "Cut" button of the bottom menu.
+After paste the original selection will be deleted.
+</pre>
+<p>Pasteing component(s):</p>
+<pre class="language-text">Press "Ctrl+V" on the keyboard or use "Paste" button of the bottom menu.
+The component(s) will appear with a small bottom-righ offset of copied component(s) original position.
+The paste works on different page as well.
+</pre>
+<p>Moving component(s):</p>
+<pre class="language-text">Drag component with left mouse button and drop to the expected position.
+It will redraw all connections related to the component so after they need to be re-adjusted to avoid caotic layout.
+</pre>
+<p>Deleting component:</p>
+<pre class="language-text">Click left mouse button on component.
+Press "Del" on the keyboard or use "Delete" button of the bottom menu.
+</pre>
+<p>Creating new connection:</p>
+<pre class="language-text">Hover the mouse on source components output pin.
+When the green circle appears click left mouse button and hold.
+Hover to destination components input pin and release the button.
+It makes connection between the pins.
+</pre>
+<p>Justifying &amp; deleting connection:</p>
+<pre class="language-text">Click left mouse button on connection line.
+To delete of the connection press "Del" on the keyboard or use "Delete" button of the bottom menu.
+Multiple selections are allowed.
+To justify of the connection is possible with dragging of the green squares along the connection path.
+</pre>
+<h3 id="iii--6-loading-existing-logic">III / 6. Loading existing logic </h3>
+<p>Pressing "Open" button in file menu opens the operating system's open file dialog. The default name for the logic definition is: "logic-export.json".</p>
+<h3 id="iii--7-saving-current-logic">III / 7. Saving current logic </h3>
+<p>Before saving the logic it's necessary to checking is there any unconnected pin left in the logic.<br><br>
+The check is possible with pressing "Check" button of file menu. The checking procedure result apears in a popup.<br><br>
+If no errors found, the "Save" button will be enabled in the file menu. Pressing "Save" button opens the operating system's save file dialog.<br><br>
+It can be saved anywhere with any name. To able import the logic into kratos it should be saved on a USB stick's root with name: "logic-export.json".</p>
+<h2 id="iv-the-modbus-definition-screen">IV. The MODBUS definition screen </h2>
+<p>The defined MODBUS components will be used in logic definitions and Posedion sensor widget to attach input or output for MODBUS communication.</p>
+<p><em>This screen consists of 5 definition areas:</em></p>
+<pre class="language-text">Device templates  Device definitions
+Device fields     Device field definitions
+</pre>
+<p><em>Each area has control menu at the bottom of the area (in order):</em></p>
+<pre class="language-text">Add             Creates new area definition
+Edit            Edits area definition
+Delete          Deletes area definition
+</pre>
+<h3 id="iv--1-creating-or-modifying-device-template-definitions">IV / 1. Creating or modifying device template definitions </h3>
+<p>Creating new device template:</p>
+<pre class="language-text">Push the "Add" button of the bottom menu.
+It opens device template setup popup with editable parameters.
+Push the "Save" button at the bottom of popup to create new device template with the given parameters.
+</pre>
+<p>Editing device template:</p>
+<pre class="language-text">Push the "Edit" button of the bottom menu.
+It opens device template setup popup with editable parameters.
+Push the "Save" button at the bottom of popup to modify new device template with the given parameters.
+</pre>
+<p>Deleting device template:</p>
+<pre class="language-text">Push the "Delete" button of the bottom menu.
+It opens a confirmation popup.
+Push the "Yes" button at the bottom of popup to delete device template.
+</pre>
+<h3 id="iv--2-creating-or-modifying-device-field-definitions">IV / 2. Creating or modifying device field definitions </h3>
+<p>Creating new device field:</p>
+<pre class="language-text">Push the "Add" button of the bottom menu.
+It opens device field setup popup with editable parameters.
+Push the "Save" button at the bottom of popup to create new device field with the given parameters.
+</pre>
+<p>Editing device field:</p>
+<pre class="language-text">Push the "Edit" button of the bottom menu.
+It opens device field setup popup with editable parameters.
+Push the "Save" button at the bottom of popup to modify new device field with the given parameters.
+</pre>
+<p>Deleting device field:</p>
+<pre class="language-text">Push the "Delete" button of the bottom menu.
+It opens a confirmation popup.
+Push the "Yes" button at the bottom of popup to delete device field.
+</pre>
+</div>
+</body>
+</html>

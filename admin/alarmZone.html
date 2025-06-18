@@ -1,0 +1,75 @@
+<!-- ALARM ZONE SETUP -->
+<div id="alarm-zone" class="settings hidden">
+  <div id="alarm-zone-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Alarm zone setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Zone</div>
+          <div class="s-right">{{alarmZone.current.zone}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Title</div>
+          <div class="s-right full"><input id="title" type="text" ng-minlength="1" ng-maxlength="30"
+              ng-model="alarmZone.current.title" required ng-trim="true" ng-virtual-keyboard>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="a-zone-wrapper">
+            <div class="a-zone-content">
+              <div class="header">Sounders</div>
+              <div class="content">
+                <div class="a-alarm-table">
+                  <table class="a-table">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th class="center">Bus</th>
+                        <th class="center">Instance</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="s in alarmZone.current.sounders" ng-click="sounder.current = cloneObject(s)"
+                        ng-class="{'selected': (sounder.current.busNumber == s.busNumber) && (sounder.current.instance == s.instance)}">
+                        <td>{{s.title}}</td>
+                        <td class="center">{{s.busNumber}}</td>
+                        <td class="center">{{s.instance}}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="footer" ng-if="rights.can_admin_alarm && !edit_mode">
+                <div class="tooltip">
+                  <span class="tooltiptext4">Add sounder</span>
+                <div class="logic-icon clickable" ng-click="addSounder()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+                </div>
+                <div class="tooltip" ng-if="sounder.current != null">
+                  <span class="tooltiptext4">Edit sounder</span>
+                  <div class="logic-icon clickable" ng-click="editSounder()" ng-include="'images/menuicons/edit.svg'"></div>
+                </div>
+                <div class="tooltip" ng-if="sounder.current != null">
+                  <span class="tooltiptext4">Delete sounder</span>
+                  <div class="logic-icon clickable" ng-click="deleteSounder()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BUTTONS SECTION -->
+    <div class="buttons">
+      <button class="f-button" ng-click="cancelAlarmZone()">Cancel</button>
+      <button class="f-button" ng-click="saveAlarmZone()">Save</button>
+    </div>
+  </div>
+</div>

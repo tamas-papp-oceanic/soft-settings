@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="Layer_1" version="1.1" x="0" y="0" viewBox="0 0 50 50" xml:space="preserve" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;">
+      <path d="M 0.99944369,1.0027913 3.0746887,3.8824672 c 0,0 5.9144489,8.3990528 5.9144489,21.1176178 0,12.718568 -5.9144489,21.117619 -5.9144489,21.117619 L 0.99944369,48.99738" />
+   </g>
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:butt;stroke-linejoin:mittre;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;">
+      <path d="M 0,12.5 H 7" />
+      <path d="M 0,37.5 H 7" />
+      <path d="M 4.9613234,0.99915285 7.0551677,3.8792546 c 0,0 5.9676193,8.4002954 5.9676193,21.1207464 0,12.72045 -5.9676193,21.120746 -5.9676193,21.120746 L 4.9613234,49.000846 H 22.131329 c 2.512677,0 5.96762,0 12.144654,-2.880099 6.177035,-2.880103 8.899022,-8.760309 14.343205,-20.280718 l 0.314125,-0.840028 -0.314125,-0.840029 C 37.835633,1.2391616 27.051972,0.99915285 22.131329,0.99915285 Z" />
+   </g>
+</svg>

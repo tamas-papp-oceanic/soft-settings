@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="Layer_1" version="1.1" x="0" y="0" viewBox="0 0 50 50" xml:space="preserve" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5">
+      <path d="M 0,12.5 H 8" />
+      <path d="M 0,37.5 H 8" />
+   </g>
+   <g style="fill:none;stroke:#6482b9;stroke-width:2;stroke-linecap:butt;stroke-linejoin:mittre;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;">
+      <path d="M 1.9629021,0.99894374 4.0597298,3.8790703 c 0,0 5.9759592,8.4003707 5.9759592,21.1209297 0,12.720561 -5.9759592,21.120931 -5.9759592,21.120931 L 1.9629021,49.001057 H 15.801967 c 2.516192,0 8.072787,0 14.258426,-2.880126 6.185643,-2.880125 13.105173,-8.760387 18.556926,-20.280893 l 0.314523,-0.720032 -0.314523,-0.960042 C 37.818657,1.2389544 20.72951,0.99894374 15.801967,0.99894374 Z" />
+   </g>
+</svg>

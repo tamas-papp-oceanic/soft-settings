@@ -1,0 +1,66 @@
+<div>Please select a page below</div>
+<div class="logic-wrapper">
+  <div class="header a-setup-tabs">
+    <div class="a-tab-tab" ng-repeat="t in logicPages track by $index">
+      <input type="radio" id="tab-{{$index}}" name="tab-group-1" ng-click="logicPageChange($index)" ng-checked="logicPage == $index">
+      <label for="tab-{{$index}}">Page {{$index+1}}</label>
+      <!-- <div class="a-tab-content"></div> -->
+    </div>
+    <div class="a-tab-tab">
+      <input type="radio" id="tab-{{logicPages.length}}" name="tab-group-1" ng-click="logicPageAdd()">
+      <label for="tab-{{logicPages.length}}">New Page</label>
+      <!-- <div class="a-tab-content"></div> -->
+    </div>
+  </div>
+  <div id="logicContainer" class="logic-container"></div>
+  <div class="footer">
+    <div class="tooltip" ng-show="angular.isNumeric(graph.view.scale)" style="padding-right: 0.25vw;">
+      {{'Zoom: '+Math.round(graph.view.scale * 100)+'%'}}
+    </div>
+    <div class="tooltip">
+      <span class="tooltiptext4">Zoom In</span>
+      <div class="logic-icon clickable" ng-click="zoomIn()" ng-include="'images/menuicons/search-plus.svg'"></div>
+    </div>
+    <div class="tooltip">
+      <span class="tooltiptext4">Zoom 100%</span>
+      <div class="logic-icon clickable" ng-click="zoom100()" ng-include="'images/menuicons/search-100.svg'"></div>
+    </div>
+    <div class="tooltip">
+      <span class="tooltiptext4">Zoom Out</span>
+      <div class="logic-icon clickable" ng-click="zoomOut()" ng-include="'images/menuicons/search-minus.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic">
+      <span class="tooltiptext4">Undo</span>
+      <div class="logic-icon clickable" ng-click="undoLogics()" ng-include="'images/menuicons/undo.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic">
+      <span class="tooltiptext4">Redo</span>
+      <div class="logic-icon clickable" ng-click="redoLogics()" ng-include="'images/menuicons/redo.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic">
+      <span class="tooltiptext4">Add</span>
+      <div class="logic-icon clickable" ng-click="addComponent()" ng-include="'images/menuicons/plus-circle.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic && logicComponent.can_edit">
+      <span class="tooltiptext4">Edit</span>
+      <div class="logic-icon clickable" ng-click="editComponent()" ng-include="'images/menuicons/edit.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic && !graph.isSelectionEmpty()">
+      <span class="tooltiptext4">Delete</span>
+      <div class="logic-icon clickable" ng-click="deleteComponent()" ng-include="'images/menuicons/minus-circle.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic && !graph.isSelectionEmpty()">
+      <span class="tooltiptext4">Copy</span>
+      <div class="logic-icon clickable" ng-click="copyComponent()" ng-include="'images/menuicons/copy.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic && !graph.isSelectionEmpty()">
+      <span class="tooltiptext4">Cut</span>
+      <div class="logic-icon clickable" ng-click="cutComponent()" ng-include="'images/menuicons/cut.svg'"></div>
+    </div>
+    <div class="tooltip" ng-if="rights.can_admin_logic && (logicClipboard != null)">
+      <span class="tooltiptext4">Paste</span>
+      <div class="logic-icon clickable" ng-click="pasteComponent()" ng-include="'images/menuicons/paste.svg'"></div>
+    </div>
+  </div>
+  <div id="logicProperties" ng-if="rights.can_admin_logic && logicComponent.edit_mode" ng-include="'admin/component.html'"></div>
+</div>

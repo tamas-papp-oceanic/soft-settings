@@ -1,0 +1,85 @@
+<!-- DEVICE FIELD SETUP -->
+<div id="field-data" class="settings hidden">
+  <div id="field-data-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Device field setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Field</div>
+          <div class="s-right">{{field.current.field}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Description</div>
+          <div class="s-right full">
+            <input id="field-title" type="text" ng-minlength="1" ng-maxlength="50" ng-model="field.current.description" required
+              ng-trim="true" ng-virtual-keyboard>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Register type</div>
+          <div class="s-right half">
+            <select id="field-rtype" ng-model="field.current.rtype" ng-change="rtypeChange()">
+              <option value="">-- Select register type --</option>
+              <option ng-repeat="r in rtypes" value="{{r.rtype}}">{{r.title}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Address</div>
+          <div class="s-right">
+            <input id="field-address" type="number" ng-minlength="1" ng-maxlength="5" ng-model="field.current.address" required
+              ng-trim="true" ng-virtual-keyboard="numKeypad" />
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="(field.current.rtype == '2') || (field.current.rtype == '3')">
+          <div class="s-left">Offset</div>
+          <div class="s-right">
+            <input id="field-offset" type="number" ng-minlength="1" ng-maxlength="5" ng-model="field.current.offset" required
+              ng-trim="true" ng-virtual-keyboard="numKeypad" />
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="(field.current.rtype == '2') || (field.current.rtype == '3')">
+          <div class="s-left">Gain</div>
+          <div class="s-right">
+            <input id="field-gain" type="number" ng-minlength="1" ng-maxlength="5" ng-model="field.current.gain" required
+              ng-trim="true" ng-virtual-keyboard="numKeypad" />
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Update rate (s)</div>
+          <div class="s-right">
+            <input id="field-rate" type="number" ng-minlength="1" ng-maxlength="5" ng-model="field.current.rate" required
+              ng-trim="true" ng-virtual-keyboard="numKeypad" />
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="(field.current.rtype == '2') || (field.current.rtype == '3')">
+          <div class="s-left">Data type</div>
+          <div class="s-right half">
+            <select id="field-dtype" ng-model="field.current.dtype">
+              <option value="">-- Select data type --</option>
+              <option ng-repeat="d in dtypes" value="{{d}}">{{d}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item" ng-if="(field.current.rtype == '2') || (field.current.rtype == '3')">
+          <div class="s-left">Unit</div>
+          <div class="s-right">
+            <input id="field-unit" type="text" ng-minlength="1" ng-maxlength="5" ng-model="field.current.unit" required
+              ng-trim="true" ng-virtual-keyboard>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BUTTONS SECTION -->
+    <div class="buttons">
+      <button class="f-button" ng-click="cancelField()">Cancel</button>
+      <button class="f-button" ng-click="saveField()">Save</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,204 @@
+[{
+  "group": 1,
+  "title": "Check Engine",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/1"
+},{
+  "group": 1,
+  "title": "Over Temperature",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/2"
+},{
+  "group": 1,
+  "title": "Low Oil Pressure",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/3"
+},{
+  "group": 1,
+  "title": "Low Oil Level",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/4"
+},{
+  "group": 1,
+  "title": "Low Fuel Pressure",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/5"
+},{
+  "group": 1,
+  "title": "Low System Voltage",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/6"
+},{
+  "group": 1,
+  "title": "Low Coolant Level",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/7"
+},{
+  "group": 1,
+  "title": "Water Flow",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/8"
+},{
+  "group": 1,
+  "title": "Water in Fuel",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/9"
+},{
+  "group": 1,
+  "title": "Charge Indicator",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/10"
+},{
+  "group": 1,
+  "title": "Preheat Indicator",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/11"
+},{
+  "group": 1,
+  "title": "High Boost Pressure",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/12"
+},{
+  "group": 1,
+  "title": "Rev Limit Exceeded",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/13"
+},{
+  "group": 1,
+  "title": "EGR System",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/14"
+},{
+  "group": 1,
+  "title": "Throttle Position Sensor",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/15"
+},{
+  "group": 1,
+  "title": "Engine Emergency Stop Mode",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/11/16"
+},{
+  "group": 1,
+  "title": "Warning Level 1",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/1"
+},{
+  "group": 1,
+  "title": "Warning Level 2",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/2"
+},{
+  "group": 1,
+  "title": "Power Reduction",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/3"
+},{
+  "group": 1,
+  "title": "Maintenance Needed",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/4"
+},{
+  "group": 1,
+  "title": "Engine Comm Error",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/5"
+},{
+  "group": 1,
+  "title": "Sub or Secondary Throttle",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/6"
+},{
+  "group": 1,
+  "title": "Neutral Start Protect",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/7"
+},{
+  "group": 1,
+  "title": "Engine Shutting Down",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127489/-/{instance}/12/8"
+},{
+  "group": 2,
+  "title": "Check Transmission",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127493/-/{instance}/6/1"
+},{
+  "group": 2,
+  "title": "Over Temperature",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127493/-/{instance}/6/2"
+},{
+  "group": 2,
+  "title": "Low Oil Pressure",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127493/-/{instance}/6/3"
+},{
+  "group": 2,
+  "title": "Low Oil Level",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127493/-/{instance}/6/4"
+},{
+  "group": 2,
+  "title": "Sail Drive",
+  "unmutable": false,
+  "delayOn": 0,
+  "delayOf": 0,
+  "route": "discrete/nmea2000/{busNumber}/127493/-/{instance}/6/5"
+}]

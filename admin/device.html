@@ -1,0 +1,50 @@
+<!-- DEVICE SETUP -->
+<div id="device-data" class="settings hidden">
+  <div id="device-data-box" class="settings-box" draggable="true">
+    <!-- HEAD SECTION -->
+    <div class="s-head">
+      <div class="s-head-item">
+        <span>Device template setup</span>
+      </div>
+    </div>
+    <!-- BODY SECTION -->
+    <div class="s-menu">
+      <div class="s-menu-block">
+        <div class="s-block-item">
+          <div class="s-left">Device ID</div>
+          <div class="s-right">{{device.current.id}}</div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Description</div>
+          <div class="s-right full">
+            <input id="device-title" type="text" ng-minlength="1" ng-maxlength="50"
+              ng-model="device.current.description" required ng-virtual-keyboard>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Endianness</div>
+          <div class="s-right">
+            <select id="device-endian" ng-model="device.current.endian">
+              <option value="">-- Select endianness --</option>
+              <option ng-repeat="e in endians" value="{{e.endian}}">{{e.title}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Word order</div>
+          <div class="s-right">
+            <select id="device-worder" ng-model="device.current.worder">
+              <option value="">-- Select word order --</option>
+              <option ng-repeat="w in worders" value="{{w.worder}}">{{w.title}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- BUTTONS SECTION -->
+      <div class="buttons">
+        <button class="f-button" ng-click="cancelDevice()">Cancel</button>
+        <button class="f-button" ng-click="saveDevice()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
