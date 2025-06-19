@@ -1,8 +1,20 @@
 'use strict';
 
-angular.module('myApp.admin', ['ngRoute', 'ng-virtual-keyboard']);
-angular.module('myApp.admin').config(AdminConfig);
-angular.module('myApp.admin').controller('AdminMainCtrl', AdminCtrl);
+angular.module('myApp.admin', ['ngRoute', 'ng-virtual-keyboard'])
+	.config(AdminConfig)
+	.controller('AdminMainCtrl', AdminCtrl)
+	.directive('iframeLoad', [function() {
+		return {
+			link: function(scope, elem, attrs) {
+				elem[0].onload = function(e) {
+					console.log("ONLOAD", this.contentWindow.document);
+				}
+			},
+			controller: function($scope, $sce) {
+				$scope.url.trusted = $sce.trustAsResourceUrl($scope.url.current);
+			}
+		}
+	}]);
 
 function AdminConfig($routeProvider) {
 	$routeProvider.when('/admin', {
@@ -5268,13 +5280,11 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 
 	$scope.setUrl = (url) => {
 		$scope.url.current = url;
-		$scope.url.trusted = $sce.trustAsResourceUrl(url);
 	};
 
 	$scope.addUrl = () => {
 		$scope.url.old = $scope.url.current;
 		$scope.url.current = null;
-		$scope.url.trusted = null;
 		$('#url-data-box').draggable();
 		$('#url-data').removeClass('hidden');
 		$timeout(() => {
@@ -5326,7 +5336,6 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	$scope.cancelUrl = () => {
 		if ($scope.url.action == "add") {
 			$scope.url.current = $scope.url.old;
-			$scope.url.trusted = $sce.trustAsResourceUrl($scope.url.old);
 		}
 		$scope.finishUrl();
 	};
@@ -5340,8 +5349,11 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		if (idx != null) {
 			$rootScope.urls.splice(idx, 1);
 			$scope.url.current = null;
-			$scope.url.trusted = null;
 		}
+	};
+
+	$scope.loadUrl = (e) => {
+console.log(e);
 	};
 
 	$scope.interface = {

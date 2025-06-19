@@ -928,7 +928,8 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
     'float32', 'int64', 'uint64', 'float64',
   );
   // URLs
-  $rootScope.urls = new Array();
+  // $rootScope.urls = new Array();
+  $rootScope.urls = new Array('http://localhost/', 'http://localhost:5000/');
 	// SETTINGS
 	$rootScope.settings = {
 		alarm_export: true,

@@ -45,23 +45,7 @@
         <div class="a-defi-content group" style="flex: 1 1 auto">
           <div class="header">Preview</div>
           <div class="content" ng-if="(url.action == null) && (url.current != null)">
-            <iframe id="url-content" width="100%" height="100%" src="{{url.trusted}}" title="Preview window" frameborder="0">
-							<script>
-								// Selecting the iframe element
-								var frame = document.getElementById("url-content");
-								// Adjusting the iframe height onload event
-								frame.onload = function() {
-
-	console.log("ONLOAD")
-
-									// set the height of the iframe as 
-									// the height of the iframe content
-									frame.style.height = frame.contentWindow.document.body.scrollHeight + 'px';
-									// set the width of the iframe as the 
-									// width of the iframe content
-									frame.style.width  = frame.contentWindow.document.body.scrollWidth + 'px';
-								}
-							</script>
+            <iframe id="url-content" width="100%" height="100%" sandbox="allow-same-origin allow-scripts" ng-src="{{url.trusted}}" ng-load="loadUrl()" title="Preview window" frameborder="0" iframe-load>
 						</iframe>
           </div>
           <div class="footer" ng-if="(url.action == null) && (url.current != null)">
