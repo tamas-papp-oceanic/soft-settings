@@ -51,7 +51,12 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
 //       $anchorScroll(loc);
 //     }
 //   });
-
+	// Screen parameters
+	$rootScope.screen = {
+		width: window.screen.width,
+		height: window.screen.height,
+		ratio: window.screen.width / window.screen.height,
+	};
 	// Access level
 	$rootScope.levels = {
 		'user': 0,

@@ -11,7 +11,7 @@ function AdminConfig($routeProvider) {
 	});
 };
 
-function AdminCtrl($rootScope, $scope, $timeout, $interval) {
+function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	// CONTEXT MENU
 	window.oncontextmenu = (event) => {
 		if ($rootScope.prodMode) {
@@ -5245,12 +5245,13 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval) {
 	$scope.url = {
 		action: null,
 		current: null,
+		trusted: null,
 		old: null,
 	}
 
 	$scope.findUrl = (url) => {
 		for (var i in $rootScope.urls) {
-			if ($rootScope.urls[i].id == url) {
+			if ($rootScope.urls[i] == url) {
 				return i;
 			}
 		}
@@ -5265,13 +5266,19 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval) {
 		return null;
 	};
 
+	$scope.setUrl = (url) => {
+		$scope.url.current = url;
+		$scope.url.trusted = $sce.trustAsResourceUrl(url);
+	};
+
 	$scope.addUrl = () => {
 		$scope.url.old = $scope.url.current;
-		$scope.url.current = "";
+		$scope.url.current = null;
+		$scope.url.trusted = null;
 		$('#url-data-box').draggable();
 		$('#url-data').removeClass('hidden');
 		$timeout(() => {
-			$('#url-title').trigger("focus");
+			$('#url-template').trigger("focus");
 		}, 500);
 		$timeout(() => {
 			$scope.url.action = "add";
@@ -5283,7 +5290,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval) {
 		$('#url-data-box').draggable();
 		$('#url-data').removeClass('hidden');
 		$timeout(() => {
-			$('#url-title').trigger("focus");
+			$('#url-template').trigger("focus");
 		}, 500);
 		$timeout(() => {
 			$scope.url.action = "edit";
@@ -5319,6 +5326,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval) {
 	$scope.cancelUrl = () => {
 		if ($scope.url.action == "add") {
 			$scope.url.current = $scope.url.old;
+			$scope.url.trusted = $sce.trustAsResourceUrl($scope.url.old);
 		}
 		$scope.finishUrl();
 	};
@@ -5332,6 +5340,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval) {
 		if (idx != null) {
 			$rootScope.urls.splice(idx, 1);
 			$scope.url.current = null;
+			$scope.url.trusted = null;
 		}
 	};
 

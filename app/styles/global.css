@@ -953,6 +953,12 @@ input[type="file"] {
 .wiki-container table th {
   border-bottom: 1px solid;
 }
+.wiki-container a:link {
+  color: #00EDFF;
+}
+.wiki-container a:hover {
+  color: #7f7f7f;
+}
 .ui-keyboard {
   text-align: center;
   padding: .3em;

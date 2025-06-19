@@ -15,9 +15,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="u in urls" ng-click="url.current = u"
-                    ng-class="{'selected': url.current.id == u.id}">
-                    <td>{{u.url}}</td>
+                  <tr ng-repeat="u in urls" ng-click="setUrl(u)" ng-class="{'selected': url.current == u}">
+                    <td>{{u}}</td>
                     <td>&nbsp;</td>
                   </tr>
                 </tbody>
@@ -46,8 +45,27 @@
         <div class="a-defi-content group" style="flex: 1 1 auto">
           <div class="header">Preview</div>
           <div class="content" ng-if="(url.action == null) && (url.current != null)">
-            <iframe width="100%" height="100%" ng-src="url.current" title="Preview window" frameborder="0" allowfullscreen></iframe>
+            <iframe id="url-content" width="100%" height="100%" src="{{url.trusted}}" title="Preview window" frameborder="0">
+							<script>
+								// Selecting the iframe element
+								var frame = document.getElementById("url-content");
+								// Adjusting the iframe height onload event
+								frame.onload = function() {
+
+	console.log("ONLOAD")
+
+									// set the height of the iframe as 
+									// the height of the iframe content
+									frame.style.height = frame.contentWindow.document.body.scrollHeight + 'px';
+									// set the width of the iframe as the 
+									// width of the iframe content
+									frame.style.width  = frame.contentWindow.document.body.scrollWidth + 'px';
+								}
+							</script>
+						</iframe>
           </div>
+          <div class="footer" ng-if="(url.action == null) && (url.current != null)">
+					</div>
         </div>
       </div>
     </div>
