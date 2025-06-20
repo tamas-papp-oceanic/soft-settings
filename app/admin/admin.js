@@ -3,17 +3,15 @@
 angular.module('myApp.admin', ['ngRoute', 'ng-virtual-keyboard'])
 	.config(AdminConfig)
 	.controller('AdminMainCtrl', AdminCtrl)
-	.directive('iframeLoad', [function() {
+	.directive('iframeLoad', ['$rootScope', function($rootScope) {
 		return {
 			link: function(scope, elem, attrs) {
 				elem[0].onload = function(e) {
-					console.log("ONLOAD", this.contentWindow.document);
+					let wid = $(elem[0]).width();
+					$(elem[0]).css('height', (wid / $rootScope.screen.ratio) + 'px');
 				}
 			},
-			controller: function($scope, $sce) {
-				$scope.url.trusted = $sce.trustAsResourceUrl($scope.url.current);
-			}
-		}
+		};
 	}]);
 
 function AdminConfig($routeProvider) {
@@ -5279,7 +5277,10 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	};
 
 	$scope.setUrl = (url) => {
-		$scope.url.current = url;
+		$timeout(() => {
+			$scope.url.current = url;
+			$scope.url.trusted = $sce.trustAsResourceUrl(url);
+		});
 	};
 
 	$scope.addUrl = () => {
@@ -5350,10 +5351,6 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 			$rootScope.urls.splice(idx, 1);
 			$scope.url.current = null;
 		}
-	};
-
-	$scope.loadUrl = (e) => {
-console.log(e);
 	};
 
 	$scope.interface = {
