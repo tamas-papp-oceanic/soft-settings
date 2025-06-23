@@ -1081,3 +1081,9 @@ div[data-ui-keyboard-layout='custom'] .ui-keyboard-cancel { width: 2.25em !impor
   opacity: 1;
   transition: opacity 1s;
 }
+.url-content {
+	width: 200%;
+	height: 200%;
+	transform: scale(0.5);
+	transform-origin: 0 0;
+}

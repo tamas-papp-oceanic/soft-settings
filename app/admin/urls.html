@@ -1,7 +1,7 @@
 <!-- URLS COMMON -->
 <div class="logic-wrapper">
   <div class="a-tab-content">
-    <div style="flex: 0 0 30vw">
+    <div style="flex: 0 0 40vw; max-height: 93vh;">
       <div class="a-defi-wrapper">
         <div class="a-defi-content group">
           <div class="header">URL definitions</div>
@@ -45,7 +45,7 @@
         <div class="a-defi-content group" style="flex: 1 1 auto">
           <div class="header">Preview</div>
           <div class="content" ng-if="(url.action == null) && (url.current != null)">
-            <iframe id="url-content" style="width: 100%; height: 100%" src="{{url.trusted}}" title="Preview window" frameborder="0" iframe-load>
+						<iframe class="url-content" src="{{url.trusted}}" title="Preview window" frameborder="0" iframe-load>
 						</iframe>
           </div>
           <div class="footer" ng-if="(url.action == null) && (url.current != null)">

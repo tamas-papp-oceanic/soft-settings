@@ -3,12 +3,12 @@
 angular.module('myApp.admin', ['ngRoute', 'ng-virtual-keyboard'])
 	.config(AdminConfig)
 	.controller('AdminMainCtrl', AdminCtrl)
-	.directive('iframeLoad', ['$rootScope', function($rootScope) {
+	.directive('iframeLoad', [function() {
 		return {
 			link: function(scope, elem, attrs) {
 				elem[0].onload = function(e) {
 					let wid = $(elem[0]).width();
-					$(elem[0]).css('height', (wid / $rootScope.screen.ratio) + 'px');
+					$(elem[0]).css('height', (wid / 1920 * 1200) + 'px');
 				}
 			},
 		};
