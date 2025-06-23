@@ -18,7 +18,7 @@
           <div class="s-left">URL</div>
           <div class="s-right full">
             <input id="iface-url" type="text" ng-minlength="1" ng-maxlength="50" ng-model="interface.current.url" required
-              ng-change="urlChange()" ng-trim="true" ng-virtual-keyboard>
+              ng-change="ifaUrlChange()" ng-trim="true" ng-virtual-keyboard>
           </div>
         </div>
         <div class="s-block-item" ng-if="interface.current.url.startsWith('rtu://')">

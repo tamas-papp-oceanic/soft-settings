@@ -11,10 +11,35 @@
     <div class="s-menu">
       <div class="s-menu-block">
         <div class="s-block-item">
+          <div class="s-left">Title</div>
+          <div class="s-right full">
+            <input id="url-title" type="text" ng-minlength="1" ng-maxlength="50"
+              ng-model="url.current.title" required ng-virtual-keyboard>
+          </div>
+        </div>
+        <div class="s-block-item">
           <div class="s-left">URL</div>
           <div class="s-right full">
-            <input id="url-template" type="text" ng-minlength="1" ng-maxlength="50"
-              ng-model="url.current" required ng-virtual-keyboard>
+            <input id="url-url" type="text" ng-minlength="1" ng-maxlength="50"
+              ng-model="url.current.url" required ng-virtual-keyboard>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Default</div>
+          <div class="s-right">
+            <div class="checkbox">
+              <input id="url-default" type="checkbox" ng-model="url.current.default" ng-true-value="true" ng-false-value="false" />
+              <label for="url-default"></label>
+            </div>
+          </div>
+        </div>
+        <div class="s-block-item">
+          <div class="s-left">Direct</div>
+          <div class="s-right">
+            <div class="checkbox">
+              <input id="url-direct" type="checkbox" ng-model="url.current.direct" ng-true-value="true" ng-false-value="false" />
+              <label for="url-direct"></label>
+            </div>
           </div>
         </div>
       </div>

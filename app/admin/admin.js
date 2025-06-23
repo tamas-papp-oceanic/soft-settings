@@ -5259,19 +5259,19 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		old: null,
 	}
 
-	$scope.findUrl = (url) => {
+	$scope.nextUrl = () => {
+		let arr = new Array();
 		for (var i in $rootScope.urls) {
-			if ($rootScope.urls[i] == url) {
-				return i;
-			}
+			arr.push($rootScope.urls[i].id);
 		}
-		return null;
+		return $scope.getNextValue(arr);
 	};
 
-	$scope.getUrl = (url) => {
-		let idx = $scope.findUrl(url);
-		if (idx != null) {
-			return $rootScope.urls[idx];
+	$scope.findUrl = (url) => {
+		for (var i in $rootScope.urls) {
+			if ($rootScope.urls[i].id == url.id) {
+				return i;
+			}
 		}
 		return null;
 	};
@@ -5279,17 +5279,25 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	$scope.setUrl = (url) => {
 		$timeout(() => {
 			$scope.url.current = url;
-			$scope.url.trusted = $sce.trustAsResourceUrl(url);
+			$scope.url.trusted = $sce.trustAsResourceUrl(url.url);
 		});
 	};
 
 	$scope.addUrl = () => {
-		$scope.url.old = $scope.url.current;
-		$scope.url.current = null;
+		$scope.url.trusted = null;
+		$scope.url.old = $scope.cloneObject($scope.url.current);
+		let url = $scope.nextUrl();
+		$scope.url.current = {
+			"id": url,
+			"title": "New URL",
+			"url": "http://localhost/",
+			"default": false,
+			"direct": false,
+		};
 		$('#url-data-box').draggable();
 		$('#url-data').removeClass('hidden');
 		$timeout(() => {
-			$('#url-template').trigger("focus");
+			$('#url-title').trigger("focus");
 		}, 500);
 		$timeout(() => {
 			$scope.url.action = "add";
@@ -5297,11 +5305,11 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	};
 
 	$scope.editUrl = () => {
-		$scope.url.old = $scope.url.current;
+		$scope.url.old = $scope.cloneObject($scope.url.current);
 		$('#url-data-box').draggable();
 		$('#url-data').removeClass('hidden');
 		$timeout(() => {
-			$('#url-template').trigger("focus");
+			$('#url-title').trigger("focus");
 		}, 500);
 		$timeout(() => {
 			$scope.url.action = "edit";
@@ -5310,7 +5318,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 
 	$scope.saveUrl = () => {
 		let e = false;
-		if (($scope.url.current == null) || ($scope.url.current.length == 0)) {
+		if (($scope.url.current == null) || ($scope.url.current.url.length == 0)) {
 			e = true;
 			$scope.errorShow(['URL cannot be empty!'], ['f-wrapper', '.url-box']);
 		}
@@ -5327,6 +5335,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	};
 
 	$scope.finishUrl = () => {
+		$scope.setUrl($scope.url.current);
 		$scope.url.old = null;
 		$('#url-data').addClass('hidden');
 		$timeout(() => {
@@ -5336,7 +5345,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 
 	$scope.cancelUrl = () => {
 		if ($scope.url.action == "add") {
-			$scope.url.current = $scope.url.old;
+			$scope.url.current = $scope.cloneObject($scope.url.old);
 		}
 		$scope.finishUrl();
 	};
@@ -5349,7 +5358,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		let idx = $scope.findUrl($scope.confirmParam[0]);
 		if (idx != null) {
 			$rootScope.urls.splice(idx, 1);
-			$scope.url.current = null;
+			$scope.setUrl(null);
 		}
 	};
 
@@ -5376,6 +5385,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		}
 		return null;
 	};
+
 	$scope.nextInterface = () => {
 		let arr = new Array();
 		for (var i in $rootScope.interfaces) {
@@ -5384,7 +5394,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		return $scope.getNextValue(arr);
 	};
 
-	$scope.urlChange = () => {
+	$scope.ifaUrlChange = () => {
 		if (
 			($scope.interface.current.url != null) &&
 			($scope.interface.current.url.startsWith("rtu://"))
@@ -5407,7 +5417,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		}
 	};
 
-	$scope.findUrl = (url) => {
+	$scope.findIfaUrl = (url) => {
 		for (var i in $rootScope.interfaces) {
 			if ($rootScope.interfaces[i].url == url) {
 				return i;
@@ -5464,7 +5474,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		} else if (
 			(($scope.interface.action == "add") || (
 				($scope.interface.action == "edit") && ($scope.interface.current.url != $scope.interface.old.url)
-			)) && ($scope.findUrl($scope.interface.current.url) != null)
+			)) && ($scope.findIfaUrl($scope.interface.current.url) != null)
 		) {
 			e = true;
 			$scope.errorShow(['URL already exists!'], ['f-wrapper', '.iface-box']);

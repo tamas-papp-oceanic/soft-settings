@@ -10,13 +10,19 @@
               <table class="a-table">
                 <thead>
                   <tr>
+                    <th>Title</th>
                     <th>URL</th>
+                    <th class="center">Default</th>
+                    <th class="center">Direct</th>
                     <th>&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="u in urls" ng-click="setUrl(u)" ng-class="{'selected': url.current == u}">
-                    <td>{{u}}</td>
+                  <tr ng-repeat="u in urls" ng-click="setUrl(u)" ng-class="{'selected': url.current.id == u.id}">
+                    <td>{{u.title}}</td>
+                    <td>{{u.url}}</td>
+                    <td class="center">{{u.default ? '&check;' : ''}}</td>
+                    <td class="center">{{u.direct ? '&check;' : ''}}</td>
                     <td>&nbsp;</td>
                   </tr>
                 </tbody>

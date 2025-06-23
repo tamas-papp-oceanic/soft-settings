@@ -929,7 +929,22 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
   );
   // URLs
   // $rootScope.urls = new Array();
-  $rootScope.urls = new Array('http://localhost/', 'http://localhost:5000/');
+  $rootScope.urls = new Array(
+		{
+			id: 1,
+			title: 'Localhost',
+			url: 'http://localhost/',
+			default: false,
+			direct: false,
+		},{
+			id: 2,
+			title: 'Poseidon P7',
+			url: 'http://localhost:5000/',
+			default: true,
+			direct: true,
+		},
+	);
+
 	// SETTINGS
 	$rootScope.settings = {
 		alarm_export: true,
