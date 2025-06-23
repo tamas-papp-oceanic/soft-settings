@@ -930,27 +930,22 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
   // URLs
   // $rootScope.urls = new Array();
   $rootScope.urls = new Array(
-		{
-			id: 1,
-			title: 'Localhost',
-			url: 'http://localhost/',
-			default: false,
-			direct: false,
-		},{
-			id: 2,
-			title: 'Poseidon P7',
-			url: 'http://localhost:5000/',
-			default: true,
-			direct: true,
-		},
+    {
+      id: 1,
+      title: 'Poseidon',
+      url: 'http://localhost/nike/',
+      default: true,
+      direct: false,
+    },
 	);
-
 	// SETTINGS
 	$rootScope.settings = {
 		alarm_export: true,
 		logic_export: true,
 		modbus_export: true,
 	}
+
+  $rootScope.apiUrl = 'http://localhost:9094';
 };
 
 function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
@@ -1712,4 +1707,108 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   $rootScope.informOk = () => {
     $rootScope.informHide();
   };
+
+  $rootScope.setUrl = (mod, idx) => {
+    let req = {
+      method: 'POST',
+      url: $rootScope.ApiUrl + '/api/extra_urls',
+      headers: {
+        'Content-Type': 'application/JSON'
+      },
+      data: { mode: mod, index: idx, urls: JSON.stringify($rootScope.urls) }
+    };
+    $http(req).then((res) => {
+
+console.log(res);
+      
+    }, (err) => {
+
+console.log(err);
+
+    });
+  };
+
+  $rootScope.postRequest = async (url, frm, rep) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + getToken(),
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: frm
+    });
+    if (res.status != 200) {
+      if (!rep) {
+        await authorize();
+        return await postRequest(url, frm, true);
+      }
+    }
+    try {
+      const dat = await res.json();
+      return dat;
+    } catch(err) {
+      return err;
+    }
+  };
+
+  $rootScope.sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  };
+
+  $rootScope.accessUrl = $rootScope.apiUrl + "/api/access" +
+    "?client_id=kratos" +
+    "&username=Superuser" +
+    "&password=0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c";
+
+  $rootScope.sendRequest = async () => {
+    try {
+      const res = await fetch($rootScope.accessUrl, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      });
+      return res;
+    } catch(err) {
+      return err;
+    }
+  };
+
+  // Authorize
+  $rootScope.authorize = async () => {
+    // setAuth(false);
+    // setToken("");
+    let retry = 0;
+    while (retry < 10) {
+      const srr = await sendRequest();
+      if ((srr instanceof Error) || (srr.status !== 200)) {
+        retry++;
+        await sleep(250);
+        continue;
+      }
+      if ((srr instanceof Error) || (srr.status !== 200)) {
+        retry++;
+        await sleep(250);
+        continue;
+      }
+      try {
+        const dat = await srr.json();
+        if (dat.hasOwnProperty("access_token")) {
+          setToken(dat.access_token);
+          setAuth(true);
+        }
+        return srr;
+      } catch(err) {
+        return err;
+      }
+    }
+    return Error("Authorize timed out!");
+  }
+
+
+
+
+
 };

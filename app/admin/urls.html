@@ -1,7 +1,7 @@
 <!-- URLS COMMON -->
 <div class="logic-wrapper">
   <div class="a-tab-content">
-    <div style="flex: 0 0 40vw; max-height: 93vh;">
+    <div style="flex: 0 0 30vw; max-height: 93vh;">
       <div class="a-defi-wrapper">
         <div class="a-defi-content group">
           <div class="header">URL definitions</div>
@@ -11,19 +11,22 @@
                 <thead>
                   <tr>
                     <th>Title</th>
-                    <th>URL</th>
-                    <th class="center">Default</th>
+                    <th class="full">URL</th>
                     <th class="center">Direct</th>
-                    <th>&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="u in urls" ng-click="setUrl(u)" ng-class="{'selected': url.current.id == u.id}">
+                  <tr ng-repeat="u in urls track by $index" ng-click="setUrl(u)" ng-class="{'selected': url.current.id == u.id}">
                     <td>{{u.title}}</td>
-                    <td>{{u.url}}</td>
-                    <td class="center">{{u.default ? '&check;' : ''}}</td>
-                    <td class="center">{{u.direct ? '&check;' : ''}}</td>
-                    <td>&nbsp;</td>
+                    <td class="full">{{u.url}}</td>
+                    <td class="center" ng-if="!u.default" ng-click="$event.stopPropagation()">
+                      <div class="checkbox" ng-if="!u.default">
+                        <input id="{{'url-direct' + $index}}" type="checkbox" ng-change="setDirect($index)" ng-model="urls[$index].direct" ng-true-value="true" ng-false-value="false" />
+                        <label for="{{'url-direct' + $index}}"></label>
+                      </div>
+                    </td>
+                    <td class="center" ng-if="u.default">
+                    </td>
                   </tr>
                 </tbody>
               </table>

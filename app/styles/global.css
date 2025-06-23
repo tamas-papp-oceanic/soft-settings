@@ -63,6 +63,9 @@ table th, table td {
 table th:last-child, table td:last-child {
   width: 100%;
 }
+table th.full, table td.full {
+  width: 100%;
+}
 ::-webkit-scrollbar {
 	width: 15px;
 }

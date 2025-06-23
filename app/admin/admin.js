@@ -5276,11 +5276,48 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		return null;
 	};
 
+	$scope.findDirect = () => {
+		for (var i in $rootScope.urls) {
+			if ($rootScope.urls[i].direct) {
+				return i;
+			}
+		}
+		return null;
+	};
+
+	$scope.findDefault = () => {
+		for (var i in $rootScope.urls) {
+			if ($rootScope.urls[i].default) {
+				return i;
+			}
+		}
+		return null;
+	};
+
 	$scope.setUrl = (url) => {
-		$timeout(() => {
-			$scope.url.current = url;
-			$scope.url.trusted = $sce.trustAsResourceUrl(url.url);
-		});
+		$scope.url.current = url;
+		$scope.url.trusted = $sce.trustAsResourceUrl(url.url);
+	};
+
+	$scope.clearDirect = (idx) => {
+		for (var i in $rootScope.urls) {
+			if ((i != idx) || (idx == null)) {
+				$rootScope.urls[i].direct = false;
+			}
+		}
+	};
+
+	$scope.setDirect = (idx) => {
+		$scope.clearDirect(idx);
+		let dir = $scope.findDirect();
+		if ( dir == null) {
+			let def = $scope.findDefault();
+			if (def != null) {
+				$rootScope.setUrl("default", def);
+			}
+		} else {
+			$rootScope.setUrl("direct", dir);
+		}
 	};
 
 	$scope.addUrl = () => {
@@ -5299,9 +5336,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		$timeout(() => {
 			$('#url-title').trigger("focus");
 		}, 500);
-		$timeout(() => {
-			$scope.url.action = "add";
-		});
+		$scope.url.action = "add";
 	};
 
 	$scope.editUrl = () => {
@@ -5311,9 +5346,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		$timeout(() => {
 			$('#url-title').trigger("focus");
 		}, 500);
-		$timeout(() => {
-			$scope.url.action = "edit";
-		});
+		$scope.url.action = "edit";
 	};
 
 	$scope.saveUrl = () => {
@@ -5330,6 +5363,15 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 				}
 			};
 			$rootScope.urls.push($scope.url.current);
+			$rootScope.urls.sort(function(a, b) {
+				if (a.id < b.id) {
+					return -1;
+				}
+				if (a.id > b.id) {
+					return 1;
+				}
+				return 0;
+			});
 			$scope.finishUrl();
 		}
 	};
@@ -5338,9 +5380,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		$scope.setUrl($scope.url.current);
 		$scope.url.old = null;
 		$('#url-data').addClass('hidden');
-		$timeout(() => {
-			$scope.url.action = null;
-		});
+		$scope.url.action = null;
 	};
 
 	$scope.cancelUrl = () => {
