@@ -32,7 +32,7 @@
           <div class="confirm-head">
             <div class="confirm-sign" ng-include="'images/menuicons/help.svg'"></div>
             <div class="confirm-icon clickable" ng-include="'images/menuicons/exit.svg'"
-            ng-mousedown="mouseDownHandler($event, confirmNo)" ng-touchstart="touchStartHandler($event, confirmNo)"></div>
+            	ng-mousedown="mouseDownHandler($event, confirmNo)" ng-touchstart="touchStartHandler($event, confirmNo)"></div>
           </div>
           <div class="confirm-body">
             <h3 ng-repeat="t in confirmText track by $index">{{t}}<br /></h3>
@@ -48,7 +48,7 @@
           <div class="error-head">
             <div class="error-sign" ng-include="'images/menuicons/warning.svg'"></div>
             <div class="error-icon clickable" ng-include="'images/menuicons/exit.svg'"
-            ng-mousedown="mouseDownHandler($event, errorOk)" ng-touchstart="touchStartHandler($event, errorOk)"></div>
+            	ng-mousedown="mouseDownHandler($event, errorOk)" ng-touchstart="touchStartHandler($event, errorOk)"></div>
           </div>
           <div class="error-body">
             <h3 ng-repeat="t in errorText track by $index">{{t}}<br /></h3>

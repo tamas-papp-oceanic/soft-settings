@@ -157,6 +157,9 @@ input[type=number]::-webkit-outer-spin-button {
 .a-menu .a-menu-item:hover {
   background-color: #2f2f2f;
 }
+.a-menu .a-menu-item.disabled:hover {
+  background-color: unset;
+}
 .a-main-wrapper {
   margin: 0 5px;
   flex: 1 1 auto;
@@ -626,7 +629,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .inform-box, .confirm-box {
   border: 1px solid #333333;
-  background: #1C3338;
+  background: #2a5058;
 }
 .error-box {
   background: #643232;

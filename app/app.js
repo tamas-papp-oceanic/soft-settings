@@ -929,23 +929,21 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
   );
   // URLs
   // $rootScope.urls = new Array();
-  $rootScope.urls = new Array(
-    {
-      id: 1,
-      title: 'Poseidon',
-      url: 'http://localhost/nike/',
-      default: true,
-      direct: false,
-    },
-	);
+  $rootScope.urls = new Array();
 	// SETTINGS
 	$rootScope.settings = {
 		alarm_export: true,
 		logic_export: true,
 		modbus_export: true,
 	}
-
+	// Authorization
   $rootScope.apiUrl = 'http://localhost:9094';
+	$rootScope.accessUrl = $rootScope.apiUrl + "/api/access" +
+    "?client_id=kratos" +
+    "&username=Superuser" +
+    "&password=0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c";
+	$rootScope.authorized = false;
+	$rootScope.token = null;
 };
 
 function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
@@ -1541,64 +1539,124 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 
   $rootScope.saveContent = () => {
     return new Promise((resolve, reject) => {
-			let als = angular.fromJson(angular.toJson($rootScope.alarms, false));
-			for (let i in als) {
-				if ($rootScope.getAlarmType(als[i].group) == $rootScope.alarmTypes.AT_DIRECT) {
-					delete als[i].alarmId;
+			if ($rootScope.currentPage != "Urls") {
+				let als = angular.fromJson(angular.toJson($rootScope.alarms, false));
+				for (let i in als) {
+					if ($rootScope.getAlarmType(als[i].group) == $rootScope.alarmTypes.AT_DIRECT) {
+						delete als[i].alarmId;
+					}
 				}
-			}
-			let dis = angular.fromJson(angular.toJson($rootScope.alarmDefs, false));
-			for (let i in dis) {
-				dis[i].schema = dis[i].route.replace('/{busNumber}', '').replace('/{instance}', '');
-				delete dis[i].route;
-				als.push(dis[i]);
-			}
-			let els = angular.fromJson(angular.toJson($rootScope.logicElements, false));
-			for (let i in els) {
-				if (els[i].logicType == $rootScope.logicTypes.LT_ALARM) {
-					for (let j in els[i].descriptors) {
-						if (typeof els[i].descriptors[j].group !== 'undefined') {
-							els[i].descriptors[j].group = parseInt(els[i].descriptors[j].group);
+				let dis = angular.fromJson(angular.toJson($rootScope.alarmDefs, false));
+				for (let i in dis) {
+					dis[i].schema = dis[i].route.replace('/{busNumber}', '').replace('/{instance}', '');
+					delete dis[i].route;
+					als.push(dis[i]);
+				}
+				let els = angular.fromJson(angular.toJson($rootScope.logicElements, false));
+				for (let i in els) {
+					if (els[i].logicType == $rootScope.logicTypes.LT_ALARM) {
+						for (let j in els[i].descriptors) {
+							if (typeof els[i].descriptors[j].group !== 'undefined') {
+								els[i].descriptors[j].group = parseInt(els[i].descriptors[j].group);
+							}
 						}
 					}
 				}
+				$rootScope.version.build++;
+				let obj = {
+					'alarms': {
+						'groups': angular.fromJson(angular.toJson($rootScope.alarmGroups, false)),
+						'zones': angular.fromJson(angular.toJson($rootScope.alarmZones, false)),
+						'alarms': als,
+					},
+					'logics': {
+						'elements': els,
+						'layout': angular.fromJson(angular.toJson($rootScope.logicLayout, false)),
+					},
+					'modbus': {
+						'devices': angular.fromJson(angular.toJson($rootScope.devices, false)),
+					},
+					'version': angular.fromJson(angular.toJson($rootScope.version, false)),
+				};
+				const nam = 'poseidon-export.json';
+				const blob = new Blob([angular.toJson(obj, $rootScope.beautify)], {type: 'application/json;charset=utf-8;'});
+				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+					window.navigator.msSaveOrOpenBlob(blob, nam);
+				} else {
+					const url = window.URL.createObjectURL(blob);
+					const a = document.createElement('a');
+					a.href = url;
+					a.download = nam || "file-name";
+					document.body.appendChild(a);
+					a.click();
+					document.body.removeChild(a);
+					window.URL.revokeObjectURL(url);
+				}
+				$rootScope.logicValid = false;
+	      resolve({ result: true });
+			} else {
+				$rootScope.postRequest(
+					$rootScope.apiUrl + '/api/extra_urls',
+					JSON.stringify($rootScope.urls), false
+				).then((res) => {
+					if (res.result) {
+						$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
+					} else {
+						$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+					}
+					resolve(res);
+				}, (err) => {
+					$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+					reject(err);
+				});
 			}
-      $rootScope.version.build++;
-			let obj = {
-				'alarms': {
-          'groups': angular.fromJson(angular.toJson($rootScope.alarmGroups, false)),
-          'zones': angular.fromJson(angular.toJson($rootScope.alarmZones, false)),
-          'alarms': als,
-				},
-				'logics': {
-          'elements': els,
-          'layout': angular.fromJson(angular.toJson($rootScope.logicLayout, false)),
-        },
-				'modbus': {
-          'devices': angular.fromJson(angular.toJson($rootScope.devices, false)),
-        },
-				'version': angular.fromJson(angular.toJson($rootScope.version, false)),
-			};
-      const nam = 'poseidon-export.json';
-			const blob = new Blob([angular.toJson(obj, $rootScope.beautify)], {type: 'application/json;charset=utf-8;'});
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob, nam);
-      } else {
-				const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = nam || "file-name";
-				document.body.appendChild(a);
-				a.click();
-				document.body.removeChild(a);
-				window.URL.revokeObjectURL(url);
-      }
-      $rootScope.logicValid = false;
-      resolve({ result: true });
     });
   };
 
-  $rootScope.confirmShow = (pa, tx, bl, cy, cn) => {
+  $rootScope.newSetting = () => {
+		$rootScope.urls = new Array();
+		$rootScope.$broadcast('urls-changed');
+		$rootScope.informShow(['URLs succesfully cleared'], ['.a-wrapper', 'logic-container'])
+	}
+
+  $rootScope.loadSetting = () => {
+    return new Promise((resolve, reject) => {
+			$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
+				if (res.result) {
+					$rootScope.urls = JSON.parse(JSON.stringify(res.data));
+					$rootScope.$broadcast('urls-changed');
+					$rootScope.informShow(['URLs succesfully loaded'], ['.a-wrapper', 'logic-container'])
+				} else {
+					$rootScope.errorShow(['Couldn\'t load URLs!'], ['.a-wrapper', 'logic-container'])
+				}
+				resolve(res);
+			}, (err) => {
+				$rootScope.errorShow(['Couldn\'t load URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+				reject(err);
+			});
+    });
+  };
+
+  $rootScope.saveSetting = () => {
+    return new Promise((resolve, reject) => {
+			$rootScope.postRequest(
+				$rootScope.apiUrl + '/api/extra_urls',
+				JSON.stringify($rootScope.urls), false
+			).then((res) => {
+				if (res.result) {
+					$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
+				} else {
+					$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+				}
+				resolve(res);
+			}, (err) => {
+				$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+				reject(err);
+			});
+    });
+  };
+
+	$rootScope.confirmShow = (pa, tx, bl, cy, cn) => {
     if ((cy != null) && (tx != null)) {
       $rootScope.confirmYesCallback = cy;
       $rootScope.confirmNoCallback = cn;
@@ -1707,32 +1765,35 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   $rootScope.informOk = () => {
     $rootScope.informHide();
   };
-
-  $rootScope.setUrl = (mod, idx) => {
-    let req = {
-      method: 'POST',
-      url: $rootScope.ApiUrl + '/api/extra_urls',
-      headers: {
-        'Content-Type': 'application/JSON'
-      },
-      data: { mode: mod, index: idx, urls: JSON.stringify($rootScope.urls) }
-    };
-    $http(req).then((res) => {
-
-console.log(res);
-      
-    }, (err) => {
-
-console.log(err);
-
-    });
-  };
-
-  $rootScope.postRequest = async (url, frm, rep) => {
+	// Get request
+	$rootScope.getRequest = async (url, rep) => {
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				Authorization: 'Bearer ' + $rootScope.token,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			}
+		});
+		if (res.status != 200) {
+			if (!rep) {
+				await $rootScope.authorize();
+				return await $rootScope.getRequest(url, true);
+			}
+		}
+		try {
+			const dat = await res.json();
+			return dat;
+		} catch(err) {
+			return err;
+		}
+	};
+	// Post request
+	$rootScope.postRequest = async (url, frm, rep) => {
     const res = await fetch(url, {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + getToken(),
+        Authorization: 'Bearer ' + $rootScope.token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -1740,8 +1801,8 @@ console.log(err);
     });
     if (res.status != 200) {
       if (!rep) {
-        await authorize();
-        return await postRequest(url, frm, true);
+        await $rootScope.authorize();
+        return await $rootScope.postRequest(url, frm, true);
       }
     }
     try {
@@ -1751,16 +1812,11 @@ console.log(err);
       return err;
     }
   };
-
+	// Sleep function
   $rootScope.sleep = async (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((res) => $timeout(res, ms));
   };
-
-  $rootScope.accessUrl = $rootScope.apiUrl + "/api/access" +
-    "?client_id=kratos" +
-    "&username=Superuser" +
-    "&password=0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c";
-
+	// Send request
   $rootScope.sendRequest = async () => {
     try {
       const res = await fetch($rootScope.accessUrl, {
@@ -1775,29 +1831,28 @@ console.log(err);
       return err;
     }
   };
-
   // Authorize
   $rootScope.authorize = async () => {
-    // setAuth(false);
-    // setToken("");
+    $rootScope.authorized = false;
+    $rootScope.token = null;
     let retry = 0;
     while (retry < 10) {
-      const srr = await sendRequest();
+      const srr = await $rootScope.sendRequest();
       if ((srr instanceof Error) || (srr.status !== 200)) {
         retry++;
-        await sleep(250);
+        await $rootScope.sleep(250);
         continue;
       }
       if ((srr instanceof Error) || (srr.status !== 200)) {
         retry++;
-        await sleep(250);
+        await $rootScope.sleep(250);
         continue;
       }
       try {
         const dat = await srr.json();
         if (dat.hasOwnProperty("access_token")) {
-          setToken(dat.access_token);
-          setAuth(true);
+          $rootScope.token = dat.access_token;
+          $rootScope.authorized = true;
         }
         return srr;
       } catch(err) {
@@ -1806,9 +1861,4 @@ console.log(err);
     }
     return Error("Authorize timed out!");
   }
-
-
-
-
-
 };

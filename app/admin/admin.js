@@ -65,6 +65,11 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	$scope.$on('access-changed', () => {
 		$scope.device.current = null;
 	});
+	// URLS CHANGED
+	$scope.$on('urls-changed', () => {
+		$scope.url.current = null;
+		$scope.url.trusted = null;
+	});
 	// Data definitions
 	$scope.Math = window.Math;
 	$scope.discretes = new Array();
@@ -5276,24 +5281,6 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		return null;
 	};
 
-	$scope.findDirect = () => {
-		for (var i in $rootScope.urls) {
-			if ($rootScope.urls[i].direct) {
-				return i;
-			}
-		}
-		return null;
-	};
-
-	$scope.findDefault = () => {
-		for (var i in $rootScope.urls) {
-			if ($rootScope.urls[i].default) {
-				return i;
-			}
-		}
-		return null;
-	};
-
 	$scope.setUrl = (url) => {
 		$scope.url.current = url;
 		$scope.url.trusted = $sce.trustAsResourceUrl(url.url);
@@ -5309,15 +5296,6 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 
 	$scope.setDirect = (idx) => {
 		$scope.clearDirect(idx);
-		let dir = $scope.findDirect();
-		if ( dir == null) {
-			let def = $scope.findDefault();
-			if (def != null) {
-				$rootScope.setUrl("default", def);
-			}
-		} else {
-			$rootScope.setUrl("direct", dir);
-		}
 	};
 
 	$scope.addUrl = () => {
@@ -5328,7 +5306,6 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 			"id": url,
 			"title": "New URL",
 			"url": "http://localhost/",
-			"default": false,
 			"direct": false,
 		};
 		$('#url-data-box').draggable();

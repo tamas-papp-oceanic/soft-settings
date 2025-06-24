@@ -4,33 +4,52 @@
     <div class="a-menu">
       <div class="header"><img width="100%" ng-src="images/poseidon.png" /></div>
       <div class="header" ng-if="rights.can_admin_logic || rights.can_admin_modbus">
-        <div class="tooltip">
+        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage == 'Alarms') || (currentPage == 'Logics') || (currentPage == 'Modbus'))">
           <span class="tooltiptext4">New</span>
           <div class="logic-icon clickable" ng-click="newContent()" ng-include="'images/menuicons/new.svg'"></div>
         </div>
-        <form ng-if="rights.can_admin_backup">
+        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))">
+          <span class="tooltiptext4">New</span>
+          <div class="logic-icon clickable" ng-click="newSetting()" ng-include="'images/menuicons/new.svg'"
+						ng-class="{'disabled': (currentPage == 'Wiki') || (currentPage == 'Admin')}"
+					></div>
+        </div>
+        <form ng-if="rights.can_admin_backup && ((currentPage == 'Alarms') || (currentPage == 'Logics') || (currentPage == 'Modbus'))">
           <div class="tooltip" onclick="$('#appContent').click()">
             <span class="tooltiptext4">Open</span>
             <div class="logic-icon clickable" ng-include="'images/menuicons/open.svg'"></div>
           </div>
           <input type="file" id="appContent" name="appContent" accept="application/json" onchange="angular.element(this).scope().openContent(this)" />
         </form>
+        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))">
+          <span class="tooltiptext4">Open</span>
+          <div class="logic-icon clickable" ng-click="loadSetting()" ng-include="'images/menuicons/open.svg'"
+						ng-class="{'disabled': (currentPage == 'Wiki') || (currentPage == 'Admin')}"
+					></div>
+        </div>
         <div class="tooltip">
           <span class="tooltiptext4">Check logics</span>
-          <div class="logic-icon clickable" ng-click="checkLogics()" ng-include="'images/menuicons/check-circle.svg'"></div>
+          <div class="logic-icon clickable" ng-click="checkLogics()" ng-include="'images/menuicons/check-circle.svg'"
+						ng-class="{'disabled': !rights.can_admin_backup || ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))}"></div>
         </div>
-        <div class="tooltip" ng-if="rights.can_admin_backup">
+        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage == 'Alarms') || (currentPage == 'Logics') || (currentPage == 'Modbus'))">
           <span class="tooltiptext4">Save</span>
-          <div class="logic-icon clickable" ng-class="{'disabled': !logicValid}" ng-click="saveContent()"
-            ng-include="'images/menuicons/save.svg'"></div>
+          <div class="logic-icon clickable" ng-click="saveContent()" ng-include="'images/menuicons/save.svg'"
+						ng-class="{'disabled': !logicValid}" ></div>
+        </div>
+        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))">
+          <span class="tooltiptext4">Save</span>
+          <div class="logic-icon clickable" ng-click="saveSetting()" ng-include="'images/menuicons/save.svg'"
+						ng-class="{'disabled': (currentPage == 'Wiki') || (currentPage == 'Admin')}"
+					></div>
         </div>
       </div>
-      <div ng-repeat="item in menus" ng-class="{'active':(item.name == currentPage)}" class="a-menu-item"
+      <div ng-repeat="item in menus" ng-class="{'active': item.name == currentPage}" class="a-menu-item"
 				ng-if="(access == levels.admin) || (item.access != levels.admin)"
 				ng-mousedown="mouseDownHandler($event, selectPage, item.name)" ng-touchstart="touchStartHandler($event, selectPage, item.name)">
         <span>{{item.menu}}</span>
       </div>
-      <div class="a-menu-item" ng-if="access == levels.admin">
+      <div class="a-menu-item disabled" ng-if="access == levels.admin">
         <span>Admin Mode</span>
       </div>
     </div>
@@ -41,7 +60,7 @@
         <h1>{{menus[currentPage].title}}</h1>
       </div>
       <div class="a-main-content" ng-repeat="(key, val) in menus" ng-show="currentPage == key" ng-include="'admin/'+val.template" onload="switched()">
-{{key}} {{val}}
+				{{key}} {{val}}
       </div>
     </div>
   </div>
