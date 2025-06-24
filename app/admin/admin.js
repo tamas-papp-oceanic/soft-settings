@@ -5282,8 +5282,13 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 	};
 
 	$scope.setUrl = (url) => {
-		$scope.url.current = url;
-		$scope.url.trusted = $sce.trustAsResourceUrl(url.url);
+		if ((url != null) && (($scope.url.current == null) || ($scope.url.current.id != url.id))) {
+			$scope.url.current = url;
+			$scope.url.trusted = $sce.trustAsResourceUrl(url.url);
+		} else {
+			$scope.url.current = null;
+			$scope.url.trusted = null;
+		}
 	};
 
 	$scope.clearDirect = (idx) => {
