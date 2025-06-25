@@ -1307,12 +1307,19 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   };
 
   $rootScope.newContent = () => {
-    if ((new Array('Alarms', 'Logics', 'Modbus').indexOf($rootScope.currentPage) != -1) && (
-      ($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0))) {
-      $rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createContent);
-    } else {
-      $rootScope.createContent();
-    }
+    if (new Array('Alarms', 'Logics', 'Modbus').indexOf($rootScope.currentPage) != -1) {
+			if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
+				$rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createContent);
+			} else {
+				$rootScope.createContent();
+			}
+		} else if (new Array('Urls').indexOf($rootScope.currentPage) != -1) {
+			if ($rootScope.urls.length > 0) {
+				$rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createUrls);
+			} else {
+				$rootScope.createUrls();
+			}
+		}
   };
 
   $rootScope.createContent = () => {
@@ -1613,46 +1620,58 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
     });
   };
 
-  $rootScope.newSetting = () => {
+	$rootScope.createUrls = () => {
 		$rootScope.urls = new Array();
 		$rootScope.$broadcast('urls-changed');
 		$rootScope.informShow(['URLs succesfully cleared'], ['.a-wrapper', 'logic-container'])
 	}
 
-  $rootScope.loadSetting = () => {
+  $rootScope.download = (pag) => {
     return new Promise((resolve, reject) => {
-			$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
-				if (res.result) {
-					$rootScope.urls = JSON.parse(JSON.stringify(res.data));
-					$rootScope.$broadcast('urls-changed');
-					$rootScope.informShow(['URLs succesfully loaded'], ['.a-wrapper', 'logic-container'])
-				} else {
-					$rootScope.errorShow(['Couldn\'t load URLs!'], ['.a-wrapper', 'logic-container'])
-				}
-				resolve(res);
-			}, (err) => {
-				$rootScope.errorShow(['Couldn\'t load URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
-				reject(err);
-			});
+			if (pag == 'Urls') {
+				$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
+					if (res.result) {
+						$rootScope.urls = JSON.parse(JSON.stringify(res.data));
+						$rootScope.$broadcast('urls-changed');
+						let msg = new Array('URLs succesfully loaded');
+						if ($rootScope.urls.length == 0) {
+							msg.push('(empty table)')
+						}
+						$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])
+					} else {
+						$rootScope.errorShow(['Couldn\'t load URLs!'], ['.a-wrapper', 'logic-container'])
+					}
+					resolve(res);
+				}, (err) => {
+					$rootScope.errorShow(['Couldn\'t load URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+					reject(err);
+				});
+			} else {
+				reject(new Error('Hasn\'t impemented yet'));
+			}
     });
   };
 
-  $rootScope.saveSetting = () => {
+  $rootScope.upload = (pag) => {
     return new Promise((resolve, reject) => {
-			$rootScope.postRequest(
-				$rootScope.apiUrl + '/api/extra_urls',
-				JSON.stringify($rootScope.urls), false
-			).then((res) => {
-				if (res.result) {
-					$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
-				} else {
-					$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
-				}
-				resolve(res);
-			}, (err) => {
-				$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
-				reject(err);
-			});
+			if (pag == 'Urls') {
+				$rootScope.postRequest(
+					$rootScope.apiUrl + '/api/extra_urls',
+					JSON.stringify($rootScope.urls), false
+				).then((res) => {
+					if (res.result) {
+						$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
+					} else {
+						$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+					}
+					resolve(res);
+				}, (err) => {
+					$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+					reject(err);
+				});
+			} else {
+				reject(new Error('Hasn\'t impemented yet'));
+			}
     });
   };
 

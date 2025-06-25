@@ -574,13 +574,13 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   white-space: nowrap;
-  text-align: left;
   border-radius: 6px;
   padding: 5px;
   position: absolute;
   z-index: 1;
   bottom: 105%;
   pointer-events: none;
+	text-align: left;
 }
 .tooltip:hover .tooltiptext3, .tooltip:hover .tooltiptext4 {
   visibility: visible;
