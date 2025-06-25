@@ -1626,9 +1626,9 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 		$rootScope.informShow(['URLs succesfully cleared'], ['.a-wrapper', 'logic-container'])
 	}
 
-  $rootScope.download = (pag) => {
+  $rootScope.download = () => {
     return new Promise((resolve, reject) => {
-			if (pag == 'Urls') {
+			if ($rootScope.currentPage == 'Urls') {
 				$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
 					if (res.result) {
 						$rootScope.urls = JSON.parse(JSON.stringify(res.data));
@@ -1652,14 +1652,14 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
     });
   };
 
-  $rootScope.upload = (pag) => {
+  $rootScope.upload = () => {
     return new Promise((resolve, reject) => {
-			if (pag == 'Urls') {
+			if ($rootScope.currentPage == 'Urls') {
 				$rootScope.postRequest(
 					$rootScope.apiUrl + '/api/extra_urls',
 					JSON.stringify($rootScope.urls), false
 				).then((res) => {
-					if (res.result) {
+          if (res.result) {
 						$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
 					} else {
 						$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])

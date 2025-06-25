@@ -6,13 +6,13 @@
       <div class="header" ng-if="rights.can_admin_logic || rights.can_admin_modbus">
 				<div class="tooltip" ng-if="rights.can_admin_backup">
 					<span class="tooltiptext4">Download</span>
-					<div class="logic-icon clickable" ng-click="download(currentPage)" ng-include="'images/menuicons/download.svg'"
+					<div class="logic-icon clickable" ng-click="download()" ng-include="'images/menuicons/download.svg'"
 						ng-class="{'disabled': ['Wiki', 'Admin'].indexOf(currentPage) != -1}"
 					></div>
 				</div>
 				<div class="tooltip" ng-if="rights.can_admin_backup">
 					<span class="tooltiptext4">Upload</span>
-					<div class="logic-icon clickable" ng-click="upload(currentPage)" ng-include="'images/menuicons/upload.svg'"
+					<div class="logic-icon clickable" ng-click="upload()" ng-include="'images/menuicons/upload.svg'"
 						ng-class="{'disabled': (currentPage == 'Wiki') || (currentPage == 'Admin')}"
 					></div>
 				</div>
