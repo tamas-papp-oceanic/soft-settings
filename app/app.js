@@ -1307,79 +1307,93 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   };
 
   $rootScope.newContent = () => {
-    if (new Array('Alarms', 'Logics', 'Modbus').indexOf($rootScope.currentPage) != -1) {
-			if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
-				$rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createContent);
-			} else {
-				$rootScope.createContent();
-			}
-		} else if (new Array('Urls').indexOf($rootScope.currentPage) != -1) {
-			if ($rootScope.urls.length > 0) {
-				$rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createUrls);
-			} else {
-				$rootScope.createUrls();
-			}
+		switch ($rootScope.currentPage) {
+			case 'Alarms':
+			case 'Logics':
+			case 'Modbus':
+				if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
+					$rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createContent);
+				} else {
+					$rootScope.createContent();
+				}
+				break;
+		 	case 'Urls':
+				if ($rootScope.urls.length > 0) {
+					$rootScope.confirmShow(null, ['Are you sure you want to create new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.createUrls);
+				} else {
+					$rootScope.createUrls();
+				}
+				break;
 		}
   };
 
   $rootScope.createContent = () => {
-    if (new Array('Alarms', 'Logics', 'Modbus').indexOf($rootScope.currentPage) != -1) {
-      let obj = {
-        'alarms': {
-          'groups': new Array({
-            'group': 1,
-            'type': $rootScope.alarmTypes.AT_DISCRETE,
-            'title': 'Engine',
-          },{
-            'group': 2,
-            'type': $rootScope.alarmTypes.AT_DISCRETE,
-            'title': 'Transmission',
-          },{
-            'group': 3,
-            'type': $rootScope.alarmTypes.AT_DIRECT,
-            'title': 'General',
-          }),
-          'zones': new Array({
-            'zone': 1,
-            'title': 'All zones',
-            'sounders': [{
-              'title': 'Sounder',
-              'busNumber': 0,
-              'instance': 255,
-            },{
-              'title': 'Sounder',
-              'busNumber': 1,
-              'instance': 255,
-            }],
-            'canEdit': true,
-            'canDelete': false,
-          }),
-          'alarms': new Array(),
-        },
-        'logics': {
-          'elements': new Array(),
-          'layout': new Array(),
-        },
-        'modbus': {
-          'devices': new Array(),
-        },
-        'version': {
-          'major': 1,
-          'minor': 0,
-          'build': -1
-        }
-      };
-      $rootScope.applyContent(obj);
-    }
+		switch ($rootScope.currentPage) {
+			case 'Alarms':
+			case 'Logics':
+			case 'Modbus':
+				let obj = {
+					'alarms': {
+						'groups': new Array({
+							'group': 1,
+							'type': $rootScope.alarmTypes.AT_DISCRETE,
+							'title': 'Engine',
+						},{
+							'group': 2,
+							'type': $rootScope.alarmTypes.AT_DISCRETE,
+							'title': 'Transmission',
+						},{
+							'group': 3,
+							'type': $rootScope.alarmTypes.AT_DIRECT,
+							'title': 'General',
+						}),
+						'zones': new Array({
+							'zone': 1,
+							'title': 'All zones',
+							'sounders': [{
+								'title': 'Sounder',
+								'busNumber': 0,
+								'instance': 255,
+							},{
+								'title': 'Sounder',
+								'busNumber': 1,
+								'instance': 255,
+							}],
+							'canEdit': true,
+							'canDelete': false,
+						}),
+						'alarms': new Array(),
+					},
+					'logics': {
+						'elements': new Array(),
+						'layout': new Array(),
+					},
+					'modbus': {
+						'devices': new Array(),
+					},
+					'version': {
+						'major': 1,
+						'minor': 0,
+						'build': -1
+					}
+				};
+				$rootScope.applyContent(obj);
+				break;
+		}
   };
 
   $rootScope.openContent = (obj) => {
-    if ((new Array('Alarms', 'Logics', 'Modbus').indexOf($rootScope.currentPage) != -1) && (
-      ($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0))) {
-      $rootScope.confirmShow(obj, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.readContent);
-    } else {
-      $rootScope.readContent(obj);
-    }
+		switch ($rootScope.currentPage) {
+			case 'Alarms':
+			case 'Logics':
+			case 'Modbus':
+				if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
+					$rootScope.confirmShow(obj, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.readContent);
+				} else {
+					$rootScope.readContent(obj);
+				}
+				break;
+		}
   };
 
   $rootScope.readContent = (obj) => {
@@ -1546,76 +1560,81 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 
   $rootScope.saveContent = () => {
     return new Promise((resolve, reject) => {
-			if ($rootScope.currentPage != "Urls") {
-				let als = angular.fromJson(angular.toJson($rootScope.alarms, false));
-				for (let i in als) {
-					if ($rootScope.getAlarmType(als[i].group) == $rootScope.alarmTypes.AT_DIRECT) {
-						delete als[i].alarmId;
+			switch ($rootScope.currentPage) {
+				case 'Alarms':
+				case 'Logics':
+				case 'Modbus':
+					let als = angular.fromJson(angular.toJson($rootScope.alarms, false));
+					for (let i in als) {
+						if ($rootScope.getAlarmType(als[i].group) == $rootScope.alarmTypes.AT_DIRECT) {
+							delete als[i].alarmId;
+						}
 					}
-				}
-				let dis = angular.fromJson(angular.toJson($rootScope.alarmDefs, false));
-				for (let i in dis) {
-					dis[i].schema = dis[i].route.replace('/{busNumber}', '').replace('/{instance}', '');
-					delete dis[i].route;
-					als.push(dis[i]);
-				}
-				let els = angular.fromJson(angular.toJson($rootScope.logicElements, false));
-				for (let i in els) {
-					if (els[i].logicType == $rootScope.logicTypes.LT_ALARM) {
-						for (let j in els[i].descriptors) {
-							if (typeof els[i].descriptors[j].group !== 'undefined') {
-								els[i].descriptors[j].group = parseInt(els[i].descriptors[j].group);
+					let dis = angular.fromJson(angular.toJson($rootScope.alarmDefs, false));
+					for (let i in dis) {
+						dis[i].schema = dis[i].route.replace('/{busNumber}', '').replace('/{instance}', '');
+						delete dis[i].route;
+						als.push(dis[i]);
+					}
+					let els = angular.fromJson(angular.toJson($rootScope.logicElements, false));
+					for (let i in els) {
+						if (els[i].logicType == $rootScope.logicTypes.LT_ALARM) {
+							for (let j in els[i].descriptors) {
+								if (typeof els[i].descriptors[j].group !== 'undefined') {
+									els[i].descriptors[j].group = parseInt(els[i].descriptors[j].group);
+								}
 							}
 						}
 					}
-				}
-				$rootScope.version.build++;
-				let obj = {
-					'alarms': {
-						'groups': angular.fromJson(angular.toJson($rootScope.alarmGroups, false)),
-						'zones': angular.fromJson(angular.toJson($rootScope.alarmZones, false)),
-						'alarms': als,
-					},
-					'logics': {
-						'elements': els,
-						'layout': angular.fromJson(angular.toJson($rootScope.logicLayout, false)),
-					},
-					'modbus': {
-						'devices': angular.fromJson(angular.toJson($rootScope.devices, false)),
-					},
-					'version': angular.fromJson(angular.toJson($rootScope.version, false)),
-				};
-				const nam = 'poseidon-export.json';
-				const blob = new Blob([angular.toJson(obj, $rootScope.beautify)], {type: 'application/json;charset=utf-8;'});
-				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-					window.navigator.msSaveOrOpenBlob(blob, nam);
-				} else {
-					const url = window.URL.createObjectURL(blob);
-					const a = document.createElement('a');
-					a.href = url;
-					a.download = nam || "file-name";
-					document.body.appendChild(a);
-					a.click();
-					document.body.removeChild(a);
-					window.URL.revokeObjectURL(url);
-				}
-				$rootScope.logicValid = false;
-	      resolve({ result: true });
-			} else {
-				$rootScope.postRequest(
-					$rootScope.apiUrl + '/api/extra_urls',
-					JSON.stringify($rootScope.urls), false
-				).then((res) => {
-					if (res.result) {
-						$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
+					$rootScope.version.build++;
+					let obj = {
+						'alarms': {
+							'groups': angular.fromJson(angular.toJson($rootScope.alarmGroups, false)),
+							'zones': angular.fromJson(angular.toJson($rootScope.alarmZones, false)),
+							'alarms': als,
+						},
+						'logics': {
+							'elements': els,
+							'layout': angular.fromJson(angular.toJson($rootScope.logicLayout, false)),
+						},
+						'modbus': {
+							'devices': angular.fromJson(angular.toJson($rootScope.devices, false)),
+						},
+						'version': angular.fromJson(angular.toJson($rootScope.version, false)),
+					};
+					const nam = 'poseidon-export.json';
+					const blob = new Blob([angular.toJson(obj, $rootScope.beautify)], {type: 'application/json;charset=utf-8;'});
+					if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+						window.navigator.msSaveOrOpenBlob(blob, nam);
 					} else {
-						$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = nam || "file-name";
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+						window.URL.revokeObjectURL(url);
 					}
-					resolve(res);
-				}, (err) => {
-					$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
-					reject(err);
-				});
+					$rootScope.logicValid = false;
+					resolve({ result: true });
+					break;
+				case 'Urls':
+					$rootScope.postRequest(
+						$rootScope.apiUrl + '/api/extra_urls',
+						JSON.stringify($rootScope.urls), false
+					).then((res) => {
+						if (res.result) {
+							$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
+						} else {
+							$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+						}
+						resolve(res);
+					}, (err) => {
+						$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+						reject(err);
+					});
+					break;
 			}
     });
   };
@@ -1628,49 +1647,132 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 
   $rootScope.download = () => {
     return new Promise((resolve, reject) => {
-			if ($rootScope.currentPage == 'Urls') {
-				$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
-					if (res.result) {
-						$rootScope.urls = JSON.parse(JSON.stringify(res.data));
-						$rootScope.$broadcast('urls-changed');
-						let msg = new Array('URLs succesfully loaded');
-						if ($rootScope.urls.length == 0) {
-							msg.push('(empty table)')
+			switch ($rootScope.currentPage) {
+				case 'Alarms':
+				case 'Logics':
+				case 'Modbus':
+					$rootScope.getRequest($rootScope.apiUrl + '/api/config', false).then((res) => {
+						if (res.result) {
+							$rootScope.urls = JSON.parse(JSON.stringify(res.data));
+							$rootScope.$broadcast('urls-changed');
+							let msg = new Array('Alarm / Logics / Modbus', 'configuration ', 'succesfully loaded');
+							if ($rootScope.urls.length == 0) {
+								msg.push('(empty table)')
+							}
+							$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])
+						} else {
+							$rootScope.errorShow(['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!'], ['.a-wrapper', 'logic-container'])
 						}
-						$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])
-					} else {
-						$rootScope.errorShow(['Couldn\'t load URLs!'], ['.a-wrapper', 'logic-container'])
-					}
-					resolve(res);
-				}, (err) => {
-					$rootScope.errorShow(['Couldn\'t load URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
-					reject(err);
-				});
-			} else {
-				reject(new Error('Hasn\'t impemented yet'));
+						resolve(res);
+					}, (err) => {
+						$rootScope.errorShow(['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
+						reject(err);
+					});
+					break;
+				case 'Urls':
+					$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
+						if (res.result) {
+							$rootScope.urls = JSON.parse(JSON.stringify(res.data));
+							$rootScope.$broadcast('urls-changed');
+							let msg = new Array('URLs succesfully loaded');
+							if ($rootScope.urls.length == 0) {
+								msg.push('(empty table)')
+							}
+							$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])
+						} else {
+							$rootScope.errorShow(['Couldn\'t load URLs!'], ['.a-wrapper', 'logic-container'])
+						}
+						resolve(res);
+					}, (err) => {
+						$rootScope.errorShow(['Couldn\'t load URLs!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
+						reject(err);
+					});
+					break;
+				default:
+					reject(new Error('Hasn\'t impemented yet'));
+					break;
 			}
     });
   };
 
   $rootScope.upload = () => {
     return new Promise((resolve, reject) => {
-			if ($rootScope.currentPage == 'Urls') {
-				$rootScope.postRequest(
-					$rootScope.apiUrl + '/api/extra_urls',
-					JSON.stringify($rootScope.urls), false
-				).then((res) => {
-          if (res.result) {
-						$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
-					} else {
-						$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+			switch ($rootScope.currentPage) {
+				case 'Alarms':
+				case 'Logics':
+				case 'Modbus':
+					let als = angular.fromJson(angular.toJson($rootScope.alarms, false));
+					for (let i in als) {
+						if ($rootScope.getAlarmType(als[i].group) == $rootScope.alarmTypes.AT_DIRECT) {
+							delete als[i].alarmId;
+						}
 					}
-					resolve(res);
-				}, (err) => {
-					$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
-					reject(err);
-				});
-			} else {
-				reject(new Error('Hasn\'t impemented yet'));
+					let dis = angular.fromJson(angular.toJson($rootScope.alarmDefs, false));
+					for (let i in dis) {
+						dis[i].schema = dis[i].route.replace('/{busNumber}', '').replace('/{instance}', '');
+						delete dis[i].route;
+						als.push(dis[i]);
+					}
+					let els = angular.fromJson(angular.toJson($rootScope.logicElements, false));
+					for (let i in els) {
+						if (els[i].logicType == $rootScope.logicTypes.LT_ALARM) {
+							for (let j in els[i].descriptors) {
+								if (typeof els[i].descriptors[j].group !== 'undefined') {
+									els[i].descriptors[j].group = parseInt(els[i].descriptors[j].group);
+								}
+							}
+						}
+					}
+					$rootScope.version.build++;
+					let obj = {
+						'alarms': {
+							'groups': angular.fromJson(angular.toJson($rootScope.alarmGroups, false)),
+							'zones': angular.fromJson(angular.toJson($rootScope.alarmZones, false)),
+							'alarms': als,
+						},
+						'logics': {
+							'elements': els,
+							'layout': angular.fromJson(angular.toJson($rootScope.logicLayout, false)),
+						},
+						'modbus': {
+							'devices': angular.fromJson(angular.toJson($rootScope.devices, false)),
+						},
+						'version': angular.fromJson(angular.toJson($rootScope.version, false)),
+					};
+					$rootScope.postRequest(
+						$rootScope.apiUrl + '/api/config',
+						JSON.stringify(obj), false
+					).then((res) => {
+						if (res.result) {
+							$rootScope.informShow(['Alarm / Logics / Modbus', 'configuration ', 'succesfully saved'], ['.a-wrapper', 'logic-container'])
+						} else {
+							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!'], ['.a-wrapper', 'logic-container'])
+						}
+						resolve(res);
+					}, (err) => {
+						$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
+						reject(err);
+					});
+					break;
+				case 'Urls':
+					$rootScope.postRequest(
+						$rootScope.apiUrl + '/api/extra_urls',
+						JSON.stringify($rootScope.urls), false
+					).then((res) => {
+						if (res.result) {
+							$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
+						} else {
+							$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+						}
+						resolve(res);
+					}, (err) => {
+						$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
+						reject(err);
+					});
+					break;
+				default:
+					reject(new Error('Hasn\'t impemented yet'));
+					break;
 			}
     });
   };
