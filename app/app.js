@@ -1399,7 +1399,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 	$rootScope.checkContent = (str) => {
 		if (typeof str === 'string') {
 			let cnt = angular.fromJson(str);
-			let res = true;
+      let res = true;
 			if (typeof cnt != 'object') {
 				res = false;
 			}
