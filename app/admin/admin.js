@@ -66,7 +66,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 		$scope.device.current = null;
 	});
 	// URLS CHANGED
-	$scope.$on('urls-changed', () => {
+	$scope.$on('urls-loaded', () => {
 		$scope.url.current = null;
 		$scope.url.trusted = null;
 	});

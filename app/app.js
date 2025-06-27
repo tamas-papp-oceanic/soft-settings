@@ -1396,79 +1396,83 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 		}
   };
 
-  $rootScope.readContent = (obj) => {
+	$rootScope.checkContent = (str) => {
+		if (typeof str === 'string') {
+			let cnt = angular.fromJson(str);
+			let res = true;
+			if (typeof cnt != 'object') {
+				res = false;
+			}
+			if (cnt.hasOwnProperty('alarms')) {
+				if (typeof cnt.alarms != 'object') {
+					res = false;
+				}
+				if (!cnt.alarms.hasOwnProperty('groups') || !Array.isArray(cnt.alarms.groups)) {
+					res = false;
+				}
+				if (!cnt.alarms.hasOwnProperty('zones') || !Array.isArray(cnt.alarms.zones)) {
+					res = false;
+				}
+				if (!cnt.alarms.hasOwnProperty('alarms') || !Array.isArray(cnt.alarms.alarms)) {
+					res = false;
+				}
+			} else {
+				res = false;
+			}
+			if (cnt.hasOwnProperty('logics')) {
+				if (typeof cnt.logics != 'object') {
+					res = false;
+				}
+				if (!cnt.logics.hasOwnProperty('elements') || !Array.isArray(cnt.logics.elements)) {
+					res = false;
+				}
+				if (!cnt.logics.hasOwnProperty('layout') || !Array.isArray(cnt.logics.layout)) {
+					res = false;
+				}
+			} else {
+				res = false;
+			}
+			if (cnt.hasOwnProperty('modbus')) {
+				if (typeof cnt.modbus != 'object') {
+					res = false;
+				}
+				if (!cnt.modbus.hasOwnProperty('devices') || !Array.isArray(cnt.modbus.devices)) {
+					res = false;
+				}
+			} else {
+				res = false;
+			}
+			if (cnt.hasOwnProperty('version')) {
+				if (typeof cnt.version != 'object') {
+					res = false;
+				}
+				if (!cnt.version.hasOwnProperty('major') || !cnt.version.hasOwnProperty('minor') ||
+					!cnt.version.hasOwnProperty('build')) {
+					res = false;
+				}
+			} else {
+				res = false;
+			}
+			if (res) {
+				$rootScope.applyContent(cnt)
+				let elm = document.getElementById('appContent');
+				if (elm != null) {
+					elm.value = null;
+				}
+			} else {
+				$rootScope.errorShow(['Invalid file content!'], ['.a-wrapper', 'logic-container']);
+			}
+		} else {
+			$rootScope.errorShow(['Invalid file content!'], ['.a-wrapper', 'logic-container']);
+		}
+	};
+
+	$rootScope.readContent = (obj) => {
     if (obj.files && obj.files[0]) {
       let rdr = new FileReader();
       rdr.onload = function (e) {
         let str = e.target.result;
-        if (typeof str === 'string') {
-          let cnt = angular.fromJson(str);
-					let res = true;
-					if (typeof cnt != 'object') {
-						res = false;
-					}
-					if (cnt.hasOwnProperty('alarms')) {
-						if (typeof cnt.alarms != 'object') {
-							res = false;
-						}
-						if (!cnt.alarms.hasOwnProperty('groups') || !Array.isArray(cnt.alarms.groups)) {
-							res = false;
-						}
-						if (!cnt.alarms.hasOwnProperty('zones') || !Array.isArray(cnt.alarms.zones)) {
-							res = false;
-						}
-						if (!cnt.alarms.hasOwnProperty('alarms') || !Array.isArray(cnt.alarms.alarms)) {
-							res = false;
-						}
-					} else {
-						res = false;
-					}
-					if (cnt.hasOwnProperty('logics')) {
-						if (typeof cnt.logics != 'object') {
-							res = false;
-						}
-            if (!cnt.logics.hasOwnProperty('elements') || !Array.isArray(cnt.logics.elements)) {
-							res = false;
-						}
-            if (!cnt.logics.hasOwnProperty('layout') || !Array.isArray(cnt.logics.layout)) {
-							res = false;
-						}
-					} else {
-						res = false;
-					}
-					if (cnt.hasOwnProperty('modbus')) {
-						if (typeof cnt.modbus != 'object') {
-							res = false;
-						}
-            if (!cnt.modbus.hasOwnProperty('devices') || !Array.isArray(cnt.modbus.devices)) {
-							res = false;
-						}
-					} else {
-						res = false;
-					}
-					if (cnt.hasOwnProperty('version')) {
-						if (typeof cnt.version != 'object') {
-							res = false;
-						}
-            if (!cnt.version.hasOwnProperty('major') || !cnt.version.hasOwnProperty('minor') ||
-							!cnt.version.hasOwnProperty('build')) {
-							res = false;
-						}
-					} else {
-						res = false;
-					}
-					if (res) {
-            $rootScope.applyContent(cnt)
-            let elm = document.getElementById('appContent');
-            if (elm != null) {
-              elm.value = null;
-            }
-          } else {
-            $rootScope.errorShow(['Invalid file content!'], ['.a-wrapper', 'logic-container']);
-          }
-        } else {
-          $rootScope.errorShow(['Invalid file content!'], ['.a-wrapper', 'logic-container']);
-        }
+				$rootScope.checkContent(str);
       };
       rdr.onerror = function () {
         $rootScope.errorShow(['File read error!', rdr.error.toString()], ['.a-wrapper', 'logic-container']);
@@ -1641,11 +1645,32 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 
 	$rootScope.createUrls = () => {
 		$rootScope.urls = new Array();
-		$rootScope.$broadcast('urls-changed');
+		$rootScope.$broadcast('urls-loaded');
 		$rootScope.informShow(['URLs succesfully cleared'], ['.a-wrapper', 'logic-container'])
 	}
 
-  $rootScope.download = () => {
+	$rootScope.download = () => {
+		switch ($rootScope.currentPage) {
+			case 'Alarms':
+			case 'Logics':
+			case 'Modbus':
+				if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
+					$rootScope.confirmShow(null, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.downContent);
+				} else {
+					$rootScope.downContent();
+				}
+				break;
+			case 'Urls':
+				if ($rootScope.urls.length > 0) {
+					$rootScope.confirmShow(null, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.downContent);
+				} else {
+					$rootScope.downContent();
+				}
+				break;
+		}
+	};
+
+	$rootScope.downContent = () => {
     return new Promise((resolve, reject) => {
 			switch ($rootScope.currentPage) {
 				case 'Alarms':
@@ -1653,8 +1678,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 				case 'Modbus':
 					$rootScope.getRequest($rootScope.apiUrl + '/api/config', false).then((res) => {
 						if (res.result) {
-							$rootScope.urls = JSON.parse(JSON.stringify(res.data));
-							$rootScope.$broadcast('urls-changed');
+							$rootScope.checkContent(atob(res.data));
 							let msg = new Array('Alarm / Logics / Modbus', 'configuration ', 'succesfully loaded');
 							if ($rootScope.urls.length == 0) {
 								msg.push('(empty table)')
@@ -1673,7 +1697,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 					$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
 						if (res.result) {
 							$rootScope.urls = JSON.parse(JSON.stringify(res.data));
-							$rootScope.$broadcast('urls-changed');
+							$rootScope.$broadcast('urls-loaded');
 							let msg = new Array('URLs succesfully loaded');
 							if ($rootScope.urls.length == 0) {
 								msg.push('(empty table)')
