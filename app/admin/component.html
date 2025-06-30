@@ -182,28 +182,28 @@
         </div>
       </div> -->
 		<!-- OTHER -->
-		<div id="custom-menu" class="s-menu-item" ng-if="(logicComponent.logic != null) &&
-        (logicComponent.logic.logicType != logicTypes.LT_SENSOR) && (logicComponent.logic.logicType != logicTypes.LT_ALARM) &&
-        !((logicComponent.logic.logicType == logicTypes.LT_GATE) && ((logicComponent.logic.operation == 5) ||
-          (logicComponent.logic.operation == 6))) &&
-        !((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
-          (logicComponent.logic.operation == 6))) &&
-        (logicComponent.logic.logicType != logicTypes.LT_PULSE)"
+		<div id="custom-menu" class="s-menu-item" ng-if="(logicComponent.logic.logicType != logicTypes.LT_SENSOR) &&
+			(logicComponent.logic.logicType != logicTypes.LT_ALARM) &&
+			!((logicComponent.logic.logicType == logicTypes.LT_GATE) && ((logicComponent.logic.operation == 5) ||
+				(logicComponent.logic.operation == 6))) &&
+			!((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
+				(logicComponent.logic.operation == 6))) &&
+			(logicComponent.logic.logicType != logicTypes.LT_PULSE)"
 			ng-click="logicMenu.item = (logicMenu.item != 2)? 2 : null;">
 			<div class="icon" ng-include="'images/menuicons/edit-preferences.svg'"></div>
 			<span class="c-menu">Parameters</span>
 		</div>
-		<div id="component-block" class="s-menu-block" ng-if="(logicComponent.logic != null) &&
-        (logicComponent.logic.logicType != logicTypes.LT_SENSOR) && (logicComponent.logic.logicType != logicTypes.LT_ALARM) &&
-        !((logicComponent.logic.logicType == logicTypes.LT_GATE) && ((logicComponent.logic.operation == 5) ||
-          (logicComponent.logic.operation == 6))) &&
-        !((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
-          (logicComponent.logic.operation == 6))) &&
-        (logicComponent.logic.logicType != logicTypes.LT_PULSE) && (logicMenu.item == 2)">
-			<div class="s-block-item" ng-if="logicComponent.logic == undefined">
+		<div id="component-block" class="s-menu-block" ng-if="(logicComponent.logic.logicType != logicTypes.LT_SENSOR) &&
+			(logicComponent.logic.logicType != logicTypes.LT_ALARM) &&
+			!((logicComponent.logic.logicType == logicTypes.LT_GATE) && ((logicComponent.logic.operation == 5) ||
+				(logicComponent.logic.operation == 6))) &&
+			!((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
+				(logicComponent.logic.operation == 6))) &&
+			(logicComponent.logic.logicType != logicTypes.LT_PULSE) && (logicMenu.item == 2)">
+			<div class="s-block-item" ng-if="!logicComponent.hasOwnPorperty('logic')">
 				<div class="s-left">Label</div>
 				<div class="s-right">
-					<input id="label-text" type="text" ng-model="logicComponent.logic.label" style="max-width:90%;"
+					<input id="label-text" type="text" ng-model="logicComponent.other.label" style="max-width:90%;"
 						ng-change="labelChange()" ng-trim="true" ng-virtual-keyboard />
 				</div>
 			</div>

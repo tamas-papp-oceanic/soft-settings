@@ -168,7 +168,7 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
     'LT_ALARM': 1,
     'LT_EXTERNAL': 2,
     'LT_GATE': 3,
-    // 'LT_RADIO': 4,
+    'LT_RADIO': 4,
     'LT_COMPARATOR': 5,
     'LT_TIMER': 6,
     'LT_MATH': 7,
@@ -178,12 +178,12 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
     'LT_STORAGE': 11,
     'LT_SCRIPT': 12,
     'LT_PROPAGATION': 13,
-    // 'LT_VALVE': 14,
+    'LT_VALVE': 14,
     'LT_PULSE': 15,
     'LT_ENCODER': 16,
     'LT_DECODER': 17,
     'LT_TRUECNT': 18,
-    // 'LT_ALARMSND': 19,
+    'LT_ALARMSND': 19,
     'LT_MUTESTATE': 20,
     'LT_CONNECTION': 255,
   };
@@ -1692,7 +1692,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 						if (res.result) {
 							$rootScope.checkContent(atob(res.data), $rootScope.scriptTypes.ST_BASE64);
 							let msg = new Array('Alarm / Logics / Modbus', 'configuration ', 'succesfully loaded');
-							if ($rootScope.urls.length == 0) {
+							if (($rootScope.alarms.length == 0) && ($rootScope.logicElements.length == 0) && ($rootScope.devices.length == 0)) {
 								msg.push('(empty table)')
 							}
 							$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])

@@ -3098,34 +3098,36 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 			}
 		}
 		if (!e) {
-			switch ($scope.logicComponent.logic.logicType) {
-				case $rootScope.logicTypes.LT_SENSOR:
-					$scope.logicComponent.logic.schema = $scope.dataObj[$scope.logicComponent.logic.dataId].route;
-					let spl = $scope.logicComponent.logic.dataId.split('/');
-					if (Array.isArray(spl) && (spl.length == 5)) {
-						let sch = $scope.logicComponent.logic.schema
-							.replace('{busNumber}', $scope.logicComponent.logic.busNumber)
-							.replace('{manufacturer}', spl[2])
-							.replace('{function}', spl[3])
-							.replace('{group}', spl[4])
-							.replace('{instance}', $scope.logicComponent.logic.instance)
-							.replace('{source}', $scope.logicComponent.logic.address)
-							.replace('{field}', $scope.logicComponent.logic.field);
-						$scope.logicComponent.logic.schema = sch;
-					}
-					break;
-				case $rootScope.logicTypes.LT_ALARM:
-					if ($rootScope.getAlarmType($scope.logicComponent.logic.group) == $rootScope.alarmTypes.AT_DISCRETE) {
-						let sch = $scope.logicComponent.logic.schema
-							.replace('{busNumber}', $scope.logicComponent.logic.busNumber)
-							.replace('{instance}', $scope.logicComponent.logic.instance);
-						$scope.logicComponent.logic.schema = sch;
-					} else {
-						$scope.logicComponent.logic.alarmId = parseInt($scope.logicComponent.logic.alarmId);
-					}
-					break;
-				default:
-					break;
+			if (!$scope.logicComponent.hasOwnProperty('other')) {
+				switch ($scope.logicComponent.logic.logicType) {
+					case $rootScope.logicTypes.LT_SENSOR:
+						$scope.logicComponent.logic.schema = $scope.dataObj[$scope.logicComponent.logic.dataId].route;
+						let spl = $scope.logicComponent.logic.dataId.split('/');
+						if (Array.isArray(spl) && (spl.length == 5)) {
+							let sch = $scope.logicComponent.logic.schema
+								.replace('{busNumber}', $scope.logicComponent.logic.busNumber)
+								.replace('{manufacturer}', spl[2])
+								.replace('{function}', spl[3])
+								.replace('{group}', spl[4])
+								.replace('{instance}', $scope.logicComponent.logic.instance)
+								.replace('{source}', $scope.logicComponent.logic.address)
+								.replace('{field}', $scope.logicComponent.logic.field);
+							$scope.logicComponent.logic.schema = sch;
+						}
+						break;
+					case $rootScope.logicTypes.LT_ALARM:
+						if ($rootScope.getAlarmType($scope.logicComponent.logic.group) == $rootScope.alarmTypes.AT_DISCRETE) {
+							let sch = $scope.logicComponent.logic.schema
+								.replace('{busNumber}', $scope.logicComponent.logic.busNumber)
+								.replace('{instance}', $scope.logicComponent.logic.instance);
+							$scope.logicComponent.logic.schema = sch;
+						} else {
+							$scope.logicComponent.logic.alarmId = parseInt($scope.logicComponent.logic.alarmId);
+						}
+						break;
+					default:
+						break;
+				}
 			}
 			if ($scope.logicMenu.mode == 0) {
 				if ($scope.logicComponent.index != null) {
