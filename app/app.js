@@ -1393,7 +1393,8 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 			case 'Logics':
 			case 'Modbus':
 				if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
-					$rootScope.confirmShow(obj, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.readContent);
+					$rootScope.confirmShow(obj, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'],
+            ['.a-wrapper', 'logic-container'], $rootScope.readContent);
 				} else {
 					$rootScope.readContent(obj);
 				}
@@ -1404,7 +1405,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 	$rootScope.checkContent = (str, mod) => {
 		if (typeof str === 'string') {
 			let cnt = angular.fromJson(str);
-			let res = true;
+      let res = true;
 			if (typeof cnt != 'object') {
 				res = false;
 			}
@@ -1667,14 +1668,16 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 			case 'Logics':
 			case 'Modbus':
 				if (($rootScope.alarms.length > 0) || ($rootScope.logicElements.length > 0) || ($rootScope.devices.length > 0)) {
-					$rootScope.confirmShow(null, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.downContent);
+					$rootScope.confirmShow(null, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'],
+            ['.a-wrapper', 'logic-container'], $rootScope.downContent);
 				} else {
 					$rootScope.downContent();
 				}
 				break;
 			case 'Urls':
 				if ($rootScope.urls.length > 0) {
-					$rootScope.confirmShow(null, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'], ['.a-wrapper', 'logic-container'], $rootScope.downContent);
+					$rootScope.confirmShow(null, ['Are you sure you want to open new content?', '(All existing definition will be deleted!)'],
+            ['.a-wrapper', 'logic-container'], $rootScope.downContent);
 				} else {
 					$rootScope.downContent();
 				}
@@ -1697,7 +1700,8 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 							}
 							$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])
 						} else {
-							$rootScope.errorShow(['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!'], ['.a-wrapper', 'logic-container'])
+							$rootScope.errorShow(
+                ['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
 						}
 						resolve(res);
 					}, (err) => {
@@ -1716,7 +1720,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 							}
 							$rootScope.informShow(msg, ['.a-wrapper', 'logic-container'])
 						} else {
-							$rootScope.errorShow(['Couldn\'t load URLs!'], ['.a-wrapper', 'logic-container'])
+							$rootScope.errorShow(['Couldn\'t load URLs!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
 						}
 						resolve(res);
 					}, (err) => {
@@ -1775,14 +1779,15 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 						},
 						'version': angular.fromJson(angular.toJson($rootScope.version, false)),
 					};
-					$rootScope.postRequest(
+          $rootScope.postRequest(
 						$rootScope.apiUrl + '/api/config',
 						JSON.stringify(obj), false
 					).then((res) => {
 						if (res.result) {
 							$rootScope.informShow(['Alarm / Logics / Modbus', 'configuration ', 'succesfully saved'], ['.a-wrapper', 'logic-container'])
 						} else {
-							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!'], ['.a-wrapper', 'logic-container'])
+							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res.message + ')'],
+                ['.a-wrapper', 'logic-container'])
 						}
 						resolve(res);
 					}, (err) => {
@@ -1798,7 +1803,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 						if (res.result) {
 							$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
 						} else {
-							$rootScope.errorShow(['Couldn\'t save URLs!'], ['.a-wrapper', 'logic-container'])
+							$rootScope.errorShow(['Couldn\'t save URLs!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
 						}
 						resolve(res);
 					}, (err) => {

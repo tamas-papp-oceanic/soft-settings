@@ -200,7 +200,7 @@
 			!((logicComponent.logic.logicType == logicTypes.LT_MATH) && ((logicComponent.logic.operation == 5) ||
 				(logicComponent.logic.operation == 6))) &&
 			(logicComponent.logic.logicType != logicTypes.LT_PULSE) && (logicMenu.item == 2)">
-			<div class="s-block-item" ng-if="!logicComponent.hasOwnPorperty('logic')">
+			<div class="s-block-item" ng-if="!logicComponent.hasOwnProperty('logic')">
 				<div class="s-left">Label</div>
 				<div class="s-right">
 					<input id="label-text" type="text" ng-model="logicComponent.other.label" style="max-width:90%;"

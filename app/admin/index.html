@@ -10,13 +10,19 @@
 						ng-class="{'disabled': ['Wiki', 'Admin'].indexOf(currentPage) != -1}"
 					></div>
 				</div>
-				<div class="tooltip" ng-if="rights.can_admin_backup">
+				<div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) != -1)">
 					<span class="tooltiptext4">Upload</span>
 					<div class="logic-icon clickable" ng-click="upload()" ng-include="'images/menuicons/upload.svg'"
-						ng-class="{'disabled': (currentPage == 'Wiki') || (currentPage == 'Admin')}"
+						ng-class="{'disabled': !logicValid}"
 					></div>
 				</div>
-        <div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus', 'Urls'].indexOf(currentPage) != -1)">
+				<div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) == -1)">
+					<span class="tooltiptext4">Upload</span>
+					<div class="logic-icon clickable" ng-click="upload()" ng-include="'images/menuicons/upload.svg'"
+						ng-class="{'disabled': (['Wiki', 'Admin'].indexOf(currentPage) != -1)}"
+					></div>
+				</div>
+				<div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus', 'Urls'].indexOf(currentPage) != -1)">
 					<span class="tooltiptext4">New</span>
           <div class="logic-icon clickable" ng-click="newContent()" ng-include="'images/menuicons/new.svg'"></div>
         </div>
@@ -24,28 +30,28 @@
 					<span class="tooltiptext4">New</span>
           <div class="logic-icon disabled" ng-include="'images/menuicons/new.svg'"></div>
         </div>
-				<form ng-if="rights.can_admin_backup && ((currentPage == 'Alarms') || (currentPage == 'Logics') || (currentPage == 'Modbus'))">
+				<form ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) != -1)">
 					<div class="tooltip" onclick="$('#appContent').click()">
 						<span class="tooltiptext4">Open</span>
 						<div class="logic-icon clickable" ng-include="'images/menuicons/open.svg'"></div>
 					</div>
 					<input type="file" id="appContent" name="appContent" accept="application/json" onchange="angular.element(this).scope().openContent(this)" />
 				</form>
-				<div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))">
+				<div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) == -1)">
 					<span class="tooltiptext4">Open</span>
 					<div class="logic-icon disabled" ng-include="'images/menuicons/open.svg'"></div>
 				</div>
 				<div class="tooltip">
 					<span class="tooltiptext4">Check<br />logics</span>
 					<div class="logic-icon clickable" ng-click="checkLogics()" ng-include="'images/menuicons/check-circle.svg'"
-					ng-class="{'disabled': !rights.can_admin_backup || ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))}"></div>
+					ng-class="{'disabled': !rights.can_admin_backup || (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) == -1)}"></div>
 				</div>
-        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage == 'Alarms') || (currentPage == 'Logics') || (currentPage == 'Modbus'))">
+        <div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) != -1)">
 					<span class="tooltiptext4">Save</span>
           <div class="logic-icon clickable" ng-click="saveContent()" ng-include="'images/menuicons/save.svg'"
 						ng-class="{'disabled': !logicValid}" ></div>
         </div>
-        <div class="tooltip" ng-if="rights.can_admin_backup && ((currentPage != 'Alarms') && (currentPage != 'Logics') && (currentPage != 'Modbus'))">
+        <div class="tooltip" ng-if="rights.can_admin_backup && (['Alarms', 'Logics', 'Modbus'].indexOf(currentPage) == -1)">
 					<span class="tooltiptext4">Save</span>
           <div class="logic-icon disabled" ng-include="'images/menuicons/save.svg'"></div>
         </div>
