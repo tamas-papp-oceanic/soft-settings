@@ -813,7 +813,12 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
   }
   $rootScope.logicElements = new Array();
   $rootScope.logicLayout = new Array();
-  // Data types
+	// Script types
+  $rootScope.scriptTypes = {
+		'ST_PLAIN': 0,
+		'ST_BASE64': 1,
+	}
+	// Data types
   $rootScope.dataTypes = {
     'DT_BOOL': 0,
     'DT_CHAR': 1,
@@ -1377,7 +1382,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 						'build': -1
 					}
 				};
-				$rootScope.applyContent(obj);
+				$rootScope.applyContent(obj, $rootScope.scriptTypes.ST_PLAIN);
 				break;
 		}
   };
@@ -1396,10 +1401,15 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 		}
   };
 
-	$rootScope.checkContent = (str) => {
+	$rootScope.checkContent = (str, mod) => {
 		if (typeof str === 'string') {
 			let cnt = angular.fromJson(str);
-      let res = true;
+			let res = true;
+
+
+console.log(cnt)
+
+
 			if (typeof cnt != 'object') {
 				res = false;
 			}
@@ -1454,7 +1464,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 				res = false;
 			}
 			if (res) {
-				$rootScope.applyContent(cnt)
+				$rootScope.applyContent(cnt, mod)
 				let elm = document.getElementById('appContent');
 				if (elm != null) {
 					elm.value = null;
@@ -1472,7 +1482,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
       let rdr = new FileReader();
       rdr.onload = function (e) {
         let str = e.target.result;
-				$rootScope.checkContent(str);
+				$rootScope.checkContent(str, $rootScope.scriptTypes.ST_PLAIN);
       };
       rdr.onerror = function () {
         $rootScope.errorShow(['File read error!', rdr.error.toString()], ['.a-wrapper', 'logic-container']);
@@ -1481,7 +1491,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
     }
   };
 
-  $rootScope.applyContent = (obj) => {
+  $rootScope.applyContent = (obj, mod) => {
 		$rootScope.alarGroups = new Array();
 		$rootScope.alarmZones = new Array();
 		$rootScope.alarms = new Array();
@@ -1514,6 +1524,13 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 							let des = elm.descriptors[j];
 							if (typeof des.group !== 'undefined') {
 								$rootScope.logicElements[i].descriptors[j].group = $rootScope.logicElements[i].descriptors[j].group.toString();
+							}
+						}
+					} else if ((elm.logicType == $rootScope.logicTypes.LT_SCRIPT) && (mod == $rootScope.scriptTypes.ST_BASE64)) {
+						for (let j in elm.descriptors) {
+							let des = elm.descriptors[j];
+							if (typeof des.script !== 'undefined') {
+								$rootScope.logicElements[i].descriptors[j].script = atob($rootScope.logicElements[i].descriptors[j].script);
 							}
 						}
 					}
@@ -1678,7 +1695,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 				case 'Modbus':
 					$rootScope.getRequest($rootScope.apiUrl + '/api/config', false).then((res) => {
 						if (res.result) {
-							$rootScope.checkContent(atob(res.data));
+							$rootScope.checkContent(atob(res.data), $rootScope.scriptTypes.ST_BASE64);
 							let msg = new Array('Alarm / Logics / Modbus', 'configuration ', 'succesfully loaded');
 							if ($rootScope.urls.length == 0) {
 								msg.push('(empty table)')
