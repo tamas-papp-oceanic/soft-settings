@@ -1405,11 +1405,6 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 		if (typeof str === 'string') {
 			let cnt = angular.fromJson(str);
 			let res = true;
-
-
-console.log(cnt)
-
-
 			if (typeof cnt != 'object') {
 				res = false;
 			}
