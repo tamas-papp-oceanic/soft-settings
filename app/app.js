@@ -942,7 +942,7 @@ function MyAppRun($rootScope, $location, $anchorScroll, $timeout) {
 		modbus_export: true,
 	}
 	// Authorization
-  $rootScope.apiUrl = 'http://localhost:9094';
+  $rootScope.apiUrl = "http://" + window.location.hostname + ":9094"
 	$rootScope.accessUrl = $rootScope.apiUrl + "/api/access" +
     "?client_id=kratos" +
     "&username=Superuser" +
