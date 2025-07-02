@@ -1735,7 +1735,33 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
     });
   };
 
-  $rootScope.upload = () => {
+	$rootScope.setConfig = (obj) => {
+  	return new Promise(function (resolve, reject) {
+			$rootScope.postRequest(
+				$rootScope.apiUrl + '/api/config',
+				JSON.stringify(obj), false
+			).then((res) => {
+				resolve(res);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+
+	$rootScope.setPolling = (bus) => {
+  	return new Promise(function (resolve, reject) {
+			$rootScope.postRequest(
+				$rootScope.apiUrl + '/api/modbus/polling',
+				JSON.stringify({bus: bus}), false
+			).then((res) => {
+				resolve(res);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+
+	$rootScope.upload = () => {
     return new Promise((resolve, reject) => {
 			switch ($rootScope.currentPage) {
 				case 'Alarms':
@@ -1779,18 +1805,20 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 						},
 						'version': angular.fromJson(angular.toJson($rootScope.version, false)),
 					};
-          $rootScope.postRequest(
-						$rootScope.apiUrl + '/api/config',
-						JSON.stringify(obj), false
-					).then((res) => {
-						if (res.result) {
+					let prs = new Array();
+					prs.push($rootScope.setConfig(obj));
+					prs.push($rootScope.setPolling(0));
+					Promise.all(prs).then((res) => {
+						if ((res[0].result) && (res[1].result)) {
 							$rootScope.informShow(['Alarm / Logics / Modbus', 'configuration ', 'succesfully saved'], ['.a-wrapper', 'logic-container'])
-						} else {
-							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res.message + ')'],
+						} else if (!res[0].result) {
+							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res[0].message + ')'],
+                ['.a-wrapper', 'logic-container'])
+						} else if (!res[1].result) {
+							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res[1].message + ')'],
                 ['.a-wrapper', 'logic-container'])
 						}
-						resolve(res);
-					}, (err) => {
+					}).catch((err) => {
 						$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
 						reject(err);
 					});
