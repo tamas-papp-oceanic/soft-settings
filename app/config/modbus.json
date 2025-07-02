@@ -1,746 +1,815 @@
 {
-  "modbus": {
-    "devices": [
-      {
-        "id": 252,
-        "description": "VeBus",
-        "endian": 1,
-        "worder": 1,
+	"modbus": {
+		"devices": [{
+				"id": 251,
+				"description": "SystemBattery",
+				"endian": 1,
+				"worder": 1,
 				"custom": false,
-        "fields": [
-          {
-            "field": 1,
-            "description": "Input voltage phase 1",
-            "rtype": 3,
-            "address": 3,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 2,
-            "description": "Input voltage phase 2",
-            "rtype": 3,
-            "address": 4,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 3,
-            "description": "Input voltage phase 3",
-            "rtype": 3,
-            "address": 5,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 4,
-            "description": "Input current phase 1",
-            "rtype": 3,
-            "address": 6,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 5,
-            "description": "Input current phase 2",
-            "rtype": 3,
-            "address": 7,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 6,
-            "description": "Input current phase 3",
-            "rtype": 3,
-            "address": 8,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 7,
-            "description": "Input frequency phase 1",
-            "rtype": 3,
-            "address": 9,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "A"
-          },
-          {
-            "field": 8,
-            "description": "Input frequency phase 2",
-            "rtype": 3,
-            "address": 10,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "A"
-          },
-          {
-            "field": 9,
-            "description": "Input frequency phase 3",
-            "rtype": 3,
-            "address": 11,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "A"
-          },
-          {
-            "field": 10,
-            "description": "Input power phase 1",
-            "rtype": 3,
-            "address": 12,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 10,
-            "unit": "W"
-          },
-          {
-            "field": 11,
-            "description": "Input power phase 2",
-            "rtype": 3,
-            "address": 13,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 10,
-            "unit": "W"
-          },
-          {
-            "field": 12,
-            "description": "Input power phase 3",
-            "rtype": 3,
-            "address": 14,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 10,
-            "unit": "W"
-          },
-          {
-            "field": 13,
-            "description": "Output voltage phase 1",
-            "rtype": 3,
-            "address": 15,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 14,
-            "description": "Output voltage phase 2",
-            "rtype": 3,
-            "address": 16,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 15,
-            "description": "Output voltage phase 3",
-            "rtype": 3,
-            "address": 17,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 16,
-            "description": "Output current phase 1",
-            "rtype": 3,
-            "address": 18,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 17,
-            "description": "Output current phase 2",
-            "rtype": 3,
-            "address": 19,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 18,
-            "description": "Output current phase 3",
-            "rtype": 3,
-            "address": 20,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 19,
-            "description": "Output frequency",
-            "rtype": 3,
-            "address": 21,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "A"
-          },
-          {
-            "field": 20,
-            "description": "Input current limit",
-            "rtype": 3,
-            "address": 22,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 21,
-            "description": "Output power phase 1",
-            "rtype": 3,
-            "address": 23,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 10,
-            "unit": "W"
-          },
-          {
-            "field": 22,
-            "description": "Output power phase 2",
-            "rtype": 3,
-            "address": 24,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 10,
-            "unit": "W"
-          },
-          {
-            "field": 23,
-            "description": "Output power phase 3",
-            "rtype": 3,
-            "address": 25,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 10,
-            "unit": "W"
-          },
-          {
-            "field": 24,
-            "description": "Battery Voltage",
-            "rtype": 3,
-            "address": 26,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "V"
-          },
-          {
-            "field": 25,
-            "description": "Battery Current",
-            "rtype": 3,
-            "address": 27,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 26,
-            "description": "Active Input",
-            "rtype": 3,
-            "address": 29,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 27,
-            "description": "VE.Bus State",
-            "rtype": 3,
-            "address": 31,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 28,
-            "description": "Switch Position",
-            "rtype": 3,
-            "address": 33,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 29,
-            "description": "Temperature Alarm L1",
-            "rtype": 3,
-            "address": 44,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 30,
-            "description": "Low Battery Alarm L1",
-            "rtype": 3,
-            "address": 45,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 31,
-            "description": "Overload Alarm L1",
-            "rtype": 3,
-            "address": 46,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 32,
-            "description": "Ripple Alarm L1",
-            "rtype": 3,
-            "address": 47,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 33,
-            "description": "Temperature Alarm L2",
-            "rtype": 3,
-            "address": 48,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 34,
-            "description": "Low Battery Alarm L2",
-            "rtype": 3,
-            "address": 49,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 35,
-            "description": "Overload Alarm L2",
-            "rtype": 3,
-            "address": 50,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 36,
-            "description": "Ripple Alarm L2",
-            "rtype": 3,
-            "address": 51,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 37,
-            "description": "Temperature Alarm L3",
-            "rtype": 3,
-            "address": 52,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 38,
-            "description": "Low Battery Alarm L3",
-            "rtype": 3,
-            "address": 53,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 39,
-            "description": "Overload Alarm L3",
-            "rtype": 3,
-            "address": 54,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 40,
-            "description": "Ripple Alarm L3",
-            "rtype": 3,
-            "address": 55,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          }
-        ]
-      },
-      {
-        "id": 253,
-        "description": "System",
-        "endian": 1,
-        "worder": 1,
+				"fields": [{
+						"field": 1,
+						"description": "Battery Power (System)",
+						"rtype": 3,
+						"address": 842,
+						"offset": 0,
+						"gain": 1,
+						"dtype": "int16",
+						"unit": "W",
+						"rate": 1000000000
+					},
+					{
+						"field": 2,
+						"description": "Battery Voltage (System)",
+						"rtype": 3,
+						"address": 840,
+						"offset": 0,
+						"gain": 0.1,
+						"dtype": "uint16",
+						"unit": "V",
+						"rate": 1000000000
+					},
+					{
+						"field": 3,
+						"description": "Battery Current (System)",
+						"rtype": 3,
+						"address": 841,
+						"offset": 0,
+						"gain": 0.1,
+						"dtype": "int16",
+						"unit": "A",
+						"rate": 1000000000
+					},
+					{
+						"field": 4,
+						"description": "State of Charge (System)",
+						"rtype": 3,
+						"address": 843,
+						"offset": 0,
+						"gain": 1,
+						"dtype": "uint16",
+						"unit": "%",
+						"rate": 1000000000
+					},
+					{
+						"field": 5,
+						"description": "Time to Go (System)",
+						"rtype": 3,
+						"address": 846,
+						"offset": 0,
+						"gain": 100,
+						"dtype": "uint16",
+						"unit": "sec",
+						"rate": 1000000000
+					},
+					{
+						"field": 6,
+						"description": "Battery State (System)",
+						"rtype": 3,
+						"address": 844,
+						"offset": 0,
+						"gain": 1,
+						"dtype": "uint16",
+						"unit": "",
+						"rate": 1000000000
+					}
+				]
+			},
+			{
+				"id": 252,
+				"description": "VeBus",
+				"endian": 1,
+				"worder": 1,
 				"custom": false,
-        "fields": [
-          {
-            "field": 1,
-            "description": "Active Input Source",
-            "rtype": 3,
-            "address": 826,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0,
-            "unit": ""
-          },
-          {
-            "field": 2,
-            "description": "Battery Voltage (System)",
-            "rtype": 3,
-            "address": 840,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "V"
-          },
-          {
-            "field": 3,
-            "description": "Battery Current (System)",
-            "rtype": 3,
-            "address": 841,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 4,
-            "description": "Battery Power (System)",
-            "rtype": 3,
-            "address": 842,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 1,
-            "unit": "W"
-          },
-          {
-            "field": 5,
-            "description": "Battery State of Charge (System)",
-            "rtype": 3,
-            "address": 843,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": "%"
-          },
-          {
-            "field": 6,
-            "description": "Battery State (System)",
-            "rtype": 3,
-            "address": 844,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 7,
-            "description": "Battery Consumed Ah (System)",
-            "rtype": 3,
-            "address": 845,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": -0.1,
-            "unit": "Ah"
-          },
-          {
-            "field": 8,
-            "description": "Battery Time to Go (System)",
-            "rtype": 3,
-            "address": 846,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 100,
-            "unit": "s"
-          },
-          {
-            "field": 9,
-            "description": "AC Input 1 Source",
-            "rtype": 3,
-            "address": 2711,
-            "rate": 5000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 10,
-            "description": "AC Input 2 Source",
-            "rtype": 3,
-            "address": 2712,
-            "rate": 5000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 11,
-            "description": "DVCC System Max Charge Current",
-            "rtype": 3,
-            "address": 2705,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 1,
-            "unit": "A"
-          }
-        ]
-      },
-      {
-        "id": 254,
-        "description": "Battery",
-        "endian": 1,
-        "worder": 1,
+				"fields": [{
+						"field": 1,
+						"description": "Input voltage phase 1",
+						"rtype": 3,
+						"address": 3,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 2,
+						"description": "Input voltage phase 2",
+						"rtype": 3,
+						"address": 4,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 3,
+						"description": "Input voltage phase 3",
+						"rtype": 3,
+						"address": 5,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 4,
+						"description": "Input current phase 1",
+						"rtype": 3,
+						"address": 6,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 5,
+						"description": "Input current phase 2",
+						"rtype": 3,
+						"address": 7,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 6,
+						"description": "Input current phase 3",
+						"rtype": 3,
+						"address": 8,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 7,
+						"description": "Input frequency phase 1",
+						"rtype": 3,
+						"address": 9,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "A"
+					},
+					{
+						"field": 8,
+						"description": "Input frequency phase 2",
+						"rtype": 3,
+						"address": 10,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "A"
+					},
+					{
+						"field": 9,
+						"description": "Input frequency phase 3",
+						"rtype": 3,
+						"address": 11,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "A"
+					},
+					{
+						"field": 10,
+						"description": "Input power phase 1",
+						"rtype": 3,
+						"address": 12,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 10,
+						"unit": "W"
+					},
+					{
+						"field": 11,
+						"description": "Input power phase 2",
+						"rtype": 3,
+						"address": 13,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 10,
+						"unit": "W"
+					},
+					{
+						"field": 12,
+						"description": "Input power phase 3",
+						"rtype": 3,
+						"address": 14,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 10,
+						"unit": "W"
+					},
+					{
+						"field": 13,
+						"description": "Output voltage phase 1",
+						"rtype": 3,
+						"address": 15,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 14,
+						"description": "Output voltage phase 2",
+						"rtype": 3,
+						"address": 16,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 15,
+						"description": "Output voltage phase 3",
+						"rtype": 3,
+						"address": 17,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 16,
+						"description": "Output current phase 1",
+						"rtype": 3,
+						"address": 18,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 17,
+						"description": "Output current phase 2",
+						"rtype": 3,
+						"address": 19,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 18,
+						"description": "Output current phase 3",
+						"rtype": 3,
+						"address": 20,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 19,
+						"description": "Output frequency",
+						"rtype": 3,
+						"address": 21,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "A"
+					},
+					{
+						"field": 20,
+						"description": "Input current limit",
+						"rtype": 3,
+						"address": 22,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 21,
+						"description": "Output power phase 1",
+						"rtype": 3,
+						"address": 23,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 10,
+						"unit": "W"
+					},
+					{
+						"field": 22,
+						"description": "Output power phase 2",
+						"rtype": 3,
+						"address": 24,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 10,
+						"unit": "W"
+					},
+					{
+						"field": 23,
+						"description": "Output power phase 3",
+						"rtype": 3,
+						"address": 25,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 10,
+						"unit": "W"
+					},
+					{
+						"field": 24,
+						"description": "Battery Voltage",
+						"rtype": 3,
+						"address": 26,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "V"
+					},
+					{
+						"field": 25,
+						"description": "Battery Current",
+						"rtype": 3,
+						"address": 27,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 26,
+						"description": "Active Input",
+						"rtype": 3,
+						"address": 29,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 27,
+						"description": "VE.Bus State",
+						"rtype": 3,
+						"address": 31,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 28,
+						"description": "Switch Position",
+						"rtype": 3,
+						"address": 33,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 29,
+						"description": "Temperature Alarm L1",
+						"rtype": 3,
+						"address": 44,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 30,
+						"description": "Low Battery Alarm L1",
+						"rtype": 3,
+						"address": 45,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 31,
+						"description": "Overload Alarm L1",
+						"rtype": 3,
+						"address": 46,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 32,
+						"description": "Ripple Alarm L1",
+						"rtype": 3,
+						"address": 47,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 33,
+						"description": "Temperature Alarm L2",
+						"rtype": 3,
+						"address": 48,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 34,
+						"description": "Low Battery Alarm L2",
+						"rtype": 3,
+						"address": 49,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 35,
+						"description": "Overload Alarm L2",
+						"rtype": 3,
+						"address": 50,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 36,
+						"description": "Ripple Alarm L2",
+						"rtype": 3,
+						"address": 51,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 37,
+						"description": "Temperature Alarm L3",
+						"rtype": 3,
+						"address": 52,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 38,
+						"description": "Low Battery Alarm L3",
+						"rtype": 3,
+						"address": 53,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 39,
+						"description": "Overload Alarm L3",
+						"rtype": 3,
+						"address": 54,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 40,
+						"description": "Ripple Alarm L3",
+						"rtype": 3,
+						"address": 55,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					}
+				]
+			},
+			{
+				"id": 253,
+				"description": "System",
+				"endian": 1,
+				"worder": 1,
 				"custom": false,
-        "fields": [
-          {
-            "field": 1,
-            "description": "Battery Power",
-            "rtype": 3,
-            "address": 258,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 1,
-            "unit": "W"
-          },
-          {
-            "field": 2,
-            "description": "Battery Voltage",
-            "rtype": 3,
-            "address": 259,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "V"
-          },
-          {
-            "field": 3,
-            "description": "Battery Current",
-            "rtype": 3,
-            "address": 261,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 4,
-            "description": "State of Charge",
-            "rtype": 3,
-            "address": 266,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "%"
-          },
-          {
-            "field": 5,
-            "description": "Time to Go",
-            "rtype": 3,
-            "address": 303,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 100,
-            "unit": "sec"
-          },
-          {
-            "field": 6,
-            "description": "State of Health",
-            "rtype": 3,
-            "address": 304,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "%"
-          }
-        ]
-      },
-      {
-        "id": 255,
-        "description": "SolarCharger",
-        "endian": 1,
-        "worder": 1,
+				"fields": [{
+						"field": 1,
+						"description": "Active Input Source",
+						"rtype": 3,
+						"address": 826,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0,
+						"unit": ""
+					},
+					{
+						"field": 2,
+						"description": "Battery Voltage (System)",
+						"rtype": 3,
+						"address": 840,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "V"
+					},
+					{
+						"field": 3,
+						"description": "Battery Current (System)",
+						"rtype": 3,
+						"address": 841,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 4,
+						"description": "Battery Power (System)",
+						"rtype": 3,
+						"address": 842,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 1,
+						"unit": "W"
+					},
+					{
+						"field": 5,
+						"description": "Battery State of Charge (System)",
+						"rtype": 3,
+						"address": 843,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": "%"
+					},
+					{
+						"field": 6,
+						"description": "Battery State (System)",
+						"rtype": 3,
+						"address": 844,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 7,
+						"description": "Battery Consumed Ah (System)",
+						"rtype": 3,
+						"address": 845,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": -0.1,
+						"unit": "Ah"
+					},
+					{
+						"field": 8,
+						"description": "Battery Time to Go (System)",
+						"rtype": 3,
+						"address": 846,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 100,
+						"unit": "s"
+					},
+					{
+						"field": 9,
+						"description": "AC Input 1 Source",
+						"rtype": 3,
+						"address": 2711,
+						"rate": 5000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 10,
+						"description": "AC Input 2 Source",
+						"rtype": 3,
+						"address": 2712,
+						"rate": 5000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 11,
+						"description": "DVCC System Max Charge Current",
+						"rtype": 3,
+						"address": 2705,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 1,
+						"unit": "A"
+					}
+				]
+			},
+			{
+				"id": 254,
+				"description": "Battery",
+				"endian": 1,
+				"worder": 1,
 				"custom": false,
-        "fields": [
-          {
-            "field": 1,
-            "description": "Battery Voltage",
-            "rtype": 3,
-            "address": 771,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "V"
-          },
-          {
-            "field": 2,
-            "description": "Battery Current",
-            "rtype": 3,
-            "address": 772,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 3,
-            "description": "Charge State",
-            "rtype": 3,
-            "address": 775,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 1,
-            "unit": ""
-          },
-          {
-            "field": 4,
-            "description": "PV Voltage",
-            "rtype": 3,
-            "address": 776,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.01,
-            "unit": "V"
-          },
-          {
-            "field": 5,
-            "description": "PV Current",
-            "rtype": 3,
-            "address": 777,
-            "rate": 1000000000,
-            "dtype": "int16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "A"
-          },
-          {
-            "field": 6,
-            "description": "Yield Today",
-            "rtype": 3,
-            "address": 784,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "kWh"
-          },
-          {
-            "field": 7,
-            "description": "PV Power",
-            "rtype": 3,
-            "address": 789,
-            "rate": 1000000000,
-            "dtype": "uint16",
-            "offset": 0,
-            "gain": 0.1,
-            "unit": "W"
-          }
-        ]
-      }
-    ]
-  }
+				"fields": [{
+						"field": 1,
+						"description": "Battery Power",
+						"rtype": 3,
+						"address": 258,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 1,
+						"unit": "W"
+					},
+					{
+						"field": 2,
+						"description": "Battery Voltage",
+						"rtype": 3,
+						"address": 259,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "V"
+					},
+					{
+						"field": 3,
+						"description": "Battery Current",
+						"rtype": 3,
+						"address": 261,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 4,
+						"description": "State of Charge",
+						"rtype": 3,
+						"address": 266,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "%"
+					},
+					{
+						"field": 5,
+						"description": "Time to Go",
+						"rtype": 3,
+						"address": 303,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 100,
+						"unit": "sec"
+					},
+					{
+						"field": 6,
+						"description": "State of Health",
+						"rtype": 3,
+						"address": 304,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "%"
+					}
+				]
+			},
+			{
+				"id": 255,
+				"description": "SolarCharger",
+				"endian": 1,
+				"worder": 1,
+				"custom": false,
+				"fields": [{
+						"field": 1,
+						"description": "Battery Voltage",
+						"rtype": 3,
+						"address": 771,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "V"
+					},
+					{
+						"field": 2,
+						"description": "Battery Current",
+						"rtype": 3,
+						"address": 772,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 3,
+						"description": "Charge State",
+						"rtype": 3,
+						"address": 775,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 1,
+						"unit": ""
+					},
+					{
+						"field": 4,
+						"description": "PV Voltage",
+						"rtype": 3,
+						"address": 776,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.01,
+						"unit": "V"
+					},
+					{
+						"field": 5,
+						"description": "PV Current",
+						"rtype": 3,
+						"address": 777,
+						"rate": 1000000000,
+						"dtype": "int16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "A"
+					},
+					{
+						"field": 6,
+						"description": "Yield Today",
+						"rtype": 3,
+						"address": 784,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "kWh"
+					},
+					{
+						"field": 7,
+						"description": "PV Power",
+						"rtype": 3,
+						"address": 789,
+						"rate": 1000000000,
+						"dtype": "uint16",
+						"offset": 0,
+						"gain": 0.1,
+						"unit": "W"
+					}
+				]
+			}
+		]
+	}
 }
