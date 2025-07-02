@@ -1348,8 +1348,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 
 	$rootScope.setConfig = (obj) => {
   	return new Promise(function (resolve, reject) {
-			$rootScope.postRequest(
-				$rootScope.apiUrl + '/api/config',
+			$rootScope.postRequest($rootScope.apiUrl + '/api/config',
 				JSON.stringify(obj), false
 			).then((res) => {
 				resolve(res);
@@ -1362,13 +1361,9 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   $rootScope.rstKratos = () => {
     return new Promise(function (resolve, reject) {
 			$rootScope.postRequest(
-        $rootScope.apiUrl + '/api/restart/kratos', null, false
+        $rootScope.apiUrl + '/api/kratos/restart', null, false
       ).then((res) => {
-        if (res instanceof error) {
-          resolve({result: false, message: res})
-        } else {
-  				resolve(res);
-        }
+        resolve(res);
 			}).catch((err) => {
 				reject(err);
 			});
@@ -1378,7 +1373,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   $rootScope.rstBrowser = () => {
     return new Promise(function (resolve, reject) {
 			$rootScope.postRequest(
-        $rootScope.apiUrl + '/api/restart/browser', null, false
+        $rootScope.apiUrl + '/api/browser/restart', null, false
       ).then((res) => {
 				resolve(res);
 			}).catch((err) => {
@@ -1882,17 +1877,17 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 					prs.push($rootScope.rstKratos());
 					prs.push($rootScope.rstBrowser());
 					Promise.all(prs).then((res) => {
+            
+            
+            console.log(res)
+            
+
 						if ((res[0].result) && (res[1].result) && (res[2].result)) {
 							$rootScope.informShow(['Alarm / Logics / Modbus', 'configuration ', 'succesfully saved'], ['.a-wrapper', 'logic-container'])
 						} else if (!res[0].result) {
 							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res[0].message + ')'],
                 ['.a-wrapper', 'logic-container'])
-						} else if (!res[1].result) {
-
-
-console.log(res)
-
-
+						} else if (!res[1].result) {                
               $rootScope.errorShow(['Couldn\'t restart kratos', '(' + res[1].message + ')'], ['.a-wrapper', 'logic-container'])
 						} else if (!res[2].result) {
 							$rootScope.errorShow(['Couldn\'t restart browser', '(' + res[2].message + ')'], ['.a-wrapper', 'logic-container'])
