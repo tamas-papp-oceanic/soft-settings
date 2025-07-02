@@ -1123,35 +1123,57 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
       // Safari 3.0+ '[object HTMLElementConstructor]'
       $rootScope.isSafari = true;
     }
-
-		$rootScope.loadModbus().then((res) => {
-			if (res.status == 200) {
-				$rootScope.devices = JSON.parse(JSON.stringify(res.data.modbus.devices));
-				let promises = new Array();
-				promises.push($rootScope.loadConfig('j1939'));
-				promises.push($rootScope.loadConfig('nmea2000'));
-				promises.push($rootScope.loadConfig('modbus'));
-				promises.push($rootScope.loadConfig('alarm'));
-				Promise.all(promises).then((res) => {
-					angular.merge($rootScope.dataDefs, res[0], res[1], res[2]);
-					angular.copy(res[3], $rootScope.alarmDefs);
-					$('.splash').removeClass('hidden');
-					$timeout(() => {
-						$rootScope.location.url('/admin');
-						$timeout(() => {
-							$('.splash').addClass('hidden');
-							$rootScope.$broadcast('page-loaded');
-						}, 1000);
-					}, 1000);
-				}).catch((err) => {
-					console.log(err);
-				});
-			} else {
-				console.log(res.statusText);
-			}
-		}).catch((err) => {
-			console.log(err);
-		});
+    $rootScope.getConfig().then((res) => {
+      if (res.result) {
+        $rootScope.checkContent(atob(res.data), $rootScope.scriptTypes.ST_BASE64);
+        $rootScope.getUrls().then((res) => {
+          if (res.result) {
+            $rootScope.urls = JSON.parse(JSON.stringify(res.data));
+            $rootScope.loadModbus().then((res) => {
+              if (res.status == 200) {
+                $rootScope.devices = JSON.parse(JSON.stringify(res.data.modbus.devices));
+                let promises = new Array();
+                promises.push($rootScope.loadConfig('j1939'));
+                promises.push($rootScope.loadConfig('nmea2000'));
+                promises.push($rootScope.loadConfig('modbus'));
+                promises.push($rootScope.loadConfig('alarm'));
+                Promise.all(promises).then((res) => {
+                  angular.merge($rootScope.dataDefs, res[0], res[1], res[2]);
+                  angular.copy(res[3], $rootScope.alarmDefs);
+                  $('.splash').removeClass('hidden');
+                  $timeout(() => {
+                    $rootScope.location.url('/admin');
+                    $timeout(() => {
+                      $('.splash').addClass('hidden');
+                      $rootScope.$broadcast('page-loaded');
+                    }, 1000);
+                  }, 1000);
+                }).catch((err) => {
+                  console.log(err);
+                });
+              } else {
+                $rootScope.errorShow(
+                  ['Couldn\'t load Victron Modbus', 'configuration!', '(' + res.statusText + ')'], ['.a-wrapper', 'logic-container'])
+              }
+            }).catch((err) => {
+              $rootScope.errorShow(
+                ['Couldn\'t load Victron Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
+            });
+          } else {
+            $rootScope.errorShow(['Couldn\'t load URLs!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
+          }
+        }).catch((err) => {
+          $rootScope.errorShow(['Couldn\'t load URLs!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
+        });
+      } else {
+        $rootScope.errorShow(
+          ['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
+      }
+    }).catch((err) => {
+      $rootScope.errorShow(
+        ['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
+      console.log(err);
+    });
 	});
 
   $rootScope.$on('$viewContentLoaded', () => {});
@@ -1299,6 +1321,82 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 			}).catch((err) => {
 				reject(err);
 			});
+    });
+  };
+
+	$rootScope.getConfig = () => {
+  	return new Promise(function (resolve, reject) {
+			$rootScope.getRequest($rootScope.apiUrl + '/api/config', false
+			).then((res) => {
+				resolve(res);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+
+	$rootScope.getUrls = () => {
+  	return new Promise(function (resolve, reject) {
+			$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false
+			).then((res) => {
+				resolve(res);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+
+	$rootScope.setConfig = (obj) => {
+  	return new Promise(function (resolve, reject) {
+			$rootScope.postRequest(
+				$rootScope.apiUrl + '/api/config',
+				JSON.stringify(obj), false
+			).then((res) => {
+				resolve(res);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+
+  $rootScope.rstKratos = () => {
+    return new Promise(function (resolve, reject) {
+			$rootScope.postRequest(
+        $rootScope.apiUrl + '/api/restart/kratos', null, false
+      ).then((res) => {
+        if (res instanceof error) {
+          resolve({result: false, message: res})
+        } else {
+  				resolve(res);
+        }
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+  
+  $rootScope.rstBrowser = () => {
+    return new Promise(function (resolve, reject) {
+			$rootScope.postRequest(
+        $rootScope.apiUrl + '/api/restart/browser', null, false
+      ).then((res) => {
+				resolve(res);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	};
+  
+  $rootScope.setUrls = (obj) => {
+    return new Promise(function (resolve, reject) {
+      $rootScope.postRequest(
+        $rootScope.apiUrl + '/api/extra_urls',
+        JSON.stringify(obj), false
+      ).then((res) => {
+        resolve(res);
+      }).catch((err) => {
+        reject(err);
+      });
     });
   };
 
@@ -1691,7 +1789,7 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 				case 'Alarms':
 				case 'Logics':
 				case 'Modbus':
-					$rootScope.getRequest($rootScope.apiUrl + '/api/config', false).then((res) => {
+          $rootScope.getConfig().then((res) => {
 						if (res.result) {
 							$rootScope.checkContent(atob(res.data), $rootScope.scriptTypes.ST_BASE64);
 							let msg = new Array('Alarm / Logics / Modbus', 'configuration ', 'succesfully loaded');
@@ -1704,13 +1802,13 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
                 ['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
 						}
 						resolve(res);
-					}, (err) => {
+			    }).catch((err) => {
 						$rootScope.errorShow(['Couldn\'t load', 'Alarm / Logics / Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
 						reject(err);
 					});
 					break;
 				case 'Urls':
-					$rootScope.getRequest($rootScope.apiUrl + '/api/extra_urls', false).then((res) => {
+					$rootScope.getUrls().then((res) => {
 						if (res.result) {
 							$rootScope.urls = JSON.parse(JSON.stringify(res.data));
 							$rootScope.$broadcast('urls-loaded');
@@ -1735,38 +1833,12 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
     });
   };
 
-	$rootScope.setConfig = (obj) => {
-  	return new Promise(function (resolve, reject) {
-			$rootScope.postRequest(
-				$rootScope.apiUrl + '/api/config',
-				JSON.stringify(obj), false
-			).then((res) => {
-				resolve(res);
-			}).catch((err) => {
-				reject(err);
-			});
-		});
-	};
-
-	$rootScope.setPolling = (bus) => {
-  	return new Promise(function (resolve, reject) {
-			$rootScope.postRequest(
-				$rootScope.apiUrl + '/api/modbus/polling',
-				JSON.stringify({bus: bus}), false
-			).then((res) => {
-				resolve(res);
-			}).catch((err) => {
-				reject(err);
-			});
-		});
-	};
-
 	$rootScope.upload = () => {
     return new Promise((resolve, reject) => {
 			switch ($rootScope.currentPage) {
 				case 'Alarms':
 				case 'Logics':
-				case 'Modbus':
+				case 'Modbus': {
 					let als = angular.fromJson(angular.toJson($rootScope.alarms, false));
 					for (let i in als) {
 						if ($rootScope.getAlarmType(als[i].group) == $rootScope.alarmTypes.AT_DIRECT) {
@@ -1807,37 +1879,46 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 					};
 					let prs = new Array();
 					prs.push($rootScope.setConfig(obj));
-					prs.push($rootScope.setPolling(0));
+					prs.push($rootScope.rstKratos());
+					prs.push($rootScope.rstBrowser());
 					Promise.all(prs).then((res) => {
-						if ((res[0].result) && (res[1].result)) {
+						if ((res[0].result) && (res[1].result) && (res[2].result)) {
 							$rootScope.informShow(['Alarm / Logics / Modbus', 'configuration ', 'succesfully saved'], ['.a-wrapper', 'logic-container'])
 						} else if (!res[0].result) {
 							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res[0].message + ')'],
                 ['.a-wrapper', 'logic-container'])
 						} else if (!res[1].result) {
-							$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + res[1].message + ')'],
-                ['.a-wrapper', 'logic-container'])
+
+
+console.log(res)
+
+
+              $rootScope.errorShow(['Couldn\'t restart kratos', '(' + res[1].message + ')'], ['.a-wrapper', 'logic-container'])
+						} else if (!res[2].result) {
+							$rootScope.errorShow(['Couldn\'t restart browser', '(' + res[2].message + ')'], ['.a-wrapper', 'logic-container'])
 						}
 					}).catch((err) => {
 						$rootScope.errorShow(['Couldn\'t save', 'Alarm / Logics / Modbus', 'configuration!', '(' + err + ')'], ['.a-wrapper', 'logic-container'])
 						reject(err);
-					});
+					});}
 					break;
-				case 'Urls':
-					$rootScope.postRequest(
-						$rootScope.apiUrl + '/api/extra_urls',
-						JSON.stringify($rootScope.urls), false
-					).then((res) => {
-						if (res.result) {
+				case 'Urls': {
+					let prs = new Array();
+					prs.push($rootScope.setUrls($rootScope.urls));
+					prs.push($rootScope.rstBrowser());
+					Promise.all(prs).then((res) => {
+						if ((res[0].result) && (res[1].result)) {
 							$rootScope.informShow(['URLs succesfully saved'], ['.a-wrapper', 'logic-container'])
-						} else {
+						} else if (!res[0].result) {
 							$rootScope.errorShow(['Couldn\'t save URLs!', '(' + res.message + ')'], ['.a-wrapper', 'logic-container'])
+						} else if (!res[1].result) {
+							$rootScope.errorShow(['Couldn\'t restart browser', '(' + res[1].message + ')'], ['.a-wrapper', 'logic-container'])
 						}
 						resolve(res);
-					}, (err) => {
+					}).catch((err) => {
 						$rootScope.errorShow(['Couldn\'t save URLs: (' + err + ')'], ['.a-wrapper', 'logic-container'])
 						reject(err);
-					});
+					});}
 					break;
 				default:
 					reject(new Error('Hasn\'t impemented yet'));
