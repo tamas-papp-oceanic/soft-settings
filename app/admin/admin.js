@@ -2701,11 +2701,11 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 					} else if (
 						($scope.logicComponent.logic.address != null) && (
 							isNaN($scope.logicComponent.logic.address) || !Number.isInteger($scope.logicComponent.logic.address) ||
-							($scope.logicComponent.logic.address < 0) || ($scope.logicComponent.logic.address > 252)
+							($scope.logicComponent.logic.address < 1) || ($scope.logicComponent.logic.address > 255)
 						)
 					) {
 						e = true;
-						$scope.errorShow(['Instance must be between 0 and 252!'], ['.a-wrapper', '.logic-container']);
+						$scope.errorShow(['Address must be between 1 and 255!'], ['.a-wrapper', '.logic-container']);
 					} else if ((typeof $scope.logicComponent.logic.field === 'undefined') || ($scope.logicComponent.logic.field == null)) {
 						e = true;
 						$scope.errorShow(['Field cannot be empty!'], ['.a-wrapper', '.logic-container']);
@@ -3098,10 +3098,10 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 			}
 		}
 		if (!e) {
-			if (!$scope.logicComponent.hasOwnProperty('other')) {
+			if (!($scope.logicComponent.hasOwnProperty('other') && ($scope.logicComponent.other != null))) {
 				switch ($scope.logicComponent.logic.logicType) {
 					case $rootScope.logicTypes.LT_SENSOR:
-						$scope.logicComponent.logic.schema = $scope.dataObj[$scope.logicComponent.logic.dataId].route;
+						$scope.logicComponent.logic.schema = $scope.dataObj[$scope.logicComponent.logic.dataId].route;						
 						let spl = $scope.logicComponent.logic.dataId.split('/');
 						if (Array.isArray(spl) && (spl.length == 5)) {
 							let sch = $scope.logicComponent.logic.schema
