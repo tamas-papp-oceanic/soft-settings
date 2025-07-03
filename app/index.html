@@ -73,6 +73,16 @@
           </div>
         </div>
       </div>
+      <div id="status" class="inform hidden">
+        <div id="status-box" class="inform-box" draggable="true">
+          <div class="inform-head">
+            <div class="inform-sign" ng-include="'images/menuicons/info.svg'"></div>
+          </div>
+          <div class="inform-body">
+            <h3 ng-repeat="t in informText track by $index">{{t}}<br /></h3>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>

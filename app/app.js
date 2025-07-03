@@ -1363,7 +1363,15 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 			$rootScope.postRequest(
         $rootScope.apiUrl + '/api/kratos/restart', null, false
       ).then((res) => {
-        resolve(res);
+        if (res.result) {
+          $rootScope.statusShow("Restarting kratos...")
+          $rootScope.sleep(3000).then(() => {
+            $rootScope.statusHide();
+            resolve(res);
+          });
+        } else {
+          resolve(res);
+        }
 			}).catch((err) => {
 				reject(err);
 			});
@@ -1877,11 +1885,6 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 					prs.push($rootScope.rstKratos());
 					prs.push($rootScope.rstBrowser());
 					Promise.all(prs).then((res) => {
-            
-            
-            console.log(res)
-            
-
 						if ((res[0].result) && (res[1].result) && (res[2].result)) {
 							$rootScope.informShow(['Alarm / Logics / Modbus', 'configuration ', 'succesfully saved'], ['.a-wrapper', 'logic-container'])
 						} else if (!res[0].result) {
@@ -2031,7 +2034,34 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
   $rootScope.informOk = () => {
     $rootScope.informHide();
   };
-	// Get request
+
+  $rootScope.statusShow = (tx, bl) => {
+    if (tx != null) {
+      $rootScope.informText = tx;
+      $rootScope.informBlur = bl;
+      if ($rootScope.informBlur != null) {
+        $timeout(() => {
+          $rootScope.informBlur.forEach((elm) => {
+            $(elm).addClass('blur');
+          });
+        });
+      }
+      $('#status-box').draggable();
+      $('#status').removeClass('hidden');
+    }
+  };
+
+  $rootScope.statusHide = () => {
+    $('#status').addClass('hidden');
+    if ($rootScope.informBlur != null) {
+      $timeout(() => {
+        $rootScope.informBlur.forEach((elm) => {
+          $(elm).removeClass('blur');
+        });
+      });
+    }
+  };
+  // Get request
 	$rootScope.getRequest = async (url, rep) => {
 		const res = await fetch(url, {
 			method: 'GET',
