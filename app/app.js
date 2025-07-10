@@ -1293,26 +1293,26 @@ function MyAppCtrl($rootScope, $timeout, $http, hotkeys) {
 						}
 						ret.modbus.push(elm);
 					}
-					// for (let i in $rootScope.devices) {
-					// 	let dev = $rootScope.devices[i];
-					// 	if (dev.custom) {
-					// 		let elm = {
-					// 			'dataId': String(dev.id).padStart(6, "0"),
-					// 			'title': dev.description,
-					// 			'fields': new Array(),
-					// 			'custom': dev.custom,
-					// 			'route': nam + '/data/{busNumber}/by_source/{source}/' + dev.id + '/{field}',
-					// 		};
-					// 		for (let j in dev.fields) {
-					// 			elm.fields.push({
-					// 				'field': dev.fields[j].field,
-					// 				'title': dev.fields[j].description,
-					// 				'unit': dev.fields[j].unit,
-					// 			});
-					// 		}
-					// 		ret.modbus.push(elm);
-					// 	}
-					// }
+					for (let i in $rootScope.devices) {
+						let dev = $rootScope.devices[i];
+						if (dev.custom) {
+							let elm = {
+								'dataId': String(dev.id).padStart(6, "0"),
+								'title': dev.description,
+								'fields': new Array(),
+								'custom': dev.custom,
+								'route': nam + '/data/{busNumber}/by_source/{source}/' + dev.id + '/{field}',
+							};
+							for (let j in dev.fields) {
+								elm.fields.push({
+									'field': dev.fields[j].field,
+									'title': dev.fields[j].description,
+									'unit': dev.fields[j].unit,
+								});
+							}
+							ret.modbus.push(elm);
+						}
+					}
 				} else {
 					ret = JSON.parse(JSON.stringify(res.data));
 				}
