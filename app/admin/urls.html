@@ -12,6 +12,7 @@
                   <tr>
                     <th>Title</th>
                     <th class="full">URL</th>
+                    <th class="full">Scale</th>
                     <th class="center">Direct</th>
                   </tr>
                 </thead>
@@ -19,6 +20,7 @@
                   <tr ng-repeat="u in urls track by $index" ng-click="setUrl(u)" ng-class="{'selected': url.current.id == u.id}">
                     <td>{{u.title}}</td>
                     <td class="full">{{u.url}}</td>
+                    <td class="full">{{u.scale}}</td>
                     <td class="center" ng-click="$event.stopPropagation()">
                       <div class="checkbox">
                         <input id="{{'url-direct' + $index}}" type="checkbox" ng-change="setDirect($index)" ng-model="urls[$index].direct" ng-true-value="true" ng-false-value="false" />

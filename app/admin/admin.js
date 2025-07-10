@@ -5313,6 +5313,7 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 			"id": url,
 			"title": "New URL",
 			"url": "http://localhost/",
+			"scale": 1,
 			"direct": false,
 		};
 		$('#url-data-box').draggable();
@@ -5335,9 +5336,13 @@ function AdminCtrl($rootScope, $scope, $timeout, $interval, $sce) {
 
 	$scope.saveUrl = () => {
 		let e = false;
-		if (($scope.url.current == null) || ($scope.url.current.url.length == 0)) {
+		if (($scope.url.current.url == null) || ($scope.url.current.url.length == 0)) {
 			e = true;
 			$scope.errorShow(['URL cannot be empty!'], ['f-wrapper', '.url-box']);
+		} else if (($scope.url.current.scale == null) || isNaN($scope.url.current.scale) || ($scope.url.current.url.scale < 0.5) ||
+			($scope.url.current.url.scale > 5)) {
+			e = true;
+			$scope.errorShow(['Scaling factor must be positive number,', 'between 0.5 and 5'], ['f-wrapper', '.url-box']);
 		}
 		if (!e) {
 			if ($scope.url.action == "edit") {

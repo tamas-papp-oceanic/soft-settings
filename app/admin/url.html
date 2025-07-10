@@ -14,21 +14,21 @@
           <div class="s-left">Title</div>
           <div class="s-right full">
             <input id="url-title" type="text" ng-minlength="1" ng-maxlength="50"
-              ng-model="url.current.title" required ng-virtual-keyboard>
+              ng-model="url.current.title" required ng-virtual-keyboard />
           </div>
         </div>
         <div class="s-block-item">
           <div class="s-left">URL</div>
           <div class="s-right full">
             <input id="url-url" type="text" ng-minlength="1" ng-maxlength="50"
-              ng-model="url.current.url" required ng-virtual-keyboard>
+              ng-model="url.current.url" required ng-virtual-keyboard />
           </div>
         </div>
         <div class="s-block-item">
           <div class="s-left">Scaling factor</div>
-          <div class="s-right full">
-            <input id="url-url" type="text" ng-minlength="1" ng-maxlength="50"
-              ng-model="url.current.scaling" required ng-virtual-keyboard>
+          <div class="s-right">
+            <input id="url-scale" type="number" ng-minlength="1" maxlength="10"
+              step="any" ng-model="url.current.scale" required ng-virtual-keyboard="numKeypad" />
           </div>
         </div>
       </div>
